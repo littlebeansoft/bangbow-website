@@ -6,7 +6,7 @@ import PageLayout from 'layouts/PageLayout'
 
 const HomePage: NextPage = () => {
   return (
-    <PageLayout>
+    <PageLayout title="โรงงาน | แบ่งเบา">
       <Home />
     </PageLayout>
   )
