@@ -4,14 +4,26 @@ import color from 'constants/color'
 
 import type { Color } from 'constants/color'
 
+type Align =
+  | 'center'
+  | 'end'
+  | 'justify'
+  | 'left'
+  | 'match-parent'
+  | 'right'
+  | 'start'
 type Size = 'headline' | 'body' | 'small' | number
+type Weight = 'bold' | 'normal' | number
 
 interface TextProps {
   /**
    * Size number is base on rem unit
    */
+  align?: Align
   size?: Size
+  weight?: Weight
   color?: keyof Color
+  block?: boolean
 }
 
 const getTextFontBySize = (size?: Size) => {
@@ -31,15 +43,30 @@ const getTextFontBySize = (size?: Size) => {
   }
 }
 
+const getTextFontWeight = (weight?: Weight) => {
+  if (weight == null) {
+    return 'normal'
+  }
+
+  if (typeof weight === 'number') {
+    return '' + weight
+  }
+
+  return weight
+}
+
 const Text = styled.span<TextProps>((props) => {
   const colorKey = props.color || 'black'
   const fontSize = getTextFontBySize(props.size)
+  const fontWeight = getTextFontWeight(props.weight)
 
   return {
     display: 'block',
-    margin: 0,
+    marginBottom: props.block ? 16 : 0,
     color: color[colorKey],
     fontSize,
+    fontWeight,
+    textAlign: props.align,
   }
 })
 
