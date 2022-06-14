@@ -15,13 +15,14 @@ const nextConfig = {
 
 const pluginAntdLess = withAntdLess({
   modifyVars: {
-    '@primary-color': '#2F4858',
-    '@link-color': '#2F4858',
+    '@primary-color': process.env.PRIMARY_COLOR,
+    '@link-color': process.env.PRIMARY_COLOR,
     '@border-radius-base': '6px',
     '@font-size-base': '16px',
-    '@text-color': '#3c3c3c',
-    '@heading-color': '#3c3c3c',
-    '@body-background': '#f1f1f1',
+    '@text-color': '#000',
+    '@heading-color': '#000',
+    '@body-background': '#fff',
+    '@font-family': "'Prompt', sans-serif",
   },
 })
 
