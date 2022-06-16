@@ -1,0 +1,150 @@
+import type { FC } from 'react'
+
+import { Button, Col, Collapse, Row, Space } from 'antd'
+import Link from 'next/link'
+import styled from '@emotion/styled'
+
+import Text from 'components/Text'
+import Service from 'components/Service'
+import Section from 'components/Section'
+import SectionHeader from 'components/SectionHeader'
+import Bullet, { BulletItem } from 'components/Bullet'
+
+import type { ServiceItem } from 'components/Service'
+
+const { Panel } = Collapse
+
+const listServices: ServiceItem[] = [
+  {
+    id: 0,
+    icon: '/blue-dollar.svg',
+    title: 'ราคาเท่าเทียม',
+    description:
+      'ฟลุทครูเสด กาญจนาภิเษกโอเพ่น ติ๋มซูเปอร์ไทม์ อัตลักษณ์ไทม์ครูเสด พอเพียงอัลบั้มแชมเปี้ยนสไตรค์ มุมมองบ๋อยสะบึมแพนงเชิญ เซ็นเซอร์เลกเชอร์ ',
+  },
+  {
+    id: 1,
+    icon: '/blue-dollar.svg',
+    title: 'ราคาเท่าเทียม',
+    description:
+      'ฟลุทครูเสด กาญจนาภิเษกโอเพ่น ติ๋มซูเปอร์ไทม์ อัตลักษณ์ไทม์ครูเสด พอเพียงอัลบั้มแชมเปี้ยนสไตรค์ มุมมองบ๋อยสะบึมแพนงเชิญ เซ็นเซอร์เลกเชอร์ ',
+  },
+  {
+    id: 2,
+    icon: '/blue-dollar.svg',
+    title: 'ราคาเท่าเทียม',
+    description:
+      'ฟลุทครูเสด กาญจนาภิเษกโอเพ่น ติ๋มซูเปอร์ไทม์ อัตลักษณ์ไทม์ครูเสด พอเพียงอัลบั้มแชมเปี้ยนสไตรค์ มุมมองบ๋อยสะบึมแพนงเชิญ เซ็นเซอร์เลกเชอร์ ',
+  },
+]
+
+const listStepsToRegister: Omit<BulletItem, 'index'>[] = [
+  {
+    title: 'ราคาเท่าเทียม',
+    description:
+      'ฟลุทครูเสด กาญจนาภิเษกโอเพ่น ติ๋มซูเปอร์ไทม์ อัตลักษณ์ไทม์ครูเสด พอเพียงอัลบั้มแชมเปี้ยนสไตรค์ มุมมองบ๋อยสะบึมแพนงเชิญ เซ็นเซอร์เลกเชอร์ ',
+  },
+  {
+    title: 'ราคาเท่าเทียม',
+    description:
+      'ฟลุทครูเสด กาญจนาภิเษกโอเพ่น ติ๋มซูเปอร์ไทม์ อัตลักษณ์ไทม์ครูเสด พอเพียงอัลบั้มแชมเปี้ยนสไตรค์ มุมมองบ๋อยสะบึมแพนงเชิญ เซ็นเซอร์เลกเชอร์ ',
+  },
+  {
+    title: 'ราคาเท่าเทียม',
+    description:
+      'ฟลุทครูเสด กาญจนาภิเษกโอเพ่น ติ๋มซูเปอร์ไทม์ อัตลักษณ์ไทม์ครูเสด พอเพียงอัลบั้มแชมเปี้ยนสไตรค์ มุมมองบ๋อยสะบึมแพนงเชิญ เซ็นเซอร์เลกเชอร์ ',
+  },
+]
+
+const AgentHome: FC = () => {
+  return (
+    <div>
+      <Section>
+        <HeroTextContainer>
+          <Text page="agent" block color="primary" weight={500} size="headline">
+            รับสมัครตัวแทน!
+          </Text>
+          <Text page="agent" color="primary" size="small">
+            รับคำสั่งซื้อ ส่งสินค้า สต๊อกสินค้า ไม่มีการตัดราคา
+            ด้วยมาตรฐานการตั้งราคาที่เท่าเทียม
+          </Text>
+        </HeroTextContainer>
+
+        <Space direction="vertical" size={12}>
+          <Link href="/agent-register">
+            <a>
+              <Button type="primary">สมัครเลย</Button>
+            </a>
+          </Link>
+          <Button>คำถามที่พบบ่อย</Button>
+        </Space>
+      </Section>
+
+      <Section>
+        <SectionHeader icon="/agent-whale.png">
+          ทำไมต้องสมัคร เป็นตัวแทน ของแบ่งเบา
+        </SectionHeader>
+
+        <Row gutter={[32, 32]}>
+          {listServices.map((item) => (
+            <Col key={item.id} span={24}>
+              <Service data={item} />
+            </Col>
+          ))}
+        </Row>
+      </Section>
+
+      <Section>
+        <SectionHeader icon="/sea.svg" textPosition="100px">
+          ขั้นตอนการสมัคร เป็นตัวแทนของ แบ่งเบา
+        </SectionHeader>
+
+        <Row gutter={[32, 32]}>
+          {listStepsToRegister.map((item, index) => {
+            const data: BulletItem = {
+              ...item,
+              index,
+            }
+
+            return (
+              <Col key={index} span={24}>
+                <Bullet data={data} />
+              </Col>
+            )
+          })}
+        </Row>
+      </Section>
+
+      <Section>
+        <Text
+          block
+          page="agent"
+          align="center"
+          size="headline"
+          color="primary"
+          weight="bold"
+        >
+          คำถามที่พบบ่อย
+        </Text>
+
+        <Collapse bordered>
+          <Panel header="คำถามที่ 1" key="1">
+            <p>คำตอบที่ 1</p>
+          </Panel>
+          <Panel header="คำถามที่ 2" key="2">
+            <p>คำตอบที่ 1</p>
+          </Panel>
+          <Panel header="คำถามที่ 3" key="3">
+            <p>คำตอบที่ 1</p>
+          </Panel>
+        </Collapse>
+      </Section>
+    </div>
+  )
+}
+
+export default AgentHome
+
+const HeroTextContainer = styled.div`
+  margin-bottom: 32px;
+`

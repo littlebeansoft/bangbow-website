@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 
 import { Button, Col, Collapse, Row, Space } from 'antd'
+import Link from 'next/link'
 import styled from '@emotion/styled'
 
 import Text from 'components/Text'
@@ -16,21 +17,21 @@ const { Panel } = Collapse
 const listServices: ServiceItem[] = [
   {
     id: 0,
-    icon: '/dollar.svg',
+    icon: '/purple-dollar.svg',
     title: 'ราคาเท่าเทียม',
     description:
       'ฟลุทครูเสด กาญจนาภิเษกโอเพ่น ติ๋มซูเปอร์ไทม์ อัตลักษณ์ไทม์ครูเสด พอเพียงอัลบั้มแชมเปี้ยนสไตรค์ มุมมองบ๋อยสะบึมแพนงเชิญ เซ็นเซอร์เลกเชอร์ ',
   },
   {
     id: 1,
-    icon: '/dollar.svg',
+    icon: '/purple-dollar.svg',
     title: 'ราคาเท่าเทียม',
     description:
       'ฟลุทครูเสด กาญจนาภิเษกโอเพ่น ติ๋มซูเปอร์ไทม์ อัตลักษณ์ไทม์ครูเสด พอเพียงอัลบั้มแชมเปี้ยนสไตรค์ มุมมองบ๋อยสะบึมแพนงเชิญ เซ็นเซอร์เลกเชอร์ ',
   },
   {
     id: 2,
-    icon: '/dollar.svg',
+    icon: '/purple-dollar.svg',
     title: 'ราคาเท่าเทียม',
     description:
       'ฟลุทครูเสด กาญจนาภิเษกโอเพ่น ติ๋มซูเปอร์ไทม์ อัตลักษณ์ไทม์ครูเสด พอเพียงอัลบั้มแชมเปี้ยนสไตรค์ มุมมองบ๋อยสะบึมแพนงเชิญ เซ็นเซอร์เลกเชอร์ ',
@@ -55,7 +56,7 @@ const listStepsToRegister: Omit<BulletItem, 'index'>[] = [
   },
 ]
 
-const Home: FC = () => {
+const FactoryHome: FC = () => {
   return (
     <div>
       <Section>
@@ -70,7 +71,11 @@ const Home: FC = () => {
         </HeroTextContainer>
 
         <Space direction="vertical" size={12}>
-          <Button type="primary">สมัครเลย</Button>
+          <Link href="/factory-register">
+            <a>
+              <Button type="primary">สมัครเลย</Button>
+            </a>
+          </Link>
           <Button>คำถามที่พบบ่อย</Button>
         </Space>
       </Section>
@@ -137,7 +142,7 @@ const Home: FC = () => {
   )
 }
 
-export default Home
+export default FactoryHome
 
 const HeroTextContainer = styled.div`
   margin-bottom: 32px;

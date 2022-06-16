@@ -3,19 +3,32 @@ import type { FC } from 'react'
 import styled from '@emotion/styled'
 import { MenuOutlined, SearchOutlined } from '@ant-design/icons'
 import { Space } from 'antd'
+import { useRouter } from 'next/router'
 
 import Text from 'components/Text'
 import Container from 'components/Container'
 
+import { getPageTypeTheme } from 'helpers/utils'
+import Link from 'next/link'
+
 const Navbar: FC = () => {
+  const router = useRouter()
+
+  const pageType = getPageTypeTheme(router.asPath)
+
   return (
     <Container>
       <NavbarContainer>
         <Space size="large" className="title" align="center">
           <MenuOutlined style={{ fontSize: 24 }} />
-          <Text color="primary" size="headline">
-            แบ่งเบา
-          </Text>
+
+          <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
+            <a>
+              <Text page={pageType} color="primary" size="headline">
+                แบ่งเบา
+              </Text>
+            </a>
+          </Link>
         </Space>
         <SearchOutlined style={{ fontSize: 24 }} />
       </NavbarContainer>

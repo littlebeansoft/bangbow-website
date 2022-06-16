@@ -4,6 +4,8 @@ import styled from '@emotion/styled'
 import Image from 'next/image'
 
 import Text from 'components/Text'
+import { useRouter } from 'next/router'
+import { getPageTypeTheme } from 'helpers/utils'
 
 export interface ServiceItem {
   id: number

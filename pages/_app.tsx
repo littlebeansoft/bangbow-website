@@ -6,10 +6,14 @@ import '../styles/globals.css'
 
 import { ConfigProvider } from 'antd'
 
+import PageTheme from 'components/PageTheme'
+
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ConfigProvider componentSize="large">
-      <Component {...pageProps} />
+      <PageTheme>
+        <Component {...pageProps} />
+      </PageTheme>
     </ConfigProvider>
   )
 }

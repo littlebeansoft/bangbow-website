@@ -8,14 +8,18 @@ import Navbar from 'components/Navbar'
 
 import type { FCWithChildren } from 'types'
 
+type Page = 'agent' | 'factory'
+
 interface PageLayoutProps {
   title: string
   description?: string
+  page?: Page
 }
 
 const PageLayout: FCWithChildren<PageLayoutProps> = ({
   title,
   description,
+  page = 'factory',
   children,
 }) => {
   return (
@@ -27,7 +31,10 @@ const PageLayout: FCWithChildren<PageLayoutProps> = ({
 
         <meta name="description" content={description} />
 
-        <link rel="shortcut icon" href="/icon-factory.svg" />
+        <link
+          rel="shortcut icon"
+          href={page === 'factory' ? '/icon-factory.svg' : '/icon-agent.svg'}
+        />
       </Head>
 
       <Navbar />

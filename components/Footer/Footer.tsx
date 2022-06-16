@@ -13,18 +13,29 @@ import { Col, Row, Space } from 'antd'
 import Container from 'components/Container'
 import Text from 'components/Text'
 import color from 'constants/color'
-
-const iconStyle: CSSProperties = {
-  color: color.primary,
-  fontSize: 24,
-}
+import { useRouter } from 'next/router'
+import { getPageTypeTheme } from 'helpers/utils'
 
 const Footer: FC = () => {
+  const router = useRouter()
+
+  const pageType = getPageTypeTheme(router.asPath)
+
+  const iconStyle: CSSProperties = {
+    color: color.primary[pageType],
+    fontSize: 24,
+  }
+
   return (
     <FooterContainer>
       <ContactSectionContainer>
         <Container>
-          <Text color="primary" size="headline" style={{ marginBottom: 8 }}>
+          <Text
+            page={pageType}
+            color="primary"
+            size="headline"
+            style={{ marginBottom: 8 }}
+          >
             แบ่งเบา
           </Text>
 

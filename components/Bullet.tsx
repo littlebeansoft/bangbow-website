@@ -2,10 +2,13 @@ import type { FC } from 'react'
 
 import styled from '@emotion/styled'
 import { Col, Row, Space } from 'antd'
+import { useRouter } from 'next/router'
+
+import Text from 'components/Text'
 
 import color from 'constants/color'
 
-import Text from 'components/Text'
+import { getPageTypeTheme } from 'helpers/utils'
 
 export interface BulletItem {
   index: number
@@ -18,13 +21,23 @@ interface BulletProps {
 }
 
 const Bullet: FC<BulletProps> = ({ data }) => {
+  const router = useRouter()
+
   const { index, title, description } = data
+
+  const pageType = getPageTypeTheme(router.asPath)
 
   return (
     <Row gutter={[16, 16]}>
       <Col>
         <Space size="large">
-          <BulletNumber>{index + 1}</BulletNumber>
+          <BulletNumber
+            style={{
+              background: color.primary[pageType],
+            }}
+          >
+            {index + 1}
+          </BulletNumber>
           <Text size="headline" weight="bold">
             {title}
           </Text>
@@ -46,7 +59,6 @@ const BulletNumber = styled.div`
   color: #fff;
   font-weight: bold;
   font-size: 32;
-  background: ${color.primary};
   width: 54px;
   height: 54px;
   border-radius: 20px;

@@ -4,6 +4,7 @@ import color from 'constants/color'
 
 import type { Color } from 'constants/color'
 
+type Page = 'agent' | 'factory'
 type Align =
   | 'center'
   | 'end'
@@ -24,6 +25,7 @@ interface TextProps {
   weight?: Weight
   color?: keyof Color
   block?: boolean
+  page?: Page
 }
 
 const getTextFontBySize = (size?: Size) => {
@@ -59,11 +61,12 @@ const Text = styled.span<TextProps>((props) => {
   const colorKey = props.color || 'black'
   const fontSize = getTextFontBySize(props.size)
   const fontWeight = getTextFontWeight(props.weight)
+  const page = props.page || 'factory'
 
   return {
     display: 'block',
     marginBottom: props.block ? 16 : 0,
-    color: color[colorKey],
+    color: color[colorKey][page],
     fontSize,
     fontWeight,
     textAlign: props.align,

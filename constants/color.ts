@@ -1,13 +1,27 @@
+interface PageColorTheme {
+  agent: string
+  factory: string
+}
+
 export interface Color {
-  primary: string
-  black: string
-  white: string
+  primary: PageColorTheme
+  black: PageColorTheme
+  white: PageColorTheme
 }
 
 const color: Color = {
-  primary: process.env.PRIMARY_COLOR || '#996DFF',
-  black: '#000',
-  white: '#fff',
+  primary: {
+    factory: '#996DFF',
+    agent: '#2699FB',
+  },
+  black: {
+    factory: '#000',
+    agent: '#000',
+  },
+  white: {
+    factory: '#fff',
+    agent: '#fff',
+  },
 }
 
 export default color
