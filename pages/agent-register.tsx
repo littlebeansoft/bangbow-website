@@ -1,15 +1,50 @@
 import type { NextPage } from 'next'
+import type { Rule } from 'antd/lib/form'
 
-import { Button, Checkbox, Col, Form, Input, Row } from 'antd'
+import { Button, Checkbox, Col, Form, Input, Row, Select } from 'antd'
 
 import Section from 'components/Section'
 import Text from 'components/Text'
 
 import PageLayout from 'layouts/PageLayout'
 
+import { searchOptionsByLabel } from 'helpers/antdUtils'
+
 import color from 'constants/color'
 
+const options = [
+  {
+    label: 'ผัก/ผลไม้สด',
+    value: 1,
+  },
+  {
+    label: 'อาหารดอง',
+    value: 2,
+  },
+  {
+    label: 'เสื้อผ้า',
+    value: 3,
+  },
+  {
+    label: 'อาหารแปรรูป',
+    value: 4,
+  },
+  {
+    label: 'เครื่องใช้',
+    value: 5,
+  },
+  {
+    label: 'อุปกรณ์ทำครัว',
+    value: 6,
+  },
+]
+
 const AgentRegisterPage: NextPage = () => {
+  const ruleRequired: Rule = {
+    required: true,
+    message: 'โปรดระบุ',
+  }
+
   return (
     <PageLayout
       title="เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิตร่วมกับเรา | แบ่งเบา"
@@ -20,28 +55,28 @@ const AgentRegisterPage: NextPage = () => {
           เข้าร่วมเป็นพาร์ทเนอร์ตัวแทน ร่วมกับเรา
         </Text>
 
-        <Form>
+        <Form scrollToFirstError>
           <Row gutter={[16, 16]}>
             <Col span={24}>
-              <Form.Item>
+              <Form.Item name="firstName" rules={[ruleRequired]}>
                 <Input placeholder="ชื่อโรงงานของคุณ" />
               </Form.Item>
             </Col>
 
             <Col span={12}>
-              <Form.Item>
+              <Form.Item name="contactName" rules={[ruleRequired]}>
                 <Input placeholder="ชื่อผู้ติดต่อ" />
               </Form.Item>
             </Col>
 
             <Col span={12}>
-              <Form.Item>
+              <Form.Item name="lastName" rules={[ruleRequired]}>
                 <Input placeholder="นามสกุล" />
               </Form.Item>
             </Col>
 
             <Col span={24}>
-              <Form.Item>
+              <Form.Item name="phoneNumber" rules={[ruleRequired]}>
                 <Input
                   placeholder="เบอร์โทรผู้ติดต่อ"
                   suffix={
@@ -58,13 +93,18 @@ const AgentRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
-              <Form.Item>
-                <Input placeholder="ประเภทสินค้าที่ขาย" />
+              <Form.Item name="productType" rules={[ruleRequired]}>
+                <Select
+                  showSearch
+                  placeholder="ประเภทสินค้าที่ขาย"
+                  options={options}
+                  filterOption={searchOptionsByLabel}
+                />
               </Form.Item>
             </Col>
 
             <Col span={24}>
-              <Form.Item>
+              <Form.Item name="productDetail" rules={[ruleRequired]}>
                 <Input.TextArea
                   rows={4}
                   placeholder="คำอธิบายเกี่ยวกับสินค้าที่ขาย"
@@ -106,7 +146,7 @@ const AgentRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
-              <Button block type="primary">
+              <Button block type="primary" htmlType="submit">
                 ส่งข้อมูล
               </Button>
             </Col>
