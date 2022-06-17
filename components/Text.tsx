@@ -4,6 +4,7 @@ import color from 'constants/color'
 
 import type { Color } from 'constants/color'
 
+type Type = 'plain' | 'link'
 type Page = 'agent' | 'factory'
 type Align =
   | 'center'
@@ -20,8 +21,10 @@ interface TextProps {
   /**
    * Size number is base on rem unit
    */
-  align?: Align
   size?: Size
+  hidden?: boolean
+  type?: Type
+  align?: Align
   weight?: Weight
   color?: keyof Color
   block?: boolean
@@ -62,14 +65,16 @@ const Text = styled.span<TextProps>((props) => {
   const fontSize = getTextFontBySize(props.size)
   const fontWeight = getTextFontWeight(props.weight)
   const page = props.page || 'factory'
+  const type = props.type || 'plain'
 
   return {
-    display: 'block',
+    display: props.hidden ? 'none' : 'block',
     marginBottom: props.block ? 16 : 0,
-    color: color[colorKey][page],
+    color: type === 'link' ? color.primary[page] : color[colorKey][page],
     fontSize,
     fontWeight,
     textAlign: props.align,
+    textDecoration: type === 'link' ? 'underline' : '',
   }
 })
 
