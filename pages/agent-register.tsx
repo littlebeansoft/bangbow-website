@@ -1,10 +1,14 @@
 import type { NextPage } from 'next'
 import type { Rule } from 'antd/lib/form'
 
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { Button, Checkbox, Col, Form, Input, Row, Select } from 'antd'
 
 import Section from 'components/Section'
 import Text from 'components/Text'
+import PhoneNumberInput from 'components/PhoneNumberInput'
+import MobileOTPInputModal from 'components/MobileOTPInputModal'
 
 import PageLayout from 'layouts/PageLayout'
 
@@ -40,6 +44,11 @@ const options = [
 ]
 
 const AgentRegisterPage: NextPage = () => {
+  const router = useRouter()
+
+  const [phoneNumber, setPhoneNumber] = useState<string>()
+  const [visibleMobileOTP, setVisibleMobileOTP] = useState(false)
+
   const ruleRequired: Rule = {
     required: true,
     message: 'โปรดระบุ',
@@ -55,16 +64,20 @@ const AgentRegisterPage: NextPage = () => {
           เข้าร่วมเป็นพาร์ทเนอร์ตัวแทน ร่วมกับเรา
         </Text>
 
-        <Form scrollToFirstError>
+        <Form
+          scrollToFirstError
+          autoComplete="off"
+          onFinish={() => router.push('/agent-register-success')}
+        >
           <Row gutter={[16, 16]}>
             <Col span={24}>
-              <Form.Item name="firstName" rules={[ruleRequired]}>
+              <Form.Item name="factoryName" rules={[ruleRequired]}>
                 <Input placeholder="ชื่อโรงงานของคุณ" />
               </Form.Item>
             </Col>
 
             <Col span={12}>
-              <Form.Item name="contactName" rules={[ruleRequired]}>
+              <Form.Item name="firstName" rules={[ruleRequired]}>
                 <Input placeholder="ชื่อผู้ติดต่อ" />
               </Form.Item>
             </Col>
@@ -77,17 +90,9 @@ const AgentRegisterPage: NextPage = () => {
 
             <Col span={24}>
               <Form.Item name="phoneNumber" rules={[ruleRequired]}>
-                <Input
-                  placeholder="เบอร์โทรผู้ติดต่อ"
-                  suffix={
-                    <Text
-                      page="agent"
-                      onClick={() => console.log('Click to request OTP')}
-                      color="primary"
-                    >
-                      ส่งรหัส
-                    </Text>
-                  }
+                <PhoneNumberInput
+                  onPhoneNumberChange={setPhoneNumber}
+                  onVisibleMobileOTP={() => setVisibleMobileOTP(true)}
                 />
               </Form.Item>
             </Col>
@@ -168,6 +173,12 @@ const AgentRegisterPage: NextPage = () => {
           </Row>
         </Form>
       </Section>
+
+      <MobileOTPInputModal
+        phoneNumber={phoneNumber}
+        visible={visibleMobileOTP}
+        onClose={() => setVisibleMobileOTP(false)}
+      />
     </PageLayout>
   )
 }
