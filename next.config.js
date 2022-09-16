@@ -15,8 +15,8 @@ const nextConfig = {
 
 const pluginAntdLess = withAntdLess({
   modifyVars: {
-    '@primary-color': process.env.NEXT_PUBLIC_PRIMARY_COLOR,
-    '@link-color': process.env.NEXT_PUBLIC_PRIMARY_COLOR,
+    '@primary-color': process.env.CUSTOM_NEXT_PUBLIC_PRIMARY_COLOR,
+    '@link-color': process.env.CUSTOM_NEXT_PUBLIC_PRIMARY_COLOR,
     '@border-radius-base': '6px',
     '@font-size-base': '16px',
     '@text-color': '#000',
