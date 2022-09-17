@@ -116,7 +116,7 @@ const FactoryRegisterPage: NextPage = () => {
           phone: [{ value: values.phoneNumber }],
           leadType: 'FACTORY' as any,
           organizationName: values.factoryName,
-          dataSource: 'register web',
+          dataSource: 'Register',
         },
       },
     })
@@ -168,10 +168,16 @@ const FactoryRegisterPage: NextPage = () => {
                   notFoundContent={
                     categoryList.loading ? <Spin size="small" /> : null
                   }
-                  options={getOptions(
-                    categoryList.data?.getCategory.payload ?? null
-                  )}
-                  onSelect={(value: string, values: any) => {}}
+                  options={
+                    categoryList.data
+                      ? getOptions(categoryList?.data?.getCategory.payload)
+                      : [
+                          {
+                            key: 'ไม่พบข้อมูล',
+                            value: 'ไม่พบข้อมูล',
+                          },
+                        ]
+                  }
                 />
               </Form.Item>
             </Col>

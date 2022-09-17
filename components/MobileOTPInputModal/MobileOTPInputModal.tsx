@@ -76,10 +76,11 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
   return (
     <Modal
       width={480}
-      visible={visible}
+      // visible={visible}
       onCancel={onClose}
       footer={false}
       centered
+      open={visible}
     >
       <MobileOTPInputModalContainer>
         <BangbowLogo />

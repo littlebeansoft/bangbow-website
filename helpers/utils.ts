@@ -8,15 +8,14 @@ export const getPageTypeTheme = (path: string) => {
   return 'factory'
 }
 
-export const getOptions = (payload: GetCategoryResp[] | null) => {
+export const getOptions = (payload: GetCategoryResp[]) => {
   if (!payload) {
-    return
+    return undefined
   }
   let options = payload.map((item: GetCategoryResp) => {
     return {
       key: item._id,
-      value: item.name,
-      categoryKey: item.categoryKey,
+      value: item.name || '',
     }
   })
   return options
