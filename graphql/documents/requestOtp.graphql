@@ -1,0 +1,7 @@
+mutation requestOtp($phoneNumber: String!) {
+  requestOtp(phoneNumber: $phoneNumber) {
+    message
+    code
+    payload
+  }
+}

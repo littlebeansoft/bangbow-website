@@ -2,7 +2,7 @@ import { FC, useEffect, useRef } from 'react'
 
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { Button, Modal, Space } from 'antd'
+import { Button, message, Modal, Space } from 'antd'
 import styled from '@emotion/styled'
 import OtpInput from 'react-otp-input'
 
@@ -15,6 +15,9 @@ import OTPCountDown from './OTPCountDown'
 import { getPageTypeTheme } from 'helpers/utils'
 
 import color from 'constants/color'
+import { useVerifyOtpMutation } from 'graphql/_generated/operations'
+import { useAppDispatch } from 'store'
+import { setOtpVerify } from 'store/slices/otpSlice'
 
 interface MobileOTPInputModalProps {
   phoneNumber?: string
@@ -29,8 +32,9 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
 }) => {
   const router = useRouter()
 
-  const otpInputRef = useRef<OtpInput | null>()
+  const dispatch = useAppDispatch()
 
+  const otpInputRef = useRef<OtpInput | null>()
   const [otp, setOTP] = useState<string>()
   const [otpCountDownID, setOTPCountDownID] = useGenerateComponentKey()
   const [resentOTPButtonDisabled, setResentOTPButtonDisabled] = useState(false)
@@ -48,13 +52,35 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
     }
   }, [visible])
 
+  const [verifyOtp] = useVerifyOtpMutation({
+    context: {
+      clientType: 'CORE',
+      headers: {
+        credentialKey: 'BANG_BOW_ADMIN',
+      },
+    },
+    onCompleted: (res) => {
+      if (res.verifyOtp.code === 'OK') {
+        dispatch(setOtpVerify(true))
+        message.success('OTP verified successfully')
+        onClose?.()
+      } else {
+        message.error(res.verifyOtp.payload.message)
+      }
+    },
+    onError: (error) => {
+      message.error(error.message)
+    },
+  })
+
   return (
     <Modal
       width={480}
-      visible={visible}
+      // visible={visible}
       onCancel={onClose}
       footer={false}
       centered
+      open={visible}
     >
       <MobileOTPInputModalContainer>
         <BangbowLogo />
@@ -105,7 +131,23 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
 
         {renderOTPResendSection()}
 
-        <Button type="primary">ส่งรหัส</Button>
+        <Button
+          type="primary"
+          onClick={() => {
+            if (otp?.length === 6 && otp !== undefined) {
+              verifyOtp({
+                variables: {
+                  phoneNumber: phoneNumber,
+                  otpCode: otp,
+                },
+              })
+            } else {
+              message.error('กรุณากรอกรหัส OTP ให้ครบ 6 หลัก')
+            }
+          }}
+        >
+          ส่งรหัส
+        </Button>
       </MobileOTPInputModalContainer>
     </Modal>
   )
