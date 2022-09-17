@@ -1133,6 +1133,7 @@ type Mutation {
   createCredential(credentialInput: INPUT_CREDENTIAL_FORM): TYPE_CREDENTIAL
   createCustomMenu(input: INPUT_SCHEMA_CUSTOM_MENU): TYPE_CUSTOM_MENU
   createLead(input: CreateLeadInput!): LeadResponse!
+  createLeadNonAuthen(input: CreateLeadInput!): LeadResponse!
   createLeadToUser(input: CreateLeadInput!): LeadResponse!
   createLocaleText(input: INPUT_LOCALE_TEXT_FORM): TYPE_LOCALE_TEXT
   createLocaleTextList(

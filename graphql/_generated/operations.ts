@@ -1036,6 +1036,7 @@ export type Mutation = {
   createCredential: Maybe<Type_Credential>
   createCustomMenu: Maybe<Type_Custom_Menu>
   createLead: LeadResponse
+  createLeadNonAuthen: LeadResponse
   createLeadToUser: LeadResponse
   createLocaleText: Maybe<Type_Locale_Text>
   createLocaleTextList: Maybe<Type_Locale_Text_List>
@@ -1287,6 +1288,10 @@ export type MutationCreateCustomMenuArgs = {
 }
 
 export type MutationCreateLeadArgs = {
+  input: CreateLeadInput
+}
+
+export type MutationCreateLeadNonAuthenArgs = {
   input: CreateLeadInput
 }
 
@@ -3634,6 +3639,18 @@ export type User = {
   phone: Maybe<Array<PhoneResp>>
 }
 
+export type CreateLeadNonAuthenMutationVariables = Exact<{
+  input: CreateLeadInput
+}>
+
+export type CreateLeadNonAuthenMutation = {
+  createLeadNonAuthen: {
+    code: string
+    message: string
+    payload: { _id: string }
+  }
+}
+
 export type GetMyProfileQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetMyProfileQuery = {
@@ -3663,10 +3680,65 @@ export type VerifyOtpMutation = {
   verifyOtp: { message: string; code: string; payload: any }
 }
 
+export declare const createLeadNonAuthen: import('graphql').DocumentNode
 export declare const getMyProfile: import('graphql').DocumentNode
 export declare const requestOtp: import('graphql').DocumentNode
 export declare const verifyOtp: import('graphql').DocumentNode
 
+export const CreateLeadNonAuthenDocument = gql`
+  mutation createLeadNonAuthen($input: CreateLeadInput!) {
+    createLeadNonAuthen(input: $input) {
+      code
+      message
+      payload {
+        _id
+      }
+    }
+  }
+`
+export type CreateLeadNonAuthenMutationFn = Apollo.MutationFunction<
+  CreateLeadNonAuthenMutation,
+  CreateLeadNonAuthenMutationVariables
+>
+
+/**
+ * __useCreateLeadNonAuthenMutation__
+ *
+ * To run a mutation, you first call `useCreateLeadNonAuthenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLeadNonAuthenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLeadNonAuthenMutation, { data, loading, error }] = useCreateLeadNonAuthenMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLeadNonAuthenMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateLeadNonAuthenMutation,
+    CreateLeadNonAuthenMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateLeadNonAuthenMutation,
+    CreateLeadNonAuthenMutationVariables
+  >(CreateLeadNonAuthenDocument, options)
+}
+export type CreateLeadNonAuthenMutationHookResult = ReturnType<
+  typeof useCreateLeadNonAuthenMutation
+>
+export type CreateLeadNonAuthenMutationResult =
+  Apollo.MutationResult<CreateLeadNonAuthenMutation>
+export type CreateLeadNonAuthenMutationOptions = Apollo.BaseMutationOptions<
+  CreateLeadNonAuthenMutation,
+  CreateLeadNonAuthenMutationVariables
+>
 export const GetMyProfileDocument = gql`
   query getMyProfile {
     getMyProfile {

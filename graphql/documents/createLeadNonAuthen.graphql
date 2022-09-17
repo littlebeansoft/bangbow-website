@@ -1,0 +1,9 @@
+mutation createLeadNonAuthen($input: CreateLeadInput!) {
+  createLeadNonAuthen(input: $input) {
+    code
+    message
+    payload {
+      _id
+    }
+  }
+}
