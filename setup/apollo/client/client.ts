@@ -34,7 +34,7 @@ const httpLink = new HttpLink({
 })
 
 const apolloClient = new ApolloClient({
-  ssrMode: true,
+  ssrMode: false,
   link: from([httpLink]),
   cache: new InMemoryCache({
     addTypename: false,
