@@ -8,6 +8,8 @@ const getClientURI = (type: string) => {
       return process.env.NEXT_PUBLIC_CORE_ADMIN_ENDPOINT
     case 'CUSTOMER':
       return process.env.NEXT_PUBLIC_CUSTOMER_SERVICE_ENDPOINT
+    case 'LABEL':
+      return process.env.NEXT_PUBLIC_LABEL_SERVICE_ENDPOINT
   }
 }
 
