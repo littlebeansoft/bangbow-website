@@ -224,8 +224,9 @@ const PrivacyPolicyENPage: NextPage = () => {
         <Typography.Paragraph>
           We may send certain information or newsletter for the purpose of
           utilizing your preference via your email. If you no longer want to
-          receive the communications from us, you can click the "unsubscribe"
-          link in the email or contact us through our email.
+          receive the communications from us, you can click the
+          &quot;unsubscribe&quot; link in the email or contact us through our
+          email.
         </Typography.Paragraph>
 
         <Typography.Title level={5}>Cookies</Typography.Title>
