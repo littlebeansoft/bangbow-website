@@ -15,6 +15,7 @@ import Text from 'components/Text'
 import color from 'constants/color'
 import { useRouter } from 'next/router'
 import { getPageTypeTheme } from 'helpers/utils'
+import Link from 'next/link'
 
 const Footer: FC = () => {
   const router = useRouter()
@@ -75,9 +76,11 @@ const Footer: FC = () => {
             <Text color="white" size="small">
               ข้อตกลงและเงื่อนไขการใช้งาน
             </Text>
-            <Text color="white" size="small">
-              ความเป็นส่วนตัว
-            </Text>
+            <Link href="/privacy-policy-th">
+              <Text color="white" size="small">
+                ความเป็นส่วนตัว
+              </Text>
+            </Link>
           </Space>
 
           <Text color="white" size="small">
