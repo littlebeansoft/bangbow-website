@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const GET_CATEGORY = gql`
-  query GetCategory($input: INPUT_GET_CATEGORY!) {
+  query GetCategory($input: GetCategoryInPut!) {
     getCategory(input: $input) {
       message
       code
