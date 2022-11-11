@@ -20,6 +20,8 @@ export type Scalars = {
   Int: number
   Float: number
   Date: any
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any
   FileUpload: any
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any
@@ -27,6 +29,67 @@ export type Scalars = {
   Number: any
   /** The `Upload` scalar type represents a file upload. */
   Upload: any
+  _Any: any
+  _FieldSet: any
+  link__Import: any
+}
+
+export type AccountEmail = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type AccountEmailResp = {
+  value: Maybe<Scalars['String']>
+}
+
+export type AccountPaginateResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** pagination data */
+  pagination: Maybe<PaginatedType>
+  /** array data */
+  payload: Maybe<Array<AccountResp>>
+}
+
+export type AccountPhone = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type AccountPhoneResp = {
+  value: Scalars['String']
+}
+
+export type AccountResp = {
+  _id: Maybe<Scalars['ID']>
+  accountType: Maybe<Scalars['String']>
+  category: Maybe<CategoryResp>
+  citizenId: Maybe<Scalars['String']>
+  contactList: Maybe<Array<ContactInAccountResp>>
+  /** วันที่ลงทะเบียน */
+  createdAt: Scalars['DateTime']
+  createdAtBy: Maybe<UserResp>
+  dataSource: Maybe<Scalars['String']>
+  email: Maybe<Array<AccountEmailResp>>
+  image: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  passport: Maybe<Scalars['String']>
+  phone: Maybe<Array<AccountPhoneResp>>
+  resourceOwner: Maybe<Scalars['String']>
+  status: Maybe<Scalars['String']>
+  /** วันที่อัพเดตข้อมูลล่าสุด */
+  updatedAt: Scalars['DateTime']
+  updatedAtBy: Maybe<UserResp>
+}
+
+export type AccountResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** data */
+  payload: Maybe<AccountResp>
 }
 
 export enum CacheControlScope {
@@ -34,11 +97,180 @@ export enum CacheControlScope {
   Public = 'PUBLIC',
 }
 
+export type CategoryResp = {
+  _id: Maybe<Scalars['String']>
+  descriptions: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  path: Maybe<Scalars['String']>
+}
+
+export type ContactEmail = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type ContactEmailResp = {
+  value: Maybe<Scalars['String']>
+}
+
+export type ContactInAccountInput = {
+  /** ไอดีของลูกค้า */
+  contactAtBy?: InputMaybe<Scalars['String']>
+  /** กำหนดค่าว่าคนไหนคือคนหลักหรือต้องติดต่อเป็นหลัก */
+  isMainContact?: InputMaybe<Scalars['Boolean']>
+  /** ตำแหน่ง */
+  position?: InputMaybe<Scalars['String']>
+}
+
+export type ContactInAccountResp = {
+  contactAtBy: Maybe<ContactResp>
+  isMainContact: Maybe<Scalars['Boolean']>
+  position: Maybe<Scalars['String']>
+}
+
+export type ContactPaginateResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** pagination data */
+  pagination: Maybe<PaginatedType>
+  /** array data */
+  payload: Maybe<Array<ContactResp>>
+}
+
+export type ContactPhone = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type ContactPhoneResp = {
+  value: Scalars['String']
+}
+
+export type ContactResp = {
+  _id: Maybe<Scalars['ID']>
+  category: Maybe<CategoryResp>
+  citizenId: Maybe<Scalars['String']>
+  contactType: Maybe<Scalars['String']>
+  /** วันที่ลงทะเบียน */
+  createdAt: Scalars['DateTime']
+  createdAtBy: Maybe<UserResp>
+  dataSource: Maybe<Scalars['String']>
+  email: Maybe<Array<ContactEmailResp>>
+  firstName: Maybe<Scalars['String']>
+  image: Maybe<Scalars['String']>
+  lastName: Maybe<Scalars['String']>
+  organizationName: Maybe<Scalars['String']>
+  passport: Maybe<Scalars['String']>
+  phone: Maybe<Array<ContactPhoneResp>>
+  resourceOwner: Maybe<Scalars['String']>
+  status: Maybe<Scalars['String']>
+  /** วันที่อัพเดตข้อมูลล่าสุด */
+  updatedAt: Scalars['DateTime']
+  updatedAtBy: Maybe<UserResp>
+}
+
+export type ContactResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** data */
+  payload: Maybe<ContactResp>
+}
+
+export type CreateAccountInput = {
+  /** ประเภทองค์กร */
+  accountType?: InputMaybe<Enum_Customer_Type>
+  /** บ้านเลขที่ */
+  addressNo?: InputMaybe<Scalars['String']>
+  /** ประเภทที่อยู่ */
+  addressType?: InputMaybe<Enum_Address_Type>
+  /** เว็บไซต์ขององค์กร */
+  category?: InputMaybe<Scalars['String']>
+  contactList?: InputMaybe<Array<ContactInAccountInput>>
+  /** ประเทศ */
+  country?: InputMaybe<Scalars['String']>
+  /** แหล่งที่มา */
+  dataSource?: InputMaybe<Scalars['String']>
+  /** ที่อยู่จัดส่งตั้งต้น */
+  defaultSend?: InputMaybe<Enum_Address_Default_Send>
+  /** อำเภอ/เขต */
+  district?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Array<AccountEmail>>
+  /** รูปภาพโรงงาน */
+  fileList?: InputMaybe<Array<Scalars['String']>>
+  /** รูปภาพ */
+  image?: InputMaybe<Scalars['String']>
+  /** รูปภาพสินค้า */
+  imageList?: InputMaybe<Array<Scalars['String']>>
+  latitude?: InputMaybe<Scalars['String']>
+  longitude?: InputMaybe<Scalars['String']>
+  /** ชื่อองค์กร */
+  name?: InputMaybe<Scalars['String']>
+  /** บันทึกข้อมูลเพิ่มเติม */
+  note?: InputMaybe<Scalars['String']>
+  orgKey?: InputMaybe<Scalars['String']>
+  phone?: InputMaybe<Array<AccountPhone>>
+  /** รหัสไปรษณีย์ */
+  postcode?: InputMaybe<Scalars['String']>
+  /** จังหวัด */
+  province?: InputMaybe<Scalars['String']>
+  /** สถานะองค์กร */
+  status?: InputMaybe<Enum_Organization_Status>
+  /** ตำบล/แขวง */
+  subDistrict?: InputMaybe<Scalars['String']>
+  /** เว็บไซต์ขององค์กร */
+  website?: InputMaybe<Scalars['String']>
+}
+
+export type CreateContactInput = {
+  /** บ้านเลขที่ */
+  addressNo?: InputMaybe<Scalars['String']>
+  /** ประเภทที่อยู่ */
+  addressType?: InputMaybe<Enum_Address_Type>
+  category?: InputMaybe<Scalars['String']>
+  citizenId?: InputMaybe<Scalars['String']>
+  /** ประเภท */
+  contactType?: InputMaybe<Enum_Customer_Type>
+  /** ประเทศ */
+  country?: InputMaybe<Scalars['String']>
+  /** แหล่งที่มา */
+  dataSource?: InputMaybe<Scalars['String']>
+  dateOfBirth?: InputMaybe<Scalars['String']>
+  /** ที่อยู่จัดส่งตั้งต้น */
+  defaultSend?: InputMaybe<Enum_Address_Default_Send>
+  /** อำเภอ/เขต */
+  district?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Array<ContactEmail>>
+  /** รูปภาพโรงงาน */
+  factoryImages?: InputMaybe<Array<Scalars['String']>>
+  firstName?: InputMaybe<Scalars['String']>
+  /** รูปภาพ */
+  image?: InputMaybe<Scalars['String']>
+  lastName?: InputMaybe<Scalars['String']>
+  latitude?: InputMaybe<Scalars['String']>
+  longitude?: InputMaybe<Scalars['String']>
+  orgKey?: InputMaybe<Scalars['String']>
+  passport?: InputMaybe<Scalars['String']>
+  phone?: InputMaybe<Array<ContactPhone>>
+  /** รหัสไปรษณีย์ */
+  postcode?: InputMaybe<Scalars['String']>
+  prefixKey?: InputMaybe<Scalars['String']>
+  /** รูปภาพสินค้า */
+  productImages?: InputMaybe<Array<Scalars['String']>>
+  /** จังหวัด */
+  province?: InputMaybe<Scalars['String']>
+  resourceOwner?: InputMaybe<Enum_Resource_Owner>
+  /** ตำบล/แขวง */
+  subDistrict?: InputMaybe<Scalars['String']>
+}
+
 export type CreateLeadInput = {
   /** บ้านเลขที่ */
   addressNo?: InputMaybe<Scalars['String']>
   /** ประเภทที่อยู่ */
   addressType?: InputMaybe<Enum_Address_Type>
+  category?: InputMaybe<Scalars['String']>
   citizenId?: InputMaybe<Scalars['String']>
   /** ประเทศ */
   country?: InputMaybe<Scalars['String']>
@@ -58,7 +290,7 @@ export type CreateLeadInput = {
   lastName?: InputMaybe<Scalars['String']>
   latitude?: InputMaybe<Scalars['String']>
   /** ประเภท */
-  leadType?: InputMaybe<Lead_Type_Response>
+  leadType?: InputMaybe<Enum_Customer_Type>
   longitude?: InputMaybe<Scalars['String']>
   /** ชื่อหน่วยงาน */
   organizationName?: InputMaybe<Scalars['String']>
@@ -71,6 +303,7 @@ export type CreateLeadInput = {
   productImages?: InputMaybe<Array<Scalars['String']>>
   /** จังหวัด */
   province?: InputMaybe<Scalars['String']>
+  remark?: InputMaybe<Scalars['String']>
   resourceOwner?: InputMaybe<Enum_Resource_Owner>
   /** สถานะ */
   status?: InputMaybe<Enum_Creat_Lead_Status>
@@ -102,6 +335,7 @@ export enum Enum_Address_Type {
   None = 'NONE',
 }
 
+/** สถานะการใช้ของ APP */
 export enum Enum_App_Status {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
@@ -135,6 +369,15 @@ export enum Enum_Creat_Lead_Status {
 export enum Enum_Credential_Type {
   ResourceAdmin = 'RESOURCE_ADMIN',
   ResourceOwner = 'RESOURCE_OWNER',
+}
+
+export enum Enum_Customer_Type {
+  Agent = 'AGENT',
+  Customer = 'CUSTOMER',
+  Factory = 'FACTORY',
+  Organization = 'ORGANIZATION',
+  Other = 'OTHER',
+  Retail = 'RETAIL',
 }
 
 export enum Enum_Data_Security {
@@ -187,11 +430,13 @@ export enum Enum_Invite_Status {
   Inactive = 'INACTIVE',
 }
 
+/** สถานะ YES | NO */
 export enum Enum_Is {
   No = 'NO',
   Yes = 'YES',
 }
 
+/** ประเภทของ user */
 export enum Enum_Lrle_Type {
   ResourceAdmin = 'RESOURCE_ADMIN',
   ResourceOwner = 'RESOURCE_OWNER',
@@ -363,6 +608,20 @@ export type File = {
   encoding: Scalars['String']
   filename: Scalars['String']
   mimetype: Scalars['String']
+}
+
+export type FindAccountInput = {
+  filter?: InputMaybe<QueryAccountInput>
+  pagination?: InputMaybe<PaginatedFindType>
+  query?: InputMaybe<QueryAccountInput>
+  search?: InputMaybe<QueryAccountInput>
+}
+
+export type FindContactInput = {
+  filter?: InputMaybe<QueryContactInput>
+  pagination?: InputMaybe<PaginatedFindType>
+  query?: InputMaybe<QueryContactInput>
+  search?: InputMaybe<QueryContactInput>
 }
 
 export type FindLeadInput = {
@@ -942,61 +1201,39 @@ export type Input_Verify_Password_System_Admin_Email = {
   verifyToken: Scalars['String']
 }
 
-export enum Lead_Type_Response {
-  Agent = 'AGENT',
-  Customer = 'CUSTOMER',
-  Factory = 'FACTORY',
-  Organization = 'ORGANIZATION',
-  Other = 'OTHER',
-  Retail = 'RETAIL',
-}
-
-export type Lead = {
-  _id: Scalars['String']
-  /** วันที่ลงทะเบียน */
-  createdAt: Scalars['String']
-  /** ชื่อ */
-  firstName: Scalars['String']
-  /** นามสกุล */
-  lastName: Scalars['String']
-  /** ประเภทของลูกค้า */
-  leadType: Lead_Type_Response
-  /** เบอร์โทรศัพท์ */
-  phoneNumber: Scalars['String']
-  /** สถานะของลูกค้า */
-  status: Enum_Creat_Lead_Status
-  /** วันที่อัพเดตข้อมูลล่าสุด */
-  updatedAt: Scalars['String']
-}
-
 export type LeadPaginateResponse = {
   /** โค้ดของการตอบสนอง */
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** pagination data */
   pagination: Maybe<PaginatedType>
+  /** array data */
   payload: Maybe<Array<LeadResp>>
 }
 
 export type LeadResp = {
   _id: Maybe<Scalars['ID']>
+  category: Maybe<CategoryResp>
   citizenId: Maybe<Scalars['String']>
   /** วันที่ลงทะเบียน */
-  createdAt: Scalars['String']
-  createdAtBy: Maybe<User>
+  createdAt: Scalars['DateTime']
+  createdAtBy: Maybe<UserResp>
   dataSource: Maybe<Scalars['String']>
   email: Maybe<Array<EmailResp>>
   firstName: Maybe<Scalars['String']>
   image: Maybe<Scalars['String']>
   lastName: Maybe<Scalars['String']>
+  leadType: Maybe<Scalars['String']>
   organizationName: Maybe<Scalars['String']>
   passport: Maybe<Scalars['String']>
   phone: Maybe<Array<PhoneResp>>
+  remark: Maybe<Scalars['String']>
   resourceOwner: Maybe<Scalars['String']>
   status: Maybe<Scalars['String']>
   /** วันที่อัพเดตข้อมูลล่าสุด */
-  updatedAt: Scalars['String']
-  updatedAtBy: Maybe<User>
+  updatedAt: Scalars['DateTime']
+  updatedAtBy: Maybe<UserResp>
 }
 
 export type LeadResponse = {
@@ -1004,7 +1241,8 @@ export type LeadResponse = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
-  payload: Maybe<Lead>
+  /** data */
+  payload: Maybe<LeadResp>
 }
 
 export type Mutation = {
@@ -1031,13 +1269,15 @@ export type Mutation = {
   confirmOrgAdmin: Maybe<Type_Profile>
   confirmPhoneNumberUser: Maybe<Type_Json>
   confirmSystemAdmin: Maybe<Type_Reset_Password_Email>
+  createAccount: AccountResponse
   createApp: Maybe<Type_App>
-  createCategory: Maybe<Type_Category>
+  createContact: ContactResponse
   createCredential: Maybe<Type_Credential>
   createCustomMenu: Maybe<Type_Custom_Menu>
   createLead: LeadResponse
   createLeadNonAuthen: LeadResponse
   createLeadToUser: LeadResponse
+  createLeadToUserNonAuthen: LeadResponse
   createLocaleText: Maybe<Type_Locale_Text>
   createLocaleTextList: Maybe<Type_Locale_Text_List>
   createMasterData: Maybe<Type_Master_Data>
@@ -1051,7 +1291,7 @@ export type Mutation = {
   createRole: Maybe<Type_App_Role>
   createRunningNumber: Maybe<Type_Running_Number>
   deleteApp: Maybe<Type_App>
-  deleteCategory: Maybe<Type_Category>
+  deleteContact: ContactResponse
   deleteContactEmail: Maybe<Type_App>
   deleteCredential: Maybe<Type_Credential>
   deleteCustomMenu: Maybe<Type_Custom_Menu_List>
@@ -1131,10 +1371,11 @@ export type Mutation = {
   syncAppToService: Maybe<Type_Sync_App>
   syncOrganization: Maybe<Type_Sync_Organization>
   syncService: Maybe<Type_Sync_Service_Info>
+  updateAccount: AccountResponse
   updateApp: Maybe<Type_App>
   updateAppAttribute: Maybe<Type_App>
-  updateCategory: Maybe<Type_Category>
   updateConfig: Maybe<Type_Config>
+  updateContact: ContactResponse
   updateCredential: Maybe<Type_Credential>
   updateCredentialKey: Maybe<Type_Credential>
   updateCustomMenu: Maybe<Type_Custom_Menu>
@@ -1271,12 +1512,16 @@ export type MutationConfirmSystemAdminArgs = {
   input?: InputMaybe<Input_Verify_Password_System_Admin_Email>
 }
 
+export type MutationCreateAccountArgs = {
+  input: CreateAccountInput
+}
+
 export type MutationCreateAppArgs = {
   input?: InputMaybe<Input_App_Form>
 }
 
-export type MutationCreateCategoryArgs = {
-  input?: InputMaybe<Input_Category>
+export type MutationCreateContactArgs = {
+  input: CreateContactInput
 }
 
 export type MutationCreateCredentialArgs = {
@@ -1296,6 +1541,10 @@ export type MutationCreateLeadNonAuthenArgs = {
 }
 
 export type MutationCreateLeadToUserArgs = {
+  input: CreateLeadInput
+}
+
+export type MutationCreateLeadToUserNonAuthenArgs = {
   input: CreateLeadInput
 }
 
@@ -1362,8 +1611,8 @@ export type MutationDeleteAppArgs = {
   appKey: Scalars['String']
 }
 
-export type MutationDeleteCategoryArgs = {
-  categoryId: Scalars['String']
+export type MutationDeleteContactArgs = {
+  contactId: Scalars['String']
 }
 
 export type MutationDeleteContactEmailArgs = {
@@ -1711,6 +1960,11 @@ export type MutationSyncServiceArgs = {
   serviceKeyList?: InputMaybe<Array<Scalars['String']>>
 }
 
+export type MutationUpdateAccountArgs = {
+  accountId: Scalars['String']
+  input: CreateAccountInput
+}
+
 export type MutationUpdateAppArgs = {
   appInput?: InputMaybe<Input_Update_App>
   appKey: Scalars['String']
@@ -1720,13 +1974,13 @@ export type MutationUpdateAppAttributeArgs = {
   attributeInput: Scalars['JSON']
 }
 
-export type MutationUpdateCategoryArgs = {
-  categoryId: Scalars['String']
-  input?: InputMaybe<Input_Category>
-}
-
 export type MutationUpdateConfigArgs = {
   input?: InputMaybe<Input_Config_Form>
+}
+
+export type MutationUpdateContactArgs = {
+  contactId: Scalars['String']
+  input: CreateContactInput
 }
 
 export type MutationUpdateCredentialArgs = {
@@ -1953,6 +2207,7 @@ export type PhoneResp = {
 
 export type Query = {
   _dummy: Maybe<Scalars['String']>
+  _service: _Service
   exportUser: Maybe<Type_Type_Role_Permission_User_List>
   generateKey: Maybe<Type_Generate_Key_Response>
   generateOrgTokenRef: Maybe<Type_Org_Token_Ref>
@@ -1962,11 +2217,12 @@ export type Query = {
   getAppByEmail: Maybe<Get_App_By_Email>
   getAppService: Maybe<Type_App_Service_List>
   getAppTheme: Maybe<Type_Theme_Response_List>
-  getCategory: Maybe<Type_Category_List>
   getConfig: Maybe<Type_Config_List>
   getCredential: Maybe<Type_Credential_List>
   getCredentialByHost: Maybe<Get_App_Credential_Host>
   getCustomMenu: Maybe<Type_Custom_Menu_List>
+  getDataAccount: AccountPaginateResponse
+  getDataContact: ContactPaginateResponse
   getDataLead: LeadPaginateResponse
   getDataRunningNumber: Maybe<Type_Running_Number_List>
   getDataSecurityRole: Maybe<Type_Data_Security_List>
@@ -1983,6 +2239,7 @@ export type Query = {
   getMyNotification: Maybe<Type_Notification_List>
   getMyOrgRole: Maybe<Type_My_Org_Role>
   getMyOrganization: Maybe<Type_Organization>
+  /** getMyPermission */
   getMyPermission: Maybe<Type_Type_Role_Permission_User_List>
   getMyProfile: Maybe<Type_Profile>
   getMyRoleApprovalAttribute: Maybe<Type_Role_Aproval_Attribute>
@@ -2063,10 +2320,6 @@ export type QueryGetAppThemeArgs = {
   find?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetCategoryArgs = {
-  find?: InputMaybe<Input_Find_Data>
-}
-
 export type QueryGetConfigArgs = {
   input?: InputMaybe<Input_Find_Data>
 }
@@ -2077,6 +2330,14 @@ export type QueryGetCredentialByHostArgs = {
 
 export type QueryGetCustomMenuArgs = {
   input?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetDataAccountArgs = {
+  input?: InputMaybe<FindAccountInput>
+}
+
+export type QueryGetDataContactArgs = {
+  input?: InputMaybe<FindContactInput>
 }
 
 export type QueryGetDataLeadArgs = {
@@ -2305,7 +2566,26 @@ export type QueryWebhookRunTaskEmailArgs = {
   secretKey: Scalars['String']
 }
 
+export type QueryAccountInput = {
+  _id?: InputMaybe<Scalars['String']>
+  category?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  status?: InputMaybe<Scalars['String']>
+}
+
+export type QueryContactInput = {
+  _id?: InputMaybe<Scalars['String']>
+  citizenId?: InputMaybe<Scalars['String']>
+  dataSource?: InputMaybe<Scalars['String']>
+  firstName?: InputMaybe<Scalars['String']>
+  lastName?: InputMaybe<Scalars['String']>
+  passport?: InputMaybe<Scalars['String']>
+  resourceOwner?: InputMaybe<Scalars['String']>
+  status?: InputMaybe<Scalars['String']>
+}
+
 export type QueryLeadInput = {
+  _id?: InputMaybe<Scalars['String']>
   citizenId?: InputMaybe<Scalars['String']>
   dataSource?: InputMaybe<Scalars['String']>
   firstName?: InputMaybe<Scalars['String']>
@@ -3125,6 +3405,7 @@ export type Type_Permission_List = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** array data */
   payload: Maybe<Array<Maybe<Type_Role_Permission>>>
 }
 
@@ -3265,6 +3546,7 @@ export type Type_Role_Permission_List = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** data */
   payload: Maybe<Type_Role_Permission_Payload>
 }
 
@@ -3403,6 +3685,7 @@ export type Type_Service_Info = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** data */
   payload: Maybe<Type_Service>
 }
 
@@ -3545,8 +3828,11 @@ export type Type_Token_Expired = {
 }
 
 export type Type_Type_Role_Permission_User_List = {
+  /** โค้ดของการตอบสนอง */
   code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** array data */
   payload: Maybe<Array<Maybe<Type_Role_Permission_Schema>>>
 }
 
@@ -3632,11 +3918,23 @@ export type Type_Webhook = {
   payload: Maybe<Type_Schema_Webhook>
 }
 
-export type User = {
+export type UserEmailResp = {
+  value: Maybe<Scalars['String']>
+}
+
+export type UserPhoneResp = {
+  value: Scalars['String']
+}
+
+export type UserResp = {
   _id: Maybe<Scalars['String']>
   attribute: Maybe<Scalars['JSON']>
-  email: Maybe<Array<EmailResp>>
-  phone: Maybe<Array<PhoneResp>>
+  email: Maybe<Array<UserEmailResp>>
+  phone: Maybe<Array<UserPhoneResp>>
+}
+
+export type _Service = {
+  sdl: Maybe<Scalars['String']>
 }
 
 export type CreateLeadNonAuthenMutationVariables = Exact<{
