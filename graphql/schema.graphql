@@ -3,9 +3,409 @@ directive @cacheControl(
   scope: CacheControlScope
 ) on FIELD_DEFINITION | INTERFACE | OBJECT
 
+directive @extends on INTERFACE | OBJECT
+
+directive @external on FIELD_DEFINITION | OBJECT
+
+directive @inaccessible on ARGUMENT_DEFINITION | ENUM | ENUM_VALUE | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
+
+directive @key(
+  fields: String!
+  resolvable: Boolean = true
+) on INTERFACE | OBJECT
+
+directive @link(import: [link__Import], url: String!) on SCHEMA
+
+directive @override(from: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @shareable on FIELD_DEFINITION | OBJECT
+
+directive @tag(
+  name: String!
+) on ARGUMENT_DEFINITION | ENUM | ENUM_VALUE | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
+
+input AccountEmail {
+  value: String
+}
+
+type AccountEmailResp {
+  value: String
+}
+
+type AccountPaginateResponse {
+  """
+  โค้ดของการตอบสนอง
+  """
+  code: String
+
+  """
+  ข้อความตอบสนอง
+  """
+  message: String
+
+  """
+  pagination data
+  """
+  pagination: PaginatedType
+
+  """
+  array data
+  """
+  payload: [AccountResp!]
+}
+
+input AccountPhone {
+  value: String
+}
+
+type AccountPhoneResp {
+  value: String!
+}
+
+type AccountResp {
+  _id: ID
+  accountType: String
+  category: CategoryResp
+  citizenId: String
+  contactList: [ContactInAccountResp!]
+
+  """
+  วันที่ลงทะเบียน
+  """
+  createdAt: DateTime!
+  createdAtBy: UserResp
+  dataSource: String
+  email: [AccountEmailResp!]
+  image: String
+  name: String
+  passport: String
+  phone: [AccountPhoneResp!]
+  resourceOwner: String
+  status: String
+
+  """
+  วันที่อัพเดตข้อมูลล่าสุด
+  """
+  updatedAt: DateTime!
+  updatedAtBy: UserResp
+}
+
+type AccountResponse {
+  """
+  โค้ดของการตอบสนอง
+  """
+  code: String
+
+  """
+  ข้อความตอบสนอง
+  """
+  message: String
+
+  """
+  data
+  """
+  payload: AccountResp
+}
+
 enum CacheControlScope {
   PRIVATE
   PUBLIC
+}
+
+type CategoryResp {
+  _id: String
+  descriptions: String
+  name: String
+  path: String
+}
+
+input ContactEmail {
+  value: String
+}
+
+type ContactEmailResp {
+  value: String
+}
+
+input ContactInAccountInput {
+  """
+  ไอดีของลูกค้า
+  """
+  contactAtBy: String
+
+  """
+  กำหนดค่าว่าคนไหนคือคนหลักหรือต้องติดต่อเป็นหลัก
+  """
+  isMainContact: Boolean
+
+  """
+  ตำแหน่ง
+  """
+  position: String
+}
+
+type ContactInAccountResp {
+  contactAtBy: ContactResp
+  isMainContact: Boolean
+  position: String
+}
+
+type ContactPaginateResponse {
+  """
+  โค้ดของการตอบสนอง
+  """
+  code: String
+
+  """
+  ข้อความตอบสนอง
+  """
+  message: String
+
+  """
+  pagination data
+  """
+  pagination: PaginatedType
+
+  """
+  array data
+  """
+  payload: [ContactResp!]
+}
+
+input ContactPhone {
+  value: String
+}
+
+type ContactPhoneResp {
+  value: String!
+}
+
+type ContactResp {
+  _id: ID
+  category: CategoryResp
+  citizenId: String
+  contactType: String
+
+  """
+  วันที่ลงทะเบียน
+  """
+  createdAt: DateTime!
+  createdAtBy: UserResp
+  dataSource: String
+  email: [ContactEmailResp!]
+  firstName: String
+  image: String
+  lastName: String
+  organizationName: String
+  passport: String
+  phone: [ContactPhoneResp!]
+  resourceOwner: String
+  status: String
+
+  """
+  วันที่อัพเดตข้อมูลล่าสุด
+  """
+  updatedAt: DateTime!
+  updatedAtBy: UserResp
+}
+
+type ContactResponse {
+  """
+  โค้ดของการตอบสนอง
+  """
+  code: String
+
+  """
+  ข้อความตอบสนอง
+  """
+  message: String
+
+  """
+  data
+  """
+  payload: ContactResp
+}
+
+input CreateAccountInput {
+  """
+  ประเภทองค์กร
+  """
+  accountType: ENUM_CUSTOMER_TYPE = CUSTOMER
+
+  """
+  บ้านเลขที่
+  """
+  addressNo: String
+
+  """
+  ประเภทที่อยู่
+  """
+  addressType: ENUM_ADDRESS_TYPE = NONE
+
+  """
+  เว็บไซต์ขององค์กร
+  """
+  category: String
+  contactList: [ContactInAccountInput!]
+
+  """
+  ประเทศ
+  """
+  country: String
+
+  """
+  แหล่งที่มา
+  """
+  dataSource: String
+
+  """
+  ที่อยู่จัดส่งตั้งต้น
+  """
+  defaultSend: ENUM_ADDRESS_DEFAULT_SEND = NOT_DEFAULT
+
+  """
+  อำเภอ/เขต
+  """
+  district: String
+  email: [AccountEmail!]
+
+  """
+  รูปภาพโรงงาน
+  """
+  fileList: [String!]
+
+  """
+  รูปภาพ
+  """
+  image: String
+
+  """
+  รูปภาพสินค้า
+  """
+  imageList: [String!]
+  latitude: String
+  longitude: String
+
+  """
+  ชื่อองค์กร
+  """
+  name: String
+
+  """
+  บันทึกข้อมูลเพิ่มเติม
+  """
+  note: String
+  orgKey: String
+  phone: [AccountPhone!]
+
+  """
+  รหัสไปรษณีย์
+  """
+  postcode: String
+
+  """
+  จังหวัด
+  """
+  province: String
+
+  """
+  สถานะองค์กร
+  """
+  status: ENUM_ORGANIZATION_STATUS = APPROVED
+
+  """
+  ตำบล/แขวง
+  """
+  subDistrict: String
+
+  """
+  เว็บไซต์ขององค์กร
+  """
+  website: String
+}
+
+input CreateContactInput {
+  """
+  บ้านเลขที่
+  """
+  addressNo: String
+
+  """
+  ประเภทที่อยู่
+  """
+  addressType: ENUM_ADDRESS_TYPE = NONE
+  category: String
+  citizenId: String
+
+  """
+  ประเภท
+  """
+  contactType: ENUM_CUSTOMER_TYPE = CUSTOMER
+
+  """
+  ประเทศ
+  """
+  country: String
+
+  """
+  แหล่งที่มา
+  """
+  dataSource: String
+  dateOfBirth: String
+
+  """
+  ที่อยู่จัดส่งตั้งต้น
+  """
+  defaultSend: ENUM_ADDRESS_DEFAULT_SEND = NOT_DEFAULT
+
+  """
+  อำเภอ/เขต
+  """
+  district: String
+  email: [ContactEmail!]
+
+  """
+  รูปภาพโรงงาน
+  """
+  factoryImages: [String!]
+  firstName: String
+
+  """
+  รูปภาพ
+  """
+  image: String
+  lastName: String
+  latitude: String
+  longitude: String
+  orgKey: String
+  passport: String
+  phone: [ContactPhone!]
+
+  """
+  รหัสไปรษณีย์
+  """
+  postcode: String
+  prefixKey: String
+
+  """
+  รูปภาพสินค้า
+  """
+  productImages: [String!]
+
+  """
+  จังหวัด
+  """
+  province: String
+  resourceOwner: ENUM_RESOURCE_OWNER = OTHER
+
+  """
+  ตำบล/แขวง
+  """
+  subDistrict: String
 }
 
 input CreateLeadInput {
@@ -18,6 +418,7 @@ input CreateLeadInput {
   ประเภทที่อยู่
   """
   addressType: ENUM_ADDRESS_TYPE = NONE
+  category: String
   citizenId: String
 
   """
@@ -58,7 +459,7 @@ input CreateLeadInput {
   """
   ประเภท
   """
-  leadType: LEAD_TYPE_RESPONSE = CUSTOMER
+  leadType: ENUM_CUSTOMER_TYPE = CUSTOMER
   longitude: String
 
   """
@@ -83,6 +484,7 @@ input CreateLeadInput {
   จังหวัด
   """
   province: String
+  remark: String
   resourceOwner: ENUM_RESOURCE_OWNER = OTHER
 
   """
@@ -108,6 +510,11 @@ type DATA_MIGRATION_RESULT {
 
 scalar Date
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 enum ENUM_ADDRESS_DEFAULT_SEND {
   DEFAULT
   NOT_DEFAULT
@@ -122,6 +529,9 @@ enum ENUM_ADDRESS_TYPE {
   NONE
 }
 
+"""
+สถานะการใช้ของ APP
+"""
 enum ENUM_APP_STATUS {
   ACTIVE
   INACTIVE
@@ -163,6 +573,15 @@ enum ENUM_CREAT_LEAD_STATUS {
 enum ENUM_CREDENTIAL_TYPE {
   RESOURCE_ADMIN
   RESOURCE_OWNER
+}
+
+enum ENUM_CUSTOMER_TYPE {
+  AGENT
+  CUSTOMER
+  FACTORY
+  ORGANIZATION
+  OTHER
+  RETAIL
 }
 
 enum ENUM_DATA_SECURITY {
@@ -215,11 +634,17 @@ enum ENUM_INVITE_STATUS {
   INACTIVE
 }
 
+"""
+สถานะ YES | NO
+"""
 enum ENUM_IS {
   NO
   YES
 }
 
+"""
+ประเภทของ user
+"""
 enum ENUM_LRLE_TYPE {
   RESOURCE_ADMIN
   RESOURCE_OWNER
@@ -394,6 +819,20 @@ type File {
 }
 
 scalar FileUpload
+
+input FindAccountInput {
+  filter: QueryAccountInput
+  pagination: PaginatedFindType
+  query: QueryAccountInput
+  search: QueryAccountInput
+}
+
+input FindContactInput {
+  filter: QueryContactInput
+  pagination: PaginatedFindType
+  query: QueryContactInput
+  search: QueryContactInput
+}
 
 input FindLeadInput {
   filter: QueryLeadInput
@@ -977,54 +1416,6 @@ scalar JSON
 
 scalar JSONObject
 
-enum LEAD_TYPE_RESPONSE {
-  AGENT
-  CUSTOMER
-  FACTORY
-  ORGANIZATION
-  OTHER
-  RETAIL
-}
-
-type Lead {
-  _id: String!
-
-  """
-  วันที่ลงทะเบียน
-  """
-  createdAt: String!
-
-  """
-  ชื่อ
-  """
-  firstName: String!
-
-  """
-  นามสกุล
-  """
-  lastName: String!
-
-  """
-  ประเภทของลูกค้า
-  """
-  leadType: LEAD_TYPE_RESPONSE!
-
-  """
-  เบอร์โทรศัพท์
-  """
-  phoneNumber: String!
-
-  """
-  สถานะของลูกค้า
-  """
-  status: ENUM_CREAT_LEAD_STATUS!
-
-  """
-  วันที่อัพเดตข้อมูลล่าสุด
-  """
-  updatedAt: String!
-}
-
 type LeadPaginateResponse {
   """
   โค้ดของการตอบสนอง
@@ -1035,35 +1426,46 @@ type LeadPaginateResponse {
   ข้อความตอบสนอง
   """
   message: String
+
+  """
+  pagination data
+  """
   pagination: PaginatedType
+
+  """
+  array data
+  """
   payload: [LeadResp!]
 }
 
 type LeadResp {
   _id: ID
+  category: CategoryResp
   citizenId: String
 
   """
   วันที่ลงทะเบียน
   """
-  createdAt: String!
-  createdAtBy: User
+  createdAt: DateTime!
+  createdAtBy: UserResp
   dataSource: String
   email: [EmailResp!]
   firstName: String
   image: String
   lastName: String
+  leadType: String
   organizationName: String
   passport: String
   phone: [PhoneResp!]
+  remark: String
   resourceOwner: String
   status: String
 
   """
   วันที่อัพเดตข้อมูลล่าสุด
   """
-  updatedAt: String!
-  updatedAtBy: User
+  updatedAt: DateTime!
+  updatedAtBy: UserResp
 }
 
 type LeadResponse {
@@ -1076,7 +1478,11 @@ type LeadResponse {
   ข้อความตอบสนอง
   """
   message: String
-  payload: Lead
+
+  """
+  data
+  """
+  payload: LeadResp
 }
 
 type Mutation {
@@ -1128,13 +1534,15 @@ type Mutation {
   confirmSystemAdmin(
     input: INPUT_VERIFY_PASSWORD_SYSTEM_ADMIN_EMAIL
   ): TYPE_RESET_PASSWORD_EMAIL
+  createAccount(input: CreateAccountInput!): AccountResponse!
   createApp(input: INPUT_APP_FORM): TYPE_APP
-  createCategory(input: INPUT_CATEGORY): TYPE_CATEGORY
+  createContact(input: CreateContactInput!): ContactResponse!
   createCredential(credentialInput: INPUT_CREDENTIAL_FORM): TYPE_CREDENTIAL
   createCustomMenu(input: INPUT_SCHEMA_CUSTOM_MENU): TYPE_CUSTOM_MENU
   createLead(input: CreateLeadInput!): LeadResponse!
   createLeadNonAuthen(input: CreateLeadInput!): LeadResponse!
   createLeadToUser(input: CreateLeadInput!): LeadResponse!
+  createLeadToUserNonAuthen(input: CreateLeadInput!): LeadResponse!
   createLocaleText(input: INPUT_LOCALE_TEXT_FORM): TYPE_LOCALE_TEXT
   createLocaleTextList(
     inputList: [INPUT_LOCALE_TEXT_FORM!]!
@@ -1171,7 +1579,7 @@ type Mutation {
   createRole(roleInput: INPUT_ROLE_FROM): TYPE_APP_ROLE
   createRunningNumber(input: INPUT_RUNNING_NUMBER): TYPE_RUNNING_NUMBER
   deleteApp(appKey: String!): TYPE_APP
-  deleteCategory(categoryId: String!): TYPE_CATEGORY
+  deleteContact(contactId: String!): ContactResponse!
   deleteContactEmail(appKey: String!, emailList: [String!]): TYPE_APP
   deleteCredential(credentialKey: String!): TYPE_CREDENTIAL
   deleteCustomMenu(customMenuIdList: [ID]!): TYPE_CUSTOM_MENU_LIST
@@ -1322,10 +1730,17 @@ type Mutation {
   syncAppToService(appKeyList: [String!]): TYPE_SYNC_APP
   syncOrganization(orgKeyList: [String]): TYPE_SYNC_ORGANIZATION
   syncService(serviceKeyList: [String!]): TYPE_SYNC_SERVICE_INFO
+  updateAccount(
+    accountId: String!
+    input: CreateAccountInput!
+  ): AccountResponse!
   updateApp(appInput: INPUT_UPDATE_APP, appKey: String!): TYPE_APP
   updateAppAttribute(attributeInput: JSON!): TYPE_APP
-  updateCategory(categoryId: String!, input: INPUT_CATEGORY): TYPE_CATEGORY
   updateConfig(input: INPUT_CONFIG_FORM): TYPE_CONFIG
+  updateContact(
+    contactId: String!
+    input: CreateContactInput!
+  ): ContactResponse!
   updateCredential(
     credentialInput: INPUT_CREDENTIAL_FORM_UPDATE
     credentialKey: String!
@@ -1503,6 +1918,7 @@ type PhoneResp {
 
 type Query {
   _dummy: String
+  _service: _Service!
   exportUser: TYPE_TYPE_ROLE_PERMISSION_USER_LIST
   generateKey(
     capitalization: ENUM_GENERATE_KEY_CAPITALIZATION
@@ -1517,11 +1933,12 @@ type Query {
   getAppByEmail(email: String!): GET_APP_BY_EMAIL
   getAppService: TYPE_APP_SERVICE_LIST
   getAppTheme(find: INPUT_FIND_DATA): TYPE_THEME_RESPONSE_LIST
-  getCategory(find: INPUT_FIND_DATA): TYPE_CATEGORY_LIST
   getConfig(input: INPUT_FIND_DATA): TYPE_CONFIG_LIST
   getCredential: TYPE_CREDENTIAL_LIST
   getCredentialByHost(host: String!): GET_APP_CREDENTIAL_HOST
   getCustomMenu(input: INPUT_FIND_DATA): TYPE_CUSTOM_MENU_LIST
+  getDataAccount(input: FindAccountInput): AccountPaginateResponse!
+  getDataContact(input: FindContactInput): ContactPaginateResponse!
   getDataLead(input: FindLeadInput): LeadPaginateResponse!
   getDataRunningNumber(input: INPUT_FIND_DATA): TYPE_RUNNING_NUMBER_LIST
   getDataSecurityRole(roleKey: String!): TYPE_DATA_SECURITY_LIST
@@ -1544,6 +1961,10 @@ type Query {
   getMyNotification(find: INPUT_FIND_DATA): TYPE_NOTIFICATION_LIST
   getMyOrgRole(orgKey: String!): TYPE_MY_ORG_ROLE
   getMyOrganization: TYPE_ORGANIZATION
+
+  """
+  getMyPermission
+  """
   getMyPermission(orgKey: String): TYPE_TYPE_ROLE_PERMISSION_USER_LIST
   getMyProfile: TYPE_PROFILE
   getMyRoleApprovalAttribute: TYPE_ROLE_APROVAL_ATTRIBUTE
@@ -1631,7 +2052,26 @@ type Query {
   webhookRunTaskEmail(secretKey: String!): TYPE_WEBHOOK
 }
 
+input QueryAccountInput {
+  _id: String
+  category: String
+  name: String
+  status: String
+}
+
+input QueryContactInput {
+  _id: String
+  citizenId: String
+  dataSource: String
+  firstName: String
+  lastName: String
+  passport: String
+  resourceOwner: String
+  status: String
+}
+
 input QueryLeadInput {
+  _id: String
   citizenId: String
   dataSource: String
   firstName: String
@@ -2452,6 +2892,10 @@ type TYPE_PERMISSION_LIST {
   ข้อความตอบสนอง
   """
   message: String
+
+  """
+  array data
+  """
   payload: [TYPE_ROLE_PERMISSION]
 }
 
@@ -2597,6 +3041,10 @@ type TYPE_ROLE_PERMISSION_LIST {
   ข้อความตอบสนอง
   """
   message: String
+
+  """
+  data
+  """
   payload: TYPE_ROLE_PERMISSION_PAYLOAD
 }
 
@@ -2740,6 +3188,10 @@ type TYPE_SERVICE_INFO {
   ข้อความตอบสนอง
   """
   message: String
+
+  """
+  data
+  """
   payload: TYPE_SERVICE
 }
 
@@ -2882,8 +3334,19 @@ type TYPE_TOKEN_EXPIRED {
 }
 
 type TYPE_TYPE_ROLE_PERMISSION_USER_LIST {
+  """
+  โค้ดของการตอบสนอง
+  """
   code: String
+
+  """
+  ข้อความตอบสนอง
+  """
   message: String
+
+  """
+  array data
+  """
   payload: [TYPE_ROLE_PERMISSION_SCHEMA]
 }
 
@@ -2974,9 +3437,27 @@ The `Upload` scalar type represents a file upload.
 """
 scalar Upload
 
-type User {
+type UserEmailResp {
+  value: String
+}
+
+type UserPhoneResp {
+  value: String!
+}
+
+type UserResp {
   _id: String
   attribute: JSON
-  email: [EmailResp!]
-  phone: [PhoneResp!]
+  email: [UserEmailResp!]
+  phone: [UserPhoneResp!]
 }
+
+scalar _Any
+
+scalar _FieldSet
+
+type _Service {
+  sdl: String
+}
+
+scalar link__Import
