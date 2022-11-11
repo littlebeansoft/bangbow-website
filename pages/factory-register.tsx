@@ -26,10 +26,15 @@ import PageLayout from 'layouts/PageLayout'
 
 import color from 'constants/color'
 import useGetCategory from 'graphql/useGetCategory'
-import { getOptions } from 'helpers/utils'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import { useAppSelector } from 'store'
-import { useCreateLeadNonAuthenMutation } from 'graphql/_generated/operations'
+import {
+  Enum_Customer_Type,
+  useCreateLeadNonAuthenMutation,
+} from 'graphql/_generated/operations'
+import { GetCategoryResp } from 'graphql/useGetCategory/interface'
+
+const { Option } = Select
 
 const FactoryRegisterPage: NextPage = () => {
   const router = useRouter()
@@ -42,6 +47,7 @@ const FactoryRegisterPage: NextPage = () => {
   const [checkPrivate, setCheckPrivate] = useState(false)
   const [checkService, setCheckService] = useState(false)
   const [checkTerm, setCheckTerm] = useState(false)
+  const [category, setCategory] = useState<GetCategoryResp[]>([])
 
   const [visibleMobileOTP, setVisibleMobileOTP] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout>>()
@@ -81,12 +87,16 @@ const FactoryRegisterPage: NextPage = () => {
       input: {
         query: {
           name: searchValue,
+          status: 'ENABLED',
         },
         pagination: {
           limit: 30,
           page: 1,
         },
       },
+    },
+    onCompleted: (data) => {
+      setCategory(data.getCategory.payload)
     },
   })
 
@@ -114,13 +124,19 @@ const FactoryRegisterPage: NextPage = () => {
           firstName: values.firstName,
           lastName: values.lastName,
           phone: [{ value: values.phoneNumber }],
-          leadType: 'FACTORY' as any,
+          leadType: Enum_Customer_Type.Factory,
           organizationName: values.factoryName,
           dataSource: 'Register',
+          category: values.productType,
         },
       },
     })
   }
+
+  const children: React.ReactNode[] = []
+  category?.map((item) => {
+    children.push(<Option key={item._id}>{item.name}</Option>)
+  })
 
   return (
     <PageLayout title="เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิตร่วมกับเรา | แบ่งเบา">
@@ -168,17 +184,10 @@ const FactoryRegisterPage: NextPage = () => {
                   notFoundContent={
                     categoryList.loading ? <Spin size="small" /> : null
                   }
-                  options={
-                    categoryList.data
-                      ? getOptions(categoryList?.data?.getCategory.payload)
-                      : [
-                          {
-                            key: 'ไม่พบข้อมูล',
-                            value: 'ไม่พบข้อมูล',
-                          },
-                        ]
-                  }
-                />
+                  loading={categoryList.loading}
+                >
+                  {children}
+                </Select>
               </Form.Item>
             </Col>
 

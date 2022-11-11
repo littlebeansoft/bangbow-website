@@ -25,11 +25,16 @@ import PageLayout from 'layouts/PageLayout'
 //import { searchOptionsByLabel } from 'helpers/antdUtils'
 
 import color from 'constants/color'
-import { useCreateLeadNonAuthenMutation } from 'graphql/_generated/operations'
+import {
+  Enum_Customer_Type,
+  useCreateLeadNonAuthenMutation,
+} from 'graphql/_generated/operations'
 import useGetCategory from 'graphql/useGetCategory'
 import { RuleObject } from 'rc-field-form/lib/interface'
-import { getOptions } from 'helpers/utils'
 import { useAppSelector } from 'store'
+import { GetCategoryResp } from 'graphql/useGetCategory/interface'
+
+const { Option } = Select
 
 const AgentRegisterPage: NextPage = () => {
   const router = useRouter()
@@ -43,6 +48,7 @@ const AgentRegisterPage: NextPage = () => {
   const [checkPrivate, setCheckPrivate] = useState(false)
   const [checkService, setCheckService] = useState(false)
   const [checkTerm, setCheckTerm] = useState(false)
+  const [category, setCategory] = useState<GetCategoryResp[]>([])
 
   const timer = useRef<ReturnType<typeof setTimeout>>()
 
@@ -82,12 +88,16 @@ const AgentRegisterPage: NextPage = () => {
       input: {
         query: {
           name: searchValue,
+          status: 'ENABLED',
         },
         pagination: {
           limit: 30,
           page: 1,
         },
       },
+    },
+    onCompleted: (data) => {
+      setCategory(data.getCategory.payload)
     },
   })
 
@@ -115,13 +125,19 @@ const AgentRegisterPage: NextPage = () => {
           firstName: values.firstName,
           lastName: values.lastName,
           phone: [{ value: values.phoneNumber }],
-          leadType: 'AGENT' as any,
+          leadType: Enum_Customer_Type.Agent,
           organizationName: values.factoryName,
           dataSource: 'Register',
+          category: values.productType,
         },
       },
     })
   }
+
+  const children: React.ReactNode[] = []
+  category?.map((item) => {
+    children.push(<Option key={item._id}>{item.name}</Option>)
+  })
 
   return (
     <PageLayout
@@ -172,17 +188,10 @@ const AgentRegisterPage: NextPage = () => {
                   notFoundContent={
                     categoryList.loading ? <Spin size="small" /> : null
                   }
-                  options={
-                    categoryList.data
-                      ? getOptions(categoryList?.data?.getCategory.payload)
-                      : [
-                          {
-                            key: 'ไม่พบข้อมูล',
-                            value: 'ไม่พบข้อมูล',
-                          },
-                        ]
-                  }
-                ></Select>
+                  loading={categoryList.loading}
+                >
+                  {children}
+                </Select>
               </Form.Item>
             </Col>
 
