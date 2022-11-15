@@ -33,6 +33,7 @@ import useGetCategory from 'graphql/useGetCategory'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import { useAppSelector } from 'store'
 import { GetCategoryResp } from 'graphql/useGetCategory/interface'
+import Link from 'next/link'
 
 const { Option } = Select
 
@@ -118,7 +119,7 @@ const AgentRegisterPage: NextPage = () => {
   })
 
   const handleFinished = (values: any) => {
-    console.log('values', values)
+    //console.log('values', values)
     createLeadNonAuthen({
       variables: {
         input: {
@@ -151,15 +152,15 @@ const AgentRegisterPage: NextPage = () => {
 
         <Form scrollToFirstError autoComplete="off" onFinish={handleFinished}>
           <Row gutter={[16, 16]}>
-            <Col span={24}>
+            {/* <Col span={24}>
               <Form.Item name="factoryName" rules={[ruleRequired]}>
                 <Input placeholder="ชื่อโรงงานของคุณ" />
               </Form.Item>
-            </Col>
+            </Col> */}
 
             <Col span={12}>
               <Form.Item name="firstName" rules={[ruleRequired]}>
-                <Input placeholder="ชื่อผู้ติดต่อ" />
+                <Input placeholder="ชื่อ" />
               </Form.Item>
             </Col>
 
@@ -174,6 +175,7 @@ const AgentRegisterPage: NextPage = () => {
                 <PhoneNumberInput
                   onPhoneNumberChange={setPhoneNumber}
                   onVisibleMobileOTP={() => setVisibleMobileOTP(true)}
+                  visibleMobileOTP={visibleMobileOTP}
                 />
               </Form.Item>
             </Col>
@@ -219,9 +221,20 @@ const AgentRegisterPage: NextPage = () => {
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  ประกาศความเป็นส่วนตัว และข้าพเจ้าตกลงปฏิบัติตาม
-                  ข้อกำนดและเงื่อนไขใน การใช้บริการ
-                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      {' '}
+                      ประกาศความเป็นส่วนตัว{' '}
+                    </Link>
+                  }{' '}
+                  และข้าพเจ้าตกลงปฏิบัติตาม
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      {' '}
+                      ข้อกำนดและเงื่อนไขใน{' '}
+                    </Link>
+                  }{' '}
+                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -241,9 +254,20 @@ const AgentRegisterPage: NextPage = () => {
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  ประกาศความเป็นส่วนตัว และข้าพเจ้าตกลงปฏิบัติตาม
-                  ข้อกำนดและเงื่อนไขใน การใช้บริการ
-                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      {' '}
+                      ประกาศความเป็นส่วนตัว{' '}
+                    </Link>
+                  }{' '}
+                  และข้าพเจ้าตกลงปฏิบัติตาม
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      {' '}
+                      ข้อกำนดและเงื่อนไขใน{' '}
+                    </Link>
+                  }{' '}
+                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -260,9 +284,20 @@ const AgentRegisterPage: NextPage = () => {
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  ประกาศความเป็นส่วนตัว และข้าพเจ้าตกลงปฏิบัติตาม
-                  ข้อกำนดและเงื่อนไขใน การใช้บริการ
-                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      {' '}
+                      ประกาศความเป็นส่วนตัว{' '}
+                    </Link>
+                  }{' '}
+                  และข้าพเจ้าตกลงปฏิบัติตาม
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      {' '}
+                      ข้อกำนดและเงื่อนไขใน{' '}
+                    </Link>
+                  }{' '}
+                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
