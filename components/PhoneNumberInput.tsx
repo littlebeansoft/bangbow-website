@@ -1,4 +1,4 @@
-import type { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 import isNumeric from 'validator/lib/isNumeric'
 import isMobilePhone from 'validator/lib/isMobilePhone'
@@ -17,6 +17,7 @@ interface PhoneNumberInputProps {
   onPhoneNumberChange?: (value?: string) => void
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   onVisibleMobileOTP: () => void
+  visibleMobileOTP: boolean
 }
 
 const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
@@ -24,10 +25,13 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
   onChange,
   onPhoneNumberChange,
   onVisibleMobileOTP,
+  visibleMobileOTP,
 }) => {
   const router = useRouter()
 
   const otpVerify = useAppSelector((state) => state.otp.otpVerify)
+
+  const [disableButton, setDisableButton] = useState(false)
 
   const [requestOtp] = useRequestOtpMutation({
     context: {
@@ -39,7 +43,12 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
     onCompleted: (data) => {
       message.success('OTP sent successfully')
       onVisibleMobileOTP()
-      console.log('data', data.requestOtp.payload)
+      setDisableButton(false)
+      //console.log('data', data.requestOtp.payload)
+    },
+    onError: (error) => {
+      message.error(error.message)
+      setDisableButton(false)
     },
   })
 
@@ -62,7 +71,7 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
       maxLength={10}
       placeholder="เบอร์โทรผู้ติดต่อ"
       value={value}
-      disabled={otpVerify}
+      disabled={otpVerify || visibleMobileOTP}
       suffix={
         otpVerify ? (
           <>
@@ -78,11 +87,12 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
           </>
         ) : (
           <Text
-            hidden={hideRequestOTPButton}
+            hidden={hideRequestOTPButton || disableButton}
             page={page}
             color="primary"
             weight={500}
             onClick={() => {
+              setDisableButton(true)
               requestOtp({
                 variables: {
                   phoneNumber: value || '',
