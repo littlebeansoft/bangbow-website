@@ -33,6 +33,7 @@ import {
   useCreateLeadNonAuthenMutation,
 } from 'graphql/_generated/operations'
 import { GetCategoryResp } from 'graphql/useGetCategory/interface'
+import Link from 'next/link'
 
 const { Option } = Select
 
@@ -170,6 +171,7 @@ const FactoryRegisterPage: NextPage = () => {
                 <PhoneNumberInput
                   onPhoneNumberChange={setPhoneNumber}
                   onVisibleMobileOTP={() => setVisibleMobileOTP(true)}
+                  visibleMobileOTP={visibleMobileOTP}
                 />
               </Form.Item>
             </Col>
@@ -215,9 +217,18 @@ const FactoryRegisterPage: NextPage = () => {
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  ประกาศความเป็นส่วนตัว และข้าพเจ้าตกลงปฏิบัติตาม
-                  ข้อกำนดและเงื่อนไขใน การใช้บริการ
-                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      ประกาศความเป็นส่วนตัว
+                    </Link>
+                  }{' '}
+                  และข้าพเจ้าตกลงปฏิบัติตาม
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      ข้อกำนดและเงื่อนไขใน
+                    </Link>
+                  }{' '}
+                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -237,9 +248,18 @@ const FactoryRegisterPage: NextPage = () => {
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  ประกาศความเป็นส่วนตัว และข้าพเจ้าตกลงปฏิบัติตาม
-                  ข้อกำนดและเงื่อนไขใน การใช้บริการ
-                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      ประกาศความเป็นส่วนตัว
+                    </Link>
+                  }{' '}
+                  และข้าพเจ้าตกลงปฏิบัติตาม
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      ข้อกำนดและเงื่อนไขใน
+                    </Link>
+                  }{' '}
+                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -256,9 +276,18 @@ const FactoryRegisterPage: NextPage = () => {
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  ประกาศความเป็นส่วนตัว และข้าพเจ้าตกลงปฏิบัติตาม
-                  ข้อกำนดและเงื่อนไขใน การใช้บริการ
-                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      ประกาศความเป็นส่วนตัว
+                    </Link>
+                  }{' '}
+                  และข้าพเจ้าตกลงปฏิบัติตาม
+                  {
+                    <Link href={'/privacy-policy-th'}>
+                      ข้อกำนดและเงื่อนไขใน
+                    </Link>
+                  }{' '}
+                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
