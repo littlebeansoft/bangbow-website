@@ -47,3 +47,17 @@ type AddressInput = {
 export interface RegisterFactoryResponse {
   status: string
 }
+
+export interface RegisterAgentInput {
+  first_name: string
+  last_name: string
+  email: string
+  mobile: string
+  product_category_id: string
+  product_description: string
+  address?: AddressInput | null
+}
+
+export interface RegisterAgentResponse {
+  status: string
+}

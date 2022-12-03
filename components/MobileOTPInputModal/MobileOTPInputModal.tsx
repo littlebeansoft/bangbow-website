@@ -55,27 +55,6 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
     }
   }, [visible])
 
-  // const [verifyOtp] = useVerifyOtpMutation({
-  //   context: {
-  //     clientType: 'CORE',
-  //     headers: {
-  //       credentialKey: 'BANG_BOW_ADMIN',
-  //     },
-  //   },
-  //   onCompleted: (res) => {
-  //     if (res.verifyOtp.code === 'OK') {
-  //       dispatch(setOtpVerify(true))
-  //       message.success('OTP verified successfully')
-  //       onClose?.()
-  //     } else {
-  //       message.error(res.verifyOtp.payload.message)
-  //     }
-  //   },
-  //   onError: (error) => {
-  //     message.error(error.message)
-  //   },
-  // })
-
   const { mutate: submitOtp } = useSubmitOtp()
 
   return (
@@ -140,12 +119,6 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
           type="primary"
           onClick={() => {
             if (otp?.length === 6 && otp !== undefined) {
-              // verifyOtp({
-              //   variables: {
-              //     phoneNumber: phoneNumber,
-              //     otpCode: otp,
-              //   },
-              // })
               submitOtp(
                 {
                   ref_code: otpData?.ref_no,

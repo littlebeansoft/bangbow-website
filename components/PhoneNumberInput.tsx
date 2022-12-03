@@ -79,11 +79,6 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
             weight={500}
             onClick={() => {
               setDisableButton(true)
-              // requestOtp({
-              //   variables: {
-              //     phoneNumber: value || '',
-              //   },
-              // })
               requestOtp(
                 { mobile: value || '' },
                 {

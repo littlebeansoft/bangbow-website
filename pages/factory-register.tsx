@@ -22,8 +22,6 @@ import PhoneNumberInput from 'components/PhoneNumberInput'
 
 import PageLayout from 'layouts/PageLayout'
 
-//import { searchOptionsByLabel } from 'helpers/antdUtils'
-
 import color from 'constants/color'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import { useAppSelector } from 'store'
@@ -42,7 +40,7 @@ const FactoryRegisterPage: NextPage = () => {
   const otpVerify = useAppSelector((state) => state.otp.otpVerify)
 
   const [phoneNumber, setPhoneNumber] = useState<string>()
-  const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
+  //const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
   const [checkPrivate, setCheckPrivate] = useState(false)
   const [checkService, setCheckService] = useState(false)
   const [checkTerm, setCheckTerm] = useState(false)
@@ -66,13 +64,13 @@ const FactoryRegisterPage: NextPage = () => {
     return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
   }
 
-  const onSearch = (value: string) => {
-    clearTimeout(timer.current!)
+  // const onSearch = (value: string) => {
+  //   clearTimeout(timer.current!)
 
-    timer.current = setTimeout(() => {
-      setSearchValue(value)
-    }, 500)
-  }
+  //   timer.current = setTimeout(() => {
+  //     setSearchValue(value)
+  //   }, 500)
+  // }
 
   const { data: categoryData, isLoading: categoryLoading } = useGetCategory()
 

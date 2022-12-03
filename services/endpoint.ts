@@ -3,4 +3,5 @@ export const API = {
   submitOtp: '/core/otp/submit',
   getCategory: '/category/root',
   registerFactory: '/factory/register',
+  registerAgent: '/agent/register',
 }

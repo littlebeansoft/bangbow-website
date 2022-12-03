@@ -2,8 +2,10 @@ import { useQuery, useMutation, UseMutationResult } from 'react-query'
 import {
   RegisterFactoryResponse,
   RegisterFactoryInput,
+  RegisterAgentInput,
+  RegisterAgentResponse,
 } from 'services/interface'
-import { registerFactory } from 'services/registerApi'
+import { registerFactory, registerAgent } from 'services/registerApi'
 
 export const useRegisterFactory = (): UseMutationResult<
   RegisterFactoryResponse,
@@ -19,5 +21,17 @@ export const useRegisterFactory = (): UseMutationResult<
   >(
     (input: RegisterFactoryInput): Promise<RegisterFactoryResponse> =>
       registerFactory(input)
+  )
+}
+
+export const useRegisterAgent = (): UseMutationResult<
+  RegisterAgentResponse,
+  Error,
+  RegisterAgentInput,
+  unknown
+> => {
+  return useMutation<RegisterAgentResponse, Error, RegisterAgentInput, unknown>(
+    (input: RegisterAgentInput): Promise<RegisterAgentResponse> =>
+      registerAgent(input)
   )
 }
