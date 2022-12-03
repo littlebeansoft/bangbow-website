@@ -8,9 +8,10 @@ import { useRouter } from 'next/router'
 import Text from 'components/Text'
 
 import { getPageTypeTheme } from 'helpers/utils'
-import { useRequestOtpMutation } from 'graphql/_generated/operations'
-import { useAppSelector } from 'store'
+import { useAppSelector, useAppDispatch } from 'store'
 import { CheckCircleOutlined } from '@ant-design/icons'
+import { useRequestOtp } from 'reactQuery/useOtp'
+import { setOtpData } from 'store/slices/otpSlice'
 
 interface PhoneNumberInputProps {
   value?: string
@@ -29,28 +30,13 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
 }) => {
   const router = useRouter()
 
+  const dispatch = useAppDispatch()
+
   const otpVerify = useAppSelector((state) => state.otp.otpVerify)
 
   const [disableButton, setDisableButton] = useState(false)
 
-  const [requestOtp] = useRequestOtpMutation({
-    context: {
-      clientType: 'CORE',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
-    },
-    onCompleted: (data) => {
-      message.success('OTP sent successfully')
-      onVisibleMobileOTP()
-      setDisableButton(false)
-      //console.log('data', data.requestOtp.payload)
-    },
-    onError: (error) => {
-      message.error(error.message)
-      setDisableButton(false)
-    },
-  })
+  const { mutate: requestOtp } = useRequestOtp()
 
   const hideRequestOTPButton =
     value == null || !isMobilePhone(value) || value.length !== 10
@@ -93,11 +79,26 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
             weight={500}
             onClick={() => {
               setDisableButton(true)
-              requestOtp({
-                variables: {
-                  phoneNumber: value || '',
-                },
-              })
+              requestOtp(
+                { mobile: value || '' },
+                {
+                  onSuccess: (data) => {
+                    if (data.status === 'success') {
+                      message.success('OTP sent successfully')
+                      onVisibleMobileOTP()
+                      setDisableButton(false)
+                      console.log('data', data)
+                      dispatch(setOtpData(data))
+                    } else {
+                      message.error('OTP sent failed')
+                    }
+                  },
+                  onError: (error: any) => {
+                    message.error(error.message)
+                    setDisableButton(false)
+                  },
+                }
+              )
             }}
           >
             ส่งรหัส

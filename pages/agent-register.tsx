@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import type { Rule } from 'antd/lib/form'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import {
   Button,
@@ -22,18 +22,13 @@ import MobileOTPInputModal from 'components/MobileOTPInputModal'
 
 import PageLayout from 'layouts/PageLayout'
 
-//import { searchOptionsByLabel } from 'helpers/antdUtils'
-
 import color from 'constants/color'
-import {
-  Enum_Customer_Type,
-  useCreateLeadNonAuthenMutation,
-} from 'graphql/_generated/operations'
-import useGetCategory from 'graphql/useGetCategory'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import { useAppSelector } from 'store'
-import { GetCategoryResp } from 'graphql/useGetCategory/interface'
 import Link from 'next/link'
+import { useGetCategory } from 'reactQuery/useCategory'
+import { CategoryResponse } from 'services/interface'
+import { useRegisterAgent } from 'reactQuery/useRegister'
 
 const { Option } = Select
 
@@ -45,13 +40,13 @@ const AgentRegisterPage: NextPage = () => {
 
   const [phoneNumber, setPhoneNumber] = useState<string>()
   const [visibleMobileOTP, setVisibleMobileOTP] = useState(false)
-  const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
+  //const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
   const [checkPrivate, setCheckPrivate] = useState(false)
   const [checkService, setCheckService] = useState(false)
   const [checkTerm, setCheckTerm] = useState(false)
-  const [category, setCategory] = useState<GetCategoryResp[]>([])
+  const [category, setCategory] = useState<CategoryResponse>([])
 
-  const timer = useRef<ReturnType<typeof setTimeout>>()
+  //const timer = useRef<ReturnType<typeof setTimeout>>()
 
   const ruleRequired: Rule = {
     required: true,
@@ -66,78 +61,50 @@ const AgentRegisterPage: NextPage = () => {
     if (checkPrivate || checkService) {
       return callback()
     }
-    return callback('Please accept the terms and conditions')
+    return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
   }
 
-  const onSearch = (value: string) => {
-    clearTimeout(timer.current!)
+  const { data: categoryData, isLoading: categoryLoading } = useGetCategory()
 
-    timer.current = setTimeout(() => {
-      setSearchValue(value)
-    }, 500)
-  }
+  useEffect(() => {
+    if (categoryData) {
+      setCategory(categoryData)
+    }
+  }, [categoryData])
 
-  const categoryList = useGetCategory({
-    context: {
-      clientType: 'LABEL',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
-    },
-    fetchPolicy: 'cache-first',
-    variables: {
-      input: {
-        query: {
-          name: searchValue,
-          status: 'ENABLED',
-        },
-        pagination: {
-          limit: 30,
-          page: 1,
-        },
-      },
-    },
-    onCompleted: (data) => {
-      setCategory(data.getCategory.payload)
-    },
-  })
-
-  const [createLeadNonAuthen, { loading }] = useCreateLeadNonAuthenMutation({
-    context: {
-      clientType: 'CUSTOMER',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
-    },
-    onCompleted: () => {
-      message.success('สมัครสมาชิกเรียบร้อย')
-      router.push('/agent-register-success')
-    },
-    onError: (error) => {
-      message.error(error.message)
-    },
-  })
+  const { mutate: registerAgent, isLoading } = useRegisterAgent()
 
   const handleFinished = (values: any) => {
-    //console.log('values', values)
-    createLeadNonAuthen({
-      variables: {
-        input: {
-          firstName: values.firstName,
-          lastName: values.lastName,
-          phone: [{ value: values.phoneNumber }],
-          leadType: Enum_Customer_Type.Agent,
-          organizationName: values.factoryName,
-          dataSource: 'Register',
-          category: values.productType,
+    registerAgent(
+      {
+        first_name: values.firstName,
+        last_name: values.lastName,
+        mobile: values.phoneNumber,
+        email: '',
+        product_category_id: values.productType,
+        product_description: values.productDescription,
+        address: {
+          province_id: 0,
+          district_id: 0,
+          sub_district_id: 0,
+          post_code: 0,
         },
       },
-    })
+      {
+        onSuccess: () => {
+          message.success('สมัครสมาชิกเรียบร้อย')
+          router.push('/agent-register-success')
+        },
+        onError: (error) => {
+          message.error(error.message)
+        },
+      }
+    )
   }
 
   const children: React.ReactNode[] = []
   category?.map((item) => {
-    children.push(<Option key={item._id}>{item.name}</Option>)
+    children.push(<Option key={item.id}>{item.name}</Option>)
   })
 
   return (
@@ -185,12 +152,11 @@ const AgentRegisterPage: NextPage = () => {
                 <Select
                   showSearch
                   placeholder="ประเภทสินค้าที่ขาย"
-                  filterOption={false}
-                  onSearch={onSearch}
+                  optionFilterProp="children"
                   notFoundContent={
-                    categoryList.loading ? <Spin size="small" /> : null
+                    categoryLoading ? <Spin size="small" /> : null
                   }
-                  loading={categoryList.loading}
+                  loading={categoryLoading}
                 >
                   {children}
                 </Select>
@@ -304,7 +270,7 @@ const AgentRegisterPage: NextPage = () => {
                 block
                 type="primary"
                 htmlType="submit"
-                loading={loading}
+                loading={isLoading}
               >
                 ส่งข้อมูล
               </Button>

@@ -15,9 +15,10 @@ import OTPCountDown from './OTPCountDown'
 import { getPageTypeTheme } from 'helpers/utils'
 
 import color from 'constants/color'
-import { useVerifyOtpMutation } from 'graphql/_generated/operations'
-import { useAppDispatch } from 'store'
+
+import { useAppDispatch, useAppSelector } from 'store'
 import { setOtpVerify } from 'store/slices/otpSlice'
+import { useSubmitOtp } from 'reactQuery/useOtp'
 
 interface MobileOTPInputModalProps {
   phoneNumber?: string
@@ -33,6 +34,8 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
   const router = useRouter()
 
   const dispatch = useAppDispatch()
+
+  const otpData = useAppSelector((state) => state.otp.otpData)
 
   const otpInputRef = useRef<OtpInput | null>()
   const [otp, setOTP] = useState<string>()
@@ -52,26 +55,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
     }
   }, [visible])
 
-  const [verifyOtp] = useVerifyOtpMutation({
-    context: {
-      clientType: 'CORE',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
-    },
-    onCompleted: (res) => {
-      if (res.verifyOtp.code === 'OK') {
-        dispatch(setOtpVerify(true))
-        message.success('OTP verified successfully')
-        onClose?.()
-      } else {
-        message.error(res.verifyOtp.payload.message)
-      }
-    },
-    onError: (error) => {
-      message.error(error.message)
-    },
-  })
+  const { mutate: submitOtp } = useSubmitOtp()
 
   return (
     <Modal
@@ -99,7 +83,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
         </Text>
 
         <Text size="headline" weight={600}>
-          Ref: 57awb
+          Ref: {otpData?.ref_no}
         </Text>
 
         <OtpInput
@@ -135,12 +119,27 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
           type="primary"
           onClick={() => {
             if (otp?.length === 6 && otp !== undefined) {
-              verifyOtp({
-                variables: {
-                  phoneNumber: phoneNumber,
-                  otpCode: otp,
+              submitOtp(
+                {
+                  ref_code: otpData?.ref_no,
+                  pin: otp,
+                  token: otpData?.token,
                 },
-              })
+                {
+                  onSuccess: (data) => {
+                    if (data.status === 'success') {
+                      dispatch(setOtpVerify(true))
+                      message.success('OTP verified successfully')
+                      onClose?.()
+                    } else {
+                      message.error('OTP verify failed')
+                    }
+                  },
+                  onError: (error) => {
+                    message.error(error.message)
+                  },
+                }
+              )
             } else {
               message.error('กรุณากรอกรหัส OTP ให้ครบ 6 หลัก')
             }
