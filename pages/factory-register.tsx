@@ -30,6 +30,7 @@ import Link from 'next/link'
 import { CategoryResponse } from 'services/interface'
 import { useGetCategory } from '../reactQuery/useCategory'
 import { useRegisterFactory } from 'reactQuery/useRegister'
+import UploadForm from 'components/Upload'
 
 const { Option } = Select
 
@@ -178,6 +179,21 @@ const FactoryRegisterPage: NextPage = () => {
                   placeholder="คำอธิบายเกี่ยวกับสินค้าที่ขาย"
                 />
               </Form.Item>
+            </Col>
+
+            <Col span={24}>
+              <div
+                style={{
+                  borderStyle: 'dashed',
+                  borderColor: '#C4C4C4',
+                  padding: 5,
+                  borderRadius: 5,
+                }}
+              >
+                <Form.Item name="fileUpload">
+                  <UploadForm />
+                </Form.Item>
+              </div>
             </Col>
 
             <Col span={24}>
