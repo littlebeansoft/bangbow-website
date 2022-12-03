@@ -4,4 +4,7 @@ export const API = {
   getCategory: '/category/root',
   registerFactory: '/factory/register',
   registerAgent: '/agent/register',
+  masterProvice: '/master/provinces',
+  masterDistrict: '/master/districts?province_id=',
+  masterSubDistrict: '/master/subdistricts?district_id=',
 }

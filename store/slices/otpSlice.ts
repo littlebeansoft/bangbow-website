@@ -7,6 +7,8 @@ const initialState = {
     ref_no: '',
     token: '',
   },
+  countDownStatus: false,
+  countDown: 60,
 }
 
 const otpSlice = createSlice({
@@ -19,8 +21,14 @@ const otpSlice = createSlice({
     setOtpData: (state, action) => {
       state.otpData = action.payload
     },
+    setCountDownStatus: (state, action) => {
+      state.countDownStatus = action.payload
+    },
+    setCountDown: (state, action) => {
+      state.countDown = action.payload
+    },
   },
 })
 
-export const { setOtpVerify, setOtpData } = otpSlice.actions
+export const { setOtpVerify, setOtpData, setCountDownStatus } = otpSlice.actions
 export default otpSlice.reducer

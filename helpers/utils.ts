@@ -22,10 +22,11 @@ export const getOptions = (payload: GetCategoryResp[]) => {
 }
 
 export const handleResponseError = (error: {
-  response: { data: { error: any } }
+  response: { data: { message: any } }
 }) => {
-  if (error?.response?.data?.error) {
-    throw error.response.data.error
+  // console.log('error', error?.response?.data?.message)
+  if (error?.response?.data) {
+    throw error.response.data
   }
   throw error
 }

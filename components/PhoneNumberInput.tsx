@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 
 import isNumeric from 'validator/lib/isNumeric'
 import isMobilePhone from 'validator/lib/isMobilePhone'
@@ -12,6 +12,8 @@ import { useAppSelector, useAppDispatch } from 'store'
 import { CheckCircleOutlined } from '@ant-design/icons'
 import { useRequestOtp } from 'reactQuery/useOtp'
 import { setOtpData } from 'store/slices/otpSlice'
+import OTPCountDown from './MobileOTPInputModal/OTPCountDown'
+import useGenerateComponentKey from 'hooks/useGenerateComponentKey'
 
 interface PhoneNumberInputProps {
   value?: string
@@ -33,8 +35,11 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
   const dispatch = useAppDispatch()
 
   const otpVerify = useAppSelector((state) => state.otp.otpVerify)
+  const [otpCountDownID, setOTPCountDownID] = useGenerateComponentKey()
 
   const [disableButton, setDisableButton] = useState(false)
+
+  const [showTimer, setShowTimer] = useState(false)
 
   const { mutate: requestOtp } = useRequestOtp()
 
@@ -71,7 +76,7 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
               ยืนยันแล้ว
             </Text>
           </>
-        ) : (
+        ) : !showTimer ? (
           <Text
             hidden={hideRequestOTPButton || disableButton}
             page={page}
@@ -87,8 +92,9 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
                       message.success('OTP sent successfully')
                       onVisibleMobileOTP()
                       setDisableButton(false)
-                      console.log('data', data)
+                      // console.log('data', data)
                       dispatch(setOtpData(data))
+                      setShowTimer(true)
                     } else {
                       message.error('OTP sent failed')
                     }
@@ -103,6 +109,11 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
           >
             ส่งรหัส
           </Text>
+        ) : (
+          <OTPCountDown
+            key={otpCountDownID}
+            onCountDownCompleted={() => setShowTimer(false)}
+          />
         )
       }
       onChange={handleChangeNumberOnly}

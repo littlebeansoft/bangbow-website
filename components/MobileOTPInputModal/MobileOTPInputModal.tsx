@@ -152,7 +152,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
   )
 
   function renderOTPResendSection() {
-    if (resentOTPButtonDisabled) {
+    if (!resentOTPButtonDisabled) {
       return (
         <Space>
           <Text
@@ -166,7 +166,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
 
           <OTPCountDown
             key={otpCountDownID}
-            onCountDownCompleted={() => setResentOTPButtonDisabled(false)}
+            onCountDownCompleted={() => setResentOTPButtonDisabled(true)}
           />
         </Space>
       )
@@ -179,7 +179,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
         size="body"
         onClick={() => {
           setOTPCountDownID()
-          setResentOTPButtonDisabled(true)
+          setResentOTPButtonDisabled(false)
         }}
       >
         ส่งรหัสอีกครั้งหากไม่ได้รับ OTP ?

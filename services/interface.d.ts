@@ -1,3 +1,9 @@
+export interface IError {
+  message: string
+  code: number
+  status: string
+}
+
 export interface RequestOPTInput {
   mobile: string
 }
@@ -53,11 +59,37 @@ export interface RegisterAgentInput {
   last_name: string
   email: string
   mobile: string
-  product_category_id: string
-  product_description: string
   address?: AddressInput | null
 }
 
 export interface RegisterAgentResponse {
   status: string
+}
+
+export interface MasterProvinceResponse extends Array<MasterProvinceData> {}
+
+type MasterProvinceData = {
+  id: number
+  name_th: string
+  name_en: string
+  geography_id: number
+  update_date: string
+}
+
+export interface MasterDistrictResponse extends Array<MasterDistrictData> {}
+
+type MasterDistrictData = {
+  id: number
+  name_th: string
+  name_en: string
+}
+
+export interface MasterSubDistrictResponse
+  extends Array<MasterSubDistrictData> {}
+
+type MasterSubDistrictData = {
+  id: number
+  name_th: string
+  name_en: string
+  zip_code: number
 }
