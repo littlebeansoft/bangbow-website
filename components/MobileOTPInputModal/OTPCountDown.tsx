@@ -10,7 +10,7 @@ interface OTPCountDownProps {
 const OTPCountDown: FC<OTPCountDownProps> = ({ onCountDownCompleted }) => {
   const countDownTimerRef = useRef<NodeJS.Timer>()
 
-  const [counter, setCounter] = useState(10)
+  const [counter, setCounter] = useState(60)
 
   useEffect(() => {
     if (counter === 0) {

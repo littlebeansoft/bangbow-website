@@ -26,9 +26,17 @@ import color from 'constants/color'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import { useAppSelector } from 'store'
 import Link from 'next/link'
-import { useGetCategory } from 'reactQuery/useCategory'
-import { CategoryResponse } from 'services/interface'
+import {
+  MasterProvinceData,
+  MasterDistrictData,
+  MasterSubDistrictData,
+} from 'services/interface'
 import { useRegisterAgent } from 'reactQuery/useRegister'
+import {
+  useGetMasterDistrict,
+  useGetMasterProvice,
+  useGetMasterSubDistrict,
+} from 'reactQuery/useMasterData'
 
 const { Option } = Select
 
@@ -40,11 +48,15 @@ const AgentRegisterPage: NextPage = () => {
 
   const [phoneNumber, setPhoneNumber] = useState<string>()
   const [visibleMobileOTP, setVisibleMobileOTP] = useState(false)
-  //const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
   const [checkPrivate, setCheckPrivate] = useState(false)
   const [checkService, setCheckService] = useState(false)
   const [checkTerm, setCheckTerm] = useState(false)
-  const [category, setCategory] = useState<CategoryResponse>([])
+  const [province, setProvince] = useState<MasterProvinceData[]>([])
+  const [district, setDistrict] = useState<MasterDistrictData[]>([])
+  const [subDistrict, setSubDistrict] = useState<MasterSubDistrictData[]>([])
+  const [proviceId, setProviceId] = useState<number>(0)
+  const [districtId, setDistrictId] = useState<number>(0)
+  const [zipCode, setZipCode] = useState<number>(0)
 
   //const timer = useRef<ReturnType<typeof setTimeout>>()
 
@@ -64,13 +76,51 @@ const AgentRegisterPage: NextPage = () => {
     return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
   }
 
-  const { data: categoryData, isLoading: categoryLoading } = useGetCategory()
+  const { data: masterProviceData, isLoading: proviceLoading } =
+    useGetMasterProvice()
 
   useEffect(() => {
-    if (categoryData) {
-      setCategory(categoryData)
+    if (masterProviceData) {
+      setProvince(masterProviceData)
     }
-  }, [categoryData])
+  }, [masterProviceData])
+
+  const childrenProvince: React.ReactNode[] = []
+  province?.map((item) => {
+    childrenProvince.push(<Option key={item.id}>{item.name_th}</Option>)
+  })
+
+  const { data: masterDistrictData, isLoading: districtLoading } =
+    useGetMasterDistrict(proviceId)
+
+  useEffect(() => {
+    if (masterDistrictData) {
+      setDistrict(masterDistrictData)
+    }
+  }, [masterDistrictData])
+
+  const childrenDistrict: React.ReactNode[] = []
+  district?.map((item) => {
+    childrenDistrict.push(<Option key={item.id}>{item.name_th}</Option>)
+  })
+
+  const { data: masterSubDistrictData, isLoading: subDistrictLoading } =
+    useGetMasterSubDistrict(districtId)
+
+  useEffect(() => {
+    if (masterSubDistrictData) {
+      setSubDistrict(masterSubDistrictData)
+    }
+  }, [masterSubDistrictData])
+
+  const childrenSubDistrict: React.ReactNode[] = []
+  subDistrict?.map((item) => {
+    childrenSubDistrict.push(
+      <Option key={item.id} zipCode={item.zip_code}>
+        {item.name_th}
+      </Option>
+    )
+  })
 
   const { mutate: registerAgent, isLoading } = useRegisterAgent()
 
@@ -81,13 +131,11 @@ const AgentRegisterPage: NextPage = () => {
         last_name: values.lastName,
         mobile: values.phoneNumber,
         email: '',
-        product_category_id: values.productType,
-        product_description: values.productDescription,
         address: {
-          province_id: 0,
-          district_id: 0,
-          sub_district_id: 0,
-          post_code: 0,
+          province_id: values.province_id,
+          district_id: values.district_id,
+          sub_district_id: values.sub_district_id,
+          post_code: values.zipCode,
         },
       },
       {
@@ -96,16 +144,12 @@ const AgentRegisterPage: NextPage = () => {
           router.push('/agent-register-success')
         },
         onError: (error) => {
+          // console.log("error mutation-->", error)
           message.error(error.message)
         },
       }
     )
   }
-
-  const children: React.ReactNode[] = []
-  category?.map((item) => {
-    children.push(<Option key={item.id}>{item.name}</Option>)
-  })
 
   return (
     <PageLayout
@@ -117,7 +161,12 @@ const AgentRegisterPage: NextPage = () => {
           เข้าร่วมเป็นพาร์ทเนอร์ตัวแทน ร่วมกับเรา
         </Text>
 
-        <Form scrollToFirstError autoComplete="off" onFinish={handleFinished}>
+        <Form
+          scrollToFirstError
+          autoComplete="off"
+          onFinish={handleFinished}
+          form={form}
+        >
           <Row gutter={[16, 16]}>
             {/* <Col span={24}>
               <Form.Item name="factoryName" rules={[ruleRequired]}>
@@ -147,28 +196,76 @@ const AgentRegisterPage: NextPage = () => {
               </Form.Item>
             </Col>
 
-            <Col span={24}>
-              <Form.Item name="productType" rules={[ruleRequired]}>
+            <Col span={12}>
+              <Form.Item name="province_id" rules={[ruleRequired]}>
                 <Select
                   showSearch
-                  placeholder="ประเภทสินค้าที่ขาย"
+                  placeholder="กรุณาเลือกจังหวัด"
                   optionFilterProp="children"
+                  onChange={(value) => {
+                    setProviceId(value)
+                    form.setFieldsValue({ district_id: undefined })
+                    form.setFieldsValue({ sub_district_id: undefined })
+                    form.setFieldsValue({ zipCode: undefined })
+                  }}
                   notFoundContent={
-                    categoryLoading ? <Spin size="small" /> : null
+                    proviceLoading ? <Spin size="small" /> : null
                   }
-                  loading={categoryLoading}
+                  loading={proviceLoading}
                 >
-                  {children}
+                  {childrenProvince}
                 </Select>
               </Form.Item>
             </Col>
 
-            <Col span={24}>
-              <Form.Item name="productDetail" rules={[ruleRequired]}>
-                <Input.TextArea
-                  rows={4}
-                  placeholder="คำอธิบายเกี่ยวกับสินค้าที่ขาย"
-                />
+            <Col span={12}>
+              <Form.Item name="district_id" rules={[ruleRequired]}>
+                <Select
+                  showSearch
+                  placeholder="กรุณาเลือกอำเภอ"
+                  optionFilterProp="children"
+                  onChange={(value) => {
+                    setDistrictId(value)
+                    form.setFieldsValue({ sub_district_id: undefined })
+                    form.setFieldsValue({ zipCode: undefined })
+                  }}
+                  notFoundContent={
+                    districtLoading ? <Spin size="small" /> : null
+                  }
+                  loading={districtLoading}
+                >
+                  {childrenDistrict}
+                </Select>
+              </Form.Item>
+            </Col>
+
+            <Col span={12}>
+              <Form.Item name="sub_district_id" rules={[ruleRequired]}>
+                <Select
+                  showSearch
+                  placeholder="กรุณาเลือกตำบล"
+                  optionFilterProp="children"
+                  onChange={(value) => {
+                    subDistrict.map((item) => {
+                      if (item.id == value) {
+                        setZipCode(item.zip_code)
+                        form.setFieldsValue({ zipCode: item.zip_code })
+                      }
+                    })
+                  }}
+                  notFoundContent={
+                    subDistrictLoading ? <Spin size="small" /> : null
+                  }
+                  loading={subDistrictLoading}
+                >
+                  {childrenSubDistrict}
+                </Select>
+              </Form.Item>
+            </Col>
+
+            <Col span={12}>
+              <Form.Item name="zipCode" rules={[ruleRequired]}>
+                <Input placeholder="รหัสไปรษณีย์" maxLength={5} minLength={5} />
               </Form.Item>
             </Col>
 
