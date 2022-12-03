@@ -20,3 +20,12 @@ export const getOptions = (payload: GetCategoryResp[]) => {
   })
   return options
 }
+
+export const handleResponseError = (error: {
+  response: { data: { error: any } }
+}) => {
+  if (error?.response?.data?.error) {
+    throw error.response.data.error
+  }
+  throw error
+}

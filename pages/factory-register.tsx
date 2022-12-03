@@ -28,10 +28,7 @@ import color from 'constants/color'
 import useGetCategory from 'graphql/useGetCategory'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import { useAppSelector } from 'store'
-import {
-  Enum_Customer_Type,
-  useCreateLeadNonAuthenMutation,
-} from 'graphql/_generated/operations'
+
 import { GetCategoryResp } from 'graphql/useGetCategory/interface'
 import Link from 'next/link'
 
@@ -76,62 +73,62 @@ const FactoryRegisterPage: NextPage = () => {
     }, 500)
   }
 
-  const categoryList = useGetCategory({
-    context: {
-      clientType: 'LABEL',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
-    },
-    fetchPolicy: 'cache-first',
-    variables: {
-      input: {
-        query: {
-          name: searchValue,
-          status: 'ENABLED',
-        },
-        pagination: {
-          limit: 30,
-          page: 1,
-        },
-      },
-    },
-    onCompleted: (data) => {
-      setCategory(data.getCategory.payload)
-    },
-  })
+  // const categoryList = useGetCategory({
+  //   context: {
+  //     clientType: 'LABEL',
+  //     headers: {
+  //       credentialKey: 'BANG_BOW_ADMIN',
+  //     },
+  //   },
+  //   fetchPolicy: 'cache-first',
+  //   variables: {
+  //     input: {
+  //       query: {
+  //         name: searchValue,
+  //         status: 'ENABLED',
+  //       },
+  //       pagination: {
+  //         limit: 30,
+  //         page: 1,
+  //       },
+  //     },
+  //   },
+  //   onCompleted: (data) => {
+  //     setCategory(data.getCategory.payload)
+  //   },
+  // })
 
-  const [createLeadNonAuthen, { loading }] = useCreateLeadNonAuthenMutation({
-    context: {
-      clientType: 'CUSTOMER',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
-    },
-    onCompleted: () => {
-      message.success('สมัครสมาชิกเรียบร้อย')
-      router.push('/factory-register-success')
-    },
-    onError: (error) => {
-      message.error(error.message)
-    },
-  })
+  // const [createLeadNonAuthen, { loading }] = useCreateLeadNonAuthenMutation({
+  //   context: {
+  //     clientType: 'CUSTOMER',
+  //     headers: {
+  //       credentialKey: 'BANG_BOW_ADMIN',
+  //     },
+  //   },
+  //   onCompleted: () => {
+  //     message.success('สมัครสมาชิกเรียบร้อย')
+  //     router.push('/factory-register-success')
+  //   },
+  //   onError: (error) => {
+  //     message.error(error.message)
+  //   },
+  // })
 
   const handleFinished = (values: any) => {
     console.log('values', values)
-    createLeadNonAuthen({
-      variables: {
-        input: {
-          firstName: values.firstName,
-          lastName: values.lastName,
-          phone: [{ value: values.phoneNumber }],
-          leadType: Enum_Customer_Type.Factory,
-          organizationName: values.factoryName,
-          dataSource: 'Register',
-          category: values.productType,
-        },
-      },
-    })
+    // createLeadNonAuthen({
+    //   variables: {
+    //     input: {
+    //       firstName: values.firstName,
+    //       lastName: values.lastName,
+    //       phone: [{ value: values.phoneNumber }],
+    //       leadType: Enum_Customer_Type.Factory,
+    //       organizationName: values.factoryName,
+    //       dataSource: 'Register',
+    //       category: values.productType,
+    //     },
+    //   },
+    // })
   }
 
   const children: React.ReactNode[] = []
@@ -183,10 +180,8 @@ const FactoryRegisterPage: NextPage = () => {
                   placeholder="ประเภทสินค้าที่ขาย"
                   filterOption={false}
                   onSearch={onSearch}
-                  notFoundContent={
-                    categoryList.loading ? <Spin size="small" /> : null
-                  }
-                  loading={categoryList.loading}
+                  // notFoundContent={categoryList.loading ? <Spin size="small" /> : null}
+                  //loading={categoryList.loading}
                 >
                   {children}
                 </Select>
@@ -300,7 +295,7 @@ const FactoryRegisterPage: NextPage = () => {
                 block
                 type="primary"
                 htmlType="submit"
-                loading={loading}
+                // loading={loading}
               >
                 ส่งข้อมูล
               </Button>

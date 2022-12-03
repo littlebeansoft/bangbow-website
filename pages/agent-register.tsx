@@ -25,14 +25,8 @@ import PageLayout from 'layouts/PageLayout'
 //import { searchOptionsByLabel } from 'helpers/antdUtils'
 
 import color from 'constants/color'
-import {
-  Enum_Customer_Type,
-  useCreateLeadNonAuthenMutation,
-} from 'graphql/_generated/operations'
-import useGetCategory from 'graphql/useGetCategory'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import { useAppSelector } from 'store'
-import { GetCategoryResp } from 'graphql/useGetCategory/interface'
 import Link from 'next/link'
 
 const { Option } = Select
@@ -49,7 +43,7 @@ const AgentRegisterPage: NextPage = () => {
   const [checkPrivate, setCheckPrivate] = useState(false)
   const [checkService, setCheckService] = useState(false)
   const [checkTerm, setCheckTerm] = useState(false)
-  const [category, setCategory] = useState<GetCategoryResp[]>([])
+  const [category, setCategory] = useState<[]>([])
 
   const timer = useRef<ReturnType<typeof setTimeout>>()
 
@@ -77,67 +71,67 @@ const AgentRegisterPage: NextPage = () => {
     }, 500)
   }
 
-  const categoryList = useGetCategory({
-    context: {
-      clientType: 'LABEL',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
-    },
-    fetchPolicy: 'cache-first',
-    variables: {
-      input: {
-        query: {
-          name: searchValue,
-          status: 'ENABLED',
-        },
-        pagination: {
-          limit: 30,
-          page: 1,
-        },
-      },
-    },
-    onCompleted: (data) => {
-      setCategory(data.getCategory.payload)
-    },
-  })
+  // const categoryList = useGetCategory({
+  //   context: {
+  //     clientType: 'LABEL',
+  //     headers: {
+  //       credentialKey: 'BANG_BOW_ADMIN',
+  //     },
+  //   },
+  //   fetchPolicy: 'cache-first',
+  //   variables: {
+  //     input: {
+  //       query: {
+  //         name: searchValue,
+  //         status: 'ENABLED',
+  //       },
+  //       pagination: {
+  //         limit: 30,
+  //         page: 1,
+  //       },
+  //     },
+  //   },
+  //   onCompleted: (data) => {
+  //     setCategory(data.getCategory.payload)
+  //   },
+  // })
 
-  const [createLeadNonAuthen, { loading }] = useCreateLeadNonAuthenMutation({
-    context: {
-      clientType: 'CUSTOMER',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
-    },
-    onCompleted: () => {
-      message.success('สมัครสมาชิกเรียบร้อย')
-      router.push('/agent-register-success')
-    },
-    onError: (error) => {
-      message.error(error.message)
-    },
-  })
+  // const [createLeadNonAuthen, { loading }] = useCreateLeadNonAuthenMutation({
+  //   context: {
+  //     clientType: 'CUSTOMER',
+  //     headers: {
+  //       credentialKey: 'BANG_BOW_ADMIN',
+  //     },
+  //   },
+  //   onCompleted: () => {
+  //     message.success('สมัครสมาชิกเรียบร้อย')
+  //     router.push('/agent-register-success')
+  //   },
+  //   onError: (error) => {
+  //     message.error(error.message)
+  //   },
+  // })
 
   const handleFinished = (values: any) => {
     //console.log('values', values)
-    createLeadNonAuthen({
-      variables: {
-        input: {
-          firstName: values.firstName,
-          lastName: values.lastName,
-          phone: [{ value: values.phoneNumber }],
-          leadType: Enum_Customer_Type.Agent,
-          organizationName: values.factoryName,
-          dataSource: 'Register',
-          category: values.productType,
-        },
-      },
-    })
+    // createLeadNonAuthen({
+    //   variables: {
+    //     input: {
+    //       firstName: values.firstName,
+    //       lastName: values.lastName,
+    //       phone: [{ value: values.phoneNumber }],
+    //       leadType: Enum_Customer_Type.Agent,
+    //       organizationName: values.factoryName,
+    //       dataSource: 'Register',
+    //       category: values.productType,
+    //     },
+    //   },
+    // })
   }
 
   const children: React.ReactNode[] = []
   category?.map((item) => {
-    children.push(<Option key={item._id}>{item.name}</Option>)
+    // children.push(<Option key={item._id}>{item.name}</Option>)
   })
 
   return (
@@ -187,10 +181,8 @@ const AgentRegisterPage: NextPage = () => {
                   placeholder="ประเภทสินค้าที่ขาย"
                   filterOption={false}
                   onSearch={onSearch}
-                  notFoundContent={
-                    categoryList.loading ? <Spin size="small" /> : null
-                  }
-                  loading={categoryList.loading}
+                  //notFoundContent={categoryList.loading ? <Spin size="small" /> : null}
+                  // loading={categoryList.loading}
                 >
                   {children}
                 </Select>
@@ -304,7 +296,7 @@ const AgentRegisterPage: NextPage = () => {
                 block
                 type="primary"
                 htmlType="submit"
-                loading={loading}
+                //  loading={loading}
               >
                 ส่งข้อมูล
               </Button>

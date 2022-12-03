@@ -15,7 +15,7 @@ import OTPCountDown from './OTPCountDown'
 import { getPageTypeTheme } from 'helpers/utils'
 
 import color from 'constants/color'
-import { useVerifyOtpMutation } from 'graphql/_generated/operations'
+
 import { useAppDispatch } from 'store'
 import { setOtpVerify } from 'store/slices/otpSlice'
 
@@ -52,26 +52,26 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
     }
   }, [visible])
 
-  const [verifyOtp] = useVerifyOtpMutation({
-    context: {
-      clientType: 'CORE',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
-    },
-    onCompleted: (res) => {
-      if (res.verifyOtp.code === 'OK') {
-        dispatch(setOtpVerify(true))
-        message.success('OTP verified successfully')
-        onClose?.()
-      } else {
-        message.error(res.verifyOtp.payload.message)
-      }
-    },
-    onError: (error) => {
-      message.error(error.message)
-    },
-  })
+  // const [verifyOtp] = useVerifyOtpMutation({
+  //   context: {
+  //     clientType: 'CORE',
+  //     headers: {
+  //       credentialKey: 'BANG_BOW_ADMIN',
+  //     },
+  //   },
+  //   onCompleted: (res) => {
+  //     if (res.verifyOtp.code === 'OK') {
+  //       dispatch(setOtpVerify(true))
+  //       message.success('OTP verified successfully')
+  //       onClose?.()
+  //     } else {
+  //       message.error(res.verifyOtp.payload.message)
+  //     }
+  //   },
+  //   onError: (error) => {
+  //     message.error(error.message)
+  //   },
+  // })
 
   return (
     <Modal
@@ -135,12 +135,12 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
           type="primary"
           onClick={() => {
             if (otp?.length === 6 && otp !== undefined) {
-              verifyOtp({
-                variables: {
-                  phoneNumber: phoneNumber,
-                  otpCode: otp,
-                },
-              })
+              // verifyOtp({
+              //   variables: {
+              //     phoneNumber: phoneNumber,
+              //     otpCode: otp,
+              //   },
+              // })
             } else {
               message.error('กรุณากรอกรหัส OTP ให้ครบ 6 หลัก')
             }
