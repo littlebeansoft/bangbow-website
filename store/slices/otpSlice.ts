@@ -2,6 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   otpVerify: false,
+  otpData: {
+    status: '',
+    ref_no: '',
+    token: '',
+  },
 }
 
 const otpSlice = createSlice({
@@ -11,8 +16,11 @@ const otpSlice = createSlice({
     setOtpVerify: (state, action) => {
       state.otpVerify = action.payload
     },
+    setOtpData: (state, action) => {
+      state.otpData = action.payload
+    },
   },
 })
 
-export const { setOtpVerify } = otpSlice.actions
+export const { setOtpVerify, setOtpData } = otpSlice.actions
 export default otpSlice.reducer

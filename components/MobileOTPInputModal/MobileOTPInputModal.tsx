@@ -16,8 +16,9 @@ import { getPageTypeTheme } from 'helpers/utils'
 
 import color from 'constants/color'
 
-import { useAppDispatch } from 'store'
+import { useAppDispatch, useAppSelector } from 'store'
 import { setOtpVerify } from 'store/slices/otpSlice'
+import { useSubmitOtp } from 'reactQuery/useOtp'
 
 interface MobileOTPInputModalProps {
   phoneNumber?: string
@@ -33,6 +34,8 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
   const router = useRouter()
 
   const dispatch = useAppDispatch()
+
+  const otpData = useAppSelector((state) => state.otp.otpData)
 
   const otpInputRef = useRef<OtpInput | null>()
   const [otp, setOTP] = useState<string>()
@@ -73,6 +76,8 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
   //   },
   // })
 
+  const { mutate: submitOtp } = useSubmitOtp()
+
   return (
     <Modal
       width={480}
@@ -99,7 +104,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
         </Text>
 
         <Text size="headline" weight={600}>
-          Ref: 57awb
+          Ref: {otpData?.ref_no}
         </Text>
 
         <OtpInput
@@ -141,6 +146,27 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
               //     otpCode: otp,
               //   },
               // })
+              submitOtp(
+                {
+                  ref_code: otpData?.ref_no,
+                  pin: otp,
+                  token: otpData?.token,
+                },
+                {
+                  onSuccess: (data) => {
+                    if (data.status === 'success') {
+                      dispatch(setOtpVerify(true))
+                      message.success('OTP verified successfully')
+                      onClose?.()
+                    } else {
+                      message.error('OTP verify failed')
+                    }
+                  },
+                  onError: (error) => {
+                    message.error(error.message)
+                  },
+                }
+              )
             } else {
               message.error('กรุณากรอกรหัส OTP ให้ครบ 6 หลัก')
             }

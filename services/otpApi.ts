@@ -4,6 +4,7 @@ import {
   RequestOPTInput,
   SubmitOTPInput,
   ResponseRequestOTP,
+  ResponseSubmitOTP,
 } from './interface.d'
 import httpClient from '../axios/interceptors'
 import { AxiosResponse } from 'axios'
@@ -19,9 +20,9 @@ export const requestOtp = async (
 
 export const submitOtp = async (
   input: SubmitOTPInput
-): Promise<AxiosResponse<ResponseRequestOTP>> => {
-  const data: AxiosResponse<ResponseRequestOTP> = await httpClient
+): Promise<ResponseSubmitOTP> => {
+  const data: AxiosResponse<ResponseSubmitOTP> = await httpClient
     .post(API.submitOtp, input)
     .catch((error) => handleResponseError(error))
-  return data
+  return data.data
 }

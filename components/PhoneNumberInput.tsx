@@ -8,9 +8,10 @@ import { useRouter } from 'next/router'
 import Text from 'components/Text'
 
 import { getPageTypeTheme } from 'helpers/utils'
-import { useAppSelector } from 'store'
+import { useAppSelector, useAppDispatch } from 'store'
 import { CheckCircleOutlined } from '@ant-design/icons'
 import { useRequestOtp } from 'reactQuery/useOtp'
+import { setOtpData } from 'store/slices/otpSlice'
 
 interface PhoneNumberInputProps {
   value?: string
@@ -28,6 +29,8 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
   visibleMobileOTP,
 }) => {
   const router = useRouter()
+
+  const dispatch = useAppDispatch()
 
   const otpVerify = useAppSelector((state) => state.otp.otpVerify)
 
@@ -85,10 +88,15 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
                 { mobile: value || '' },
                 {
                   onSuccess: (data) => {
-                    message.success('OTP sent successfully')
-                    onVisibleMobileOTP()
-                    setDisableButton(false)
-                    console.log('data', data)
+                    if (data.status === 'success') {
+                      message.success('OTP sent successfully')
+                      onVisibleMobileOTP()
+                      setDisableButton(false)
+                      console.log('data', data)
+                      dispatch(setOtpData(data))
+                    } else {
+                      message.error('OTP sent failed')
+                    }
                   },
                   onError: (error: any) => {
                     message.error(error.message)
