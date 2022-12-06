@@ -24,12 +24,14 @@ interface MobileOTPInputModalProps {
   phoneNumber?: string
   visible?: boolean
   onClose?: VoidFunction
+  appName: string
 }
 
 const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
   phoneNumber = '08x-xxx-xxxx',
   visible,
   onClose,
+  appName,
 }) => {
   const router = useRouter()
 
@@ -125,6 +127,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
                   ref_code: otpData?.ref_no,
                   pin: otp,
                   token: otpData?.token,
+                  app_name: appName,
                 },
                 {
                   onSuccess: (data) => {
