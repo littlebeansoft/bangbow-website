@@ -55,7 +55,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
     }
   }, [visible])
 
-  const { mutate: submitOtp } = useSubmitOtp()
+  const { mutate: submitOtp, isLoading } = useSubmitOtp()
 
   return (
     <Modal
@@ -116,6 +116,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
         {renderOTPResendSection()}
 
         <Button
+          loading={isLoading}
           type="primary"
           onClick={() => {
             if (otp?.length === 6 && otp !== undefined) {

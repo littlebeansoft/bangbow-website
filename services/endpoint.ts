@@ -1,6 +1,6 @@
 export const API = {
-  requestOtp: '/core/otp/request',
-  submitOtp: '/core/otp/submit',
+  requestOtp: '/auth/register/otp/request',
+  submitOtp: '/auth/register/otp/submit',
   getCategory: '/category/root',
   registerFactory: '/factory/register',
   registerAgent: '/agent/register',

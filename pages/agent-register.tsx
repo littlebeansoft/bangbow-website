@@ -201,6 +201,7 @@ const AgentRegisterPage: NextPage = () => {
                   onPhoneNumberChange={setPhoneNumber}
                   onVisibleMobileOTP={() => setVisibleMobileOTP(true)}
                   visibleMobileOTP={visibleMobileOTP}
+                  appName="agent"
                 />
               </Form.Item>
             </Col>

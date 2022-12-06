@@ -152,6 +152,7 @@ const FactoryRegisterPage: NextPage = () => {
                   onPhoneNumberChange={setPhoneNumber}
                   onVisibleMobileOTP={() => setVisibleMobileOTP(true)}
                   visibleMobileOTP={visibleMobileOTP}
+                  appName="factory"
                 />
               </Form.Item>
             </Col>
