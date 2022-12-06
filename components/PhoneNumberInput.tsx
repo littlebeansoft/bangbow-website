@@ -21,6 +21,7 @@ interface PhoneNumberInputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   onVisibleMobileOTP: () => void
   visibleMobileOTP: boolean
+  appName: string
 }
 
 const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
@@ -29,6 +30,7 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
   onPhoneNumberChange,
   onVisibleMobileOTP,
   visibleMobileOTP,
+  appName,
 }) => {
   const router = useRouter()
 
@@ -85,7 +87,7 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
             onClick={() => {
               setDisableButton(true)
               requestOtp(
-                { mobile: value || '' },
+                { mobile: value || '', app_name: appName || '' },
                 {
                   onSuccess: (data) => {
                     if (data.status === 'success') {
@@ -96,7 +98,12 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
                       dispatch(setOtpData(data))
                       setShowTimer(true)
                     } else {
-                      message.error('OTP sent failed')
+                      if (data.description) {
+                        message.error(data.description)
+                      } else {
+                        message.error('OTP sent failed')
+                      }
+                      setDisableButton(false)
                     }
                   },
                   onError: (error: any) => {

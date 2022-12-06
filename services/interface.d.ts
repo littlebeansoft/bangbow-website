@@ -6,12 +6,14 @@ export interface IError {
 
 export interface RequestOPTInput {
   mobile: string
+  app_name: string
 }
 
 export interface ResponseRequestOTP {
   status: string
   ref_no: string
   token: string
+  description?: string
 }
 
 export interface SubmitOTPInput {
