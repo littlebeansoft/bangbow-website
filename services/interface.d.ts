@@ -59,6 +59,7 @@ export interface RegisterAgentInput {
   last_name: string
   email: string
   mobile: string
+  sponsor_id: string
   address?: AddressInput | null
 }
 

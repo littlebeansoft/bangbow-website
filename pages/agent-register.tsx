@@ -57,8 +57,16 @@ const AgentRegisterPage: NextPage = () => {
   const [proviceId, setProviceId] = useState<number>(0)
   const [districtId, setDistrictId] = useState<number>(0)
   const [zipCode, setZipCode] = useState<number>(0)
+  const sponsorId = useRef<string>('')
 
   //const timer = useRef<ReturnType<typeof setTimeout>>()
+
+  // console.log('router', router.query.sponsor)
+
+  if (router.query.sponsor) {
+    const sponsor = atob(router.query.sponsor as string)
+    sponsorId.current = sponsor
+  }
 
   const ruleRequired: Rule = {
     required: true,
@@ -131,6 +139,7 @@ const AgentRegisterPage: NextPage = () => {
         last_name: values.lastName,
         mobile: values.phoneNumber,
         email: '',
+        sponsor_id: sponsorId.current || '',
         address: {
           province_id: values.province_id,
           district_id: values.district_id,
