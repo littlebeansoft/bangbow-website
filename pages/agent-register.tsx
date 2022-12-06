@@ -405,6 +405,7 @@ const AgentRegisterPage: NextPage = () => {
         phoneNumber={phoneNumber}
         visible={visibleMobileOTP}
         onClose={() => setVisibleMobileOTP(false)}
+        appName="agent"
       />
     </PageLayout>
   )

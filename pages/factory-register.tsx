@@ -323,6 +323,7 @@ const FactoryRegisterPage: NextPage = () => {
         phoneNumber={phoneNumber}
         visible={visibleMobileOTP}
         onClose={() => setVisibleMobileOTP(false)}
+        appName="factory"
       />
     </PageLayout>
   )

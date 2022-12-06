@@ -20,6 +20,7 @@ export interface SubmitOTPInput {
   ref_code: string
   pin: string
   token: string
+  app_name: string
 }
 
 export interface ResponseSubmitOTP {
