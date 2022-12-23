@@ -32,7 +32,7 @@ const Navbar: FC = () => {
         </Space>
         {/* <SearchOutlined style={{ fontSize: 24 }} /> */}
       </NavbarContainer>
-      {/* <Divider /> */}
+      <Divider />
     </Container>
   )
 }
