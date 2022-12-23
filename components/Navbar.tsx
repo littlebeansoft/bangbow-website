@@ -2,7 +2,7 @@ import type { FC } from 'react'
 
 import styled from '@emotion/styled'
 import { MenuOutlined, SearchOutlined } from '@ant-design/icons'
-import { Space } from 'antd'
+import { Divider, Space } from 'antd'
 import { useRouter } from 'next/router'
 
 import Text from 'components/Text'
@@ -20,7 +20,7 @@ const Navbar: FC = () => {
     <Container>
       <NavbarContainer>
         <Space size="large" className="title" align="center">
-          <MenuOutlined style={{ fontSize: 24 }} />
+          {/* <MenuOutlined style={{ fontSize: 24 }} /> */}
 
           <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
             <a>
@@ -30,8 +30,9 @@ const Navbar: FC = () => {
             </a>
           </Link>
         </Space>
-        <SearchOutlined style={{ fontSize: 24 }} />
+        {/* <SearchOutlined style={{ fontSize: 24 }} /> */}
       </NavbarContainer>
+      {/* <Divider /> */}
     </Container>
   )
 }
