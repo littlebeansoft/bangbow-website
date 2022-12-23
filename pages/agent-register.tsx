@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import type { Rule } from 'antd/lib/form'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -58,10 +59,11 @@ const AgentRegisterPage: NextPage = () => {
   const [districtId, setDistrictId] = useState<number>(0)
   const [zipCode, setZipCode] = useState<number>(0)
   const sponsorId = useRef<string>('')
+  const [checkRecaptcha, setCheckRecaptcha] = useState(false)
 
-  //const timer = useRef<ReturnType<typeof setTimeout>>()
-
-  // console.log('router', router.query.sponsor)
+  const secret_key =
+    process.env.NEXT_PUBLIC_RECAPTCHA_SECRET ||
+    '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
 
   if (router.query.sponsor) {
     const sponsor = atob(router.query.sponsor as string)
@@ -396,9 +398,27 @@ const AgentRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
+              <Row justify="center">
+                <Col>
+                  <ReCAPTCHA
+                    size="normal"
+                    sitekey={secret_key}
+                    onChange={() => {
+                      setCheckRecaptcha(true)
+                    }}
+                  />
+                </Col>
+              </Row>
+            </Col>
+
+            <Col span={24}>
               <Button
                 disabled={
-                  !checkPrivate || !checkService || !checkTerm || !otpVerify
+                  !checkPrivate ||
+                  !checkService ||
+                  !checkTerm ||
+                  !otpVerify ||
+                  !checkRecaptcha
                 }
                 block
                 type="primary"
