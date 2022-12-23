@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import type { Rule } from 'antd/lib/form'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -49,6 +50,8 @@ const FactoryRegisterPage: NextPage = () => {
 
   const [visibleMobileOTP, setVisibleMobileOTP] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout>>()
+  const secret_key =
+    process.env.RECAPTCHA_SECRET || '6LfxFp8jAAAAAJjEgDa8uRQv5Mcx7Wt4eS38MWg_'
 
   const ruleRequired: Rule = {
     required: true,
@@ -303,6 +306,10 @@ const FactoryRegisterPage: NextPage = () => {
                   การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
+            </Col>
+
+            <Col span={24}>
+              <ReCAPTCHA size="normal" sitekey={secret_key} />
             </Col>
 
             <Col span={24}>
