@@ -73,10 +73,18 @@ const FactoryHome: FC = () => {
         <Space direction="vertical" size={12}>
           <Link href="/factory-register">
             <a>
-              <Button type="primary">สมัครเลย</Button>
+              <Button
+                type="primary"
+                shape="round"
+                style={{ fontSize: 18, width: 122 }}
+              >
+                สมัครเลย
+              </Button>
             </a>
           </Link>
-          <Button>คำถามที่พบบ่อย</Button>
+          <Button shape="round" style={{ fontSize: 12, width: 122 }}>
+            คำถามที่พบบ่อย
+          </Button>
         </Space>
       </Section>
 

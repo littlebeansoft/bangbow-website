@@ -123,7 +123,8 @@ const FactoryRegisterPage: NextPage = () => {
     <PageLayout title="เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิตร่วมกับเรา | แบ่งเบา">
       <Section>
         <Text block color="primary" weight={500} size="headline">
-          เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิต ร่วมกับเรา
+          เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิต <br />
+          ร่วมกับเรา
         </Text>
 
         <Form scrollToFirstError autoComplete="off" onFinish={handleFinished}>

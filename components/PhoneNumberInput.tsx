@@ -62,7 +62,7 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
   return (
     <Input
       maxLength={10}
-      placeholder="เบอร์โทรผู้ติดต่อ"
+      placeholder="เบอร์โทรติดต่อ"
       value={value}
       disabled={otpVerify || visibleMobileOTP}
       suffix={

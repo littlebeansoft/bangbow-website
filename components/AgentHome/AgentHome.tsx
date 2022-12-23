@@ -66,6 +66,7 @@ const AgentHome: FC = () => {
           </Text>
           <Text page="agent" color="primary" size="small">
             รับคำสั่งซื้อ ส่งสินค้า สต๊อกสินค้า ไม่มีการตัดราคา
+            <br />
             ด้วยมาตรฐานการตั้งราคาที่เท่าเทียม
           </Text>
         </HeroTextContainer>
@@ -73,10 +74,18 @@ const AgentHome: FC = () => {
         <Space direction="vertical" size={12}>
           <Link href="/agent-register">
             <a>
-              <Button type="primary">สมัครเลย</Button>
+              <Button
+                type="primary"
+                shape="round"
+                style={{ fontSize: 18, width: 122 }}
+              >
+                สมัครเลย
+              </Button>
             </a>
           </Link>
-          <Button>คำถามที่พบบ่อย</Button>
+          <Button shape="round" style={{ fontSize: 12, width: 122 }}>
+            คำถามที่พบบ่อย
+          </Button>
         </Space>
       </Section>
 

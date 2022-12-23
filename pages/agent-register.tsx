@@ -167,7 +167,8 @@ const AgentRegisterPage: NextPage = () => {
     >
       <Section>
         <Text page="agent" block color="primary" weight={500} size="headline">
-          เข้าร่วมเป็นพาร์ทเนอร์ตัวแทน ร่วมกับเรา
+          เข้าร่วมเป็นพาร์ทเนอร์ตัวแทน <br />
+          ร่วมกับเรา
         </Text>
 
         <Form
@@ -210,7 +211,7 @@ const AgentRegisterPage: NextPage = () => {
               <Form.Item name="province_id" rules={[ruleRequired]}>
                 <Select
                   showSearch
-                  placeholder="กรุณาเลือกจังหวัด"
+                  placeholder="จังหวัด"
                   optionFilterProp="children"
                   onChange={(value) => {
                     setProviceId(value)
@@ -232,7 +233,7 @@ const AgentRegisterPage: NextPage = () => {
               <Form.Item name="district_id" rules={[ruleRequired]}>
                 <Select
                   showSearch
-                  placeholder="กรุณาเลือกอำเภอ"
+                  placeholder="อำเภอ"
                   optionFilterProp="children"
                   onChange={(value) => {
                     setDistrictId(value)
@@ -253,7 +254,7 @@ const AgentRegisterPage: NextPage = () => {
               <Form.Item name="sub_district_id" rules={[ruleRequired]}>
                 <Select
                   showSearch
-                  placeholder="กรุณาเลือกตำบล"
+                  placeholder="ตำบล"
                   optionFilterProp="children"
                   onChange={(value) => {
                     subDistrict.map((item) => {
