@@ -46,12 +46,14 @@ const FactoryRegisterPage: NextPage = () => {
   const [checkPrivate, setCheckPrivate] = useState(false)
   const [checkService, setCheckService] = useState(false)
   const [checkTerm, setCheckTerm] = useState(false)
+  const [checkRecaptcha, setCheckRecaptcha] = useState(false)
   const [category, setCategory] = useState<CategoryResponse>([])
 
   const [visibleMobileOTP, setVisibleMobileOTP] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout>>()
   const secret_key =
-    process.env.RECAPTCHA_SECRET || '6LfxFp8jAAAAAJjEgDa8uRQv5Mcx7Wt4eS38MWg_'
+    process.env.NEXT_PUBLIC_RECAPTCHA_SECRET ||
+    '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
 
   const ruleRequired: Rule = {
     required: true,
@@ -309,13 +311,27 @@ const FactoryRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
-              <ReCAPTCHA size="normal" sitekey={secret_key} />
+              <Row justify="center">
+                <Col>
+                  <ReCAPTCHA
+                    size="normal"
+                    sitekey={secret_key}
+                    onChange={() => {
+                      setCheckRecaptcha(true)
+                    }}
+                  />
+                </Col>
+              </Row>
             </Col>
 
             <Col span={24}>
               <Button
                 disabled={
-                  !checkPrivate || !checkService || !checkTerm || !otpVerify
+                  !checkPrivate ||
+                  !checkService ||
+                  !checkTerm ||
+                  !otpVerify ||
+                  !checkRecaptcha
                 }
                 block
                 type="primary"
