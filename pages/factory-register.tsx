@@ -54,24 +54,38 @@ const FactoryRegisterPage: NextPage = () => {
     required: true,
     message: 'โปรดระบุ',
   }
-  const validation = (
+  const validationPrivate = (
     rule: RuleObject,
     value: any,
     callback: (error?: string) => void
   ) => {
-    if (checkPrivate || checkService) {
+    if (checkPrivate) {
       return callback()
     }
     return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
   }
 
-  // const onSearch = (value: string) => {
-  //   clearTimeout(timer.current!)
+  const validationService = (
+    rule: RuleObject,
+    value: any,
+    callback: (error?: string) => void
+  ) => {
+    if (checkService) {
+      return callback()
+    }
+    return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
+  }
 
-  //   timer.current = setTimeout(() => {
-  //     setSearchValue(value)
-  //   }, 500)
-  // }
+  const validationTerm = (
+    rule: RuleObject,
+    value: any,
+    callback: (error?: string) => void
+  ) => {
+    if (checkTerm) {
+      return callback()
+    }
+    return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
+  }
 
   const { data: categoryData, isLoading: categoryLoading } = useGetCategory()
 
@@ -123,7 +137,8 @@ const FactoryRegisterPage: NextPage = () => {
     <PageLayout title="เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิตร่วมกับเรา | แบ่งเบา">
       <Section>
         <Text block color="primary" weight={500} size="headline">
-          เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิต ร่วมกับเรา
+          เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิต <br />
+          ร่วมกับเรา
         </Text>
 
         <Form scrollToFirstError autoComplete="off" onFinish={handleFinished}>
@@ -200,12 +215,12 @@ const FactoryRegisterPage: NextPage = () => {
             <Col span={24}>
               <Form.Item
                 name="checkPrivate"
-                rules={[{ validator: validation }]}
+                rules={[{ validator: validationPrivate }]}
               >
                 <Checkbox
                   checked={checkPrivate}
-                  onChange={(e: any) => {
-                    setCheckPrivate(e.target.checked)
+                  onChange={() => {
+                    setCheckPrivate(!checkPrivate)
                     form.validateFields(['checkPrivate'])
                   }}
                 >
@@ -231,7 +246,7 @@ const FactoryRegisterPage: NextPage = () => {
             <Col span={24}>
               <Form.Item
                 name="checkService"
-                rules={[{ validator: validation }]}
+                rules={[{ validator: validationService }]}
               >
                 <Checkbox
                   checked={checkService}
@@ -260,7 +275,10 @@ const FactoryRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
-              <Form.Item name="checkTerm" rules={[{ validator: validation }]}>
+              <Form.Item
+                name="checkTerm"
+                rules={[{ validator: validationTerm }]}
+              >
                 <Checkbox
                   checked={checkTerm}
                   onChange={() => {

@@ -5,10 +5,11 @@ import { css } from '@emotion/react'
 import {
   CopyrightCircleOutlined,
   FacebookFilled,
-  MailFilled,
-  PhoneFilled,
+  MailOutlined,
+  PhoneOutlined,
 } from '@ant-design/icons'
 import { Col, Row, Space } from 'antd'
+import Image from 'next/image'
 
 import Container from 'components/Container'
 import Text from 'components/Text'
@@ -21,6 +22,9 @@ const Footer: FC = () => {
   const router = useRouter()
 
   const pageType = getPageTypeTheme(router.asPath)
+
+  const icon =
+    pageType === 'agent' ? '/facebook-agent.svg' : '/facebook-factory.svg'
 
   const iconStyle: CSSProperties = {
     color: color.primary[pageType],
@@ -40,30 +44,52 @@ const Footer: FC = () => {
             แบ่งเบา
           </Text>
 
-          <p>Lorem</p>
+          <p>concept</p>
 
-          <Row gutter={[12, 12]}>
+          <Row gutter={[12, 12]} style={{ marginTop: 32 }}>
+            <Col span={24}>
+              <p>สามารถติดต่อเราได้ที่</p>
+            </Col>
             <Col span={24}>
               <Space size="large">
-                <PhoneFilled
+                <PhoneOutlined
                   style={{
                     ...iconStyle,
                     transform: 'scaleX(-1)',
                   }}
                 />
-                02-123-1234
+                <Link href="tel:021231234">
+                  <Text color="black" size="small">
+                    02-123-1234
+                  </Text>
+                </Link>
               </Space>
             </Col>
             <Col span={24}>
               <Space size="large">
-                <MailFilled style={iconStyle} />
-                contact@bangbow.com
+                <MailOutlined style={iconStyle} />
+                <Link href="mailto:contact@bangbow.com">
+                  <Text color="black" size="small">
+                    contact@bangbow.com
+                  </Text>
+                </Link>
               </Space>
             </Col>
             <Col span={24}>
               <Space size="large">
-                <FacebookFilled style={iconStyle} />
-                Bangbow
+                <Image
+                  src={icon}
+                  alt="Bangbow facebook"
+                  width="26px"
+                  height="26px"
+                />
+                <Link href="https://www.facebook.com/Littlebeansoft/">
+                  <a target="_blank" rel="noopener noreferrer">
+                    <Text color="black" size="small">
+                      Bangbow
+                    </Text>
+                  </a>
+                </Link>
               </Space>
             </Col>
           </Row>

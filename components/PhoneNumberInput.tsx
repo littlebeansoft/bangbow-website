@@ -41,6 +41,8 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
 
   const [disableButton, setDisableButton] = useState(false)
 
+  const [textPhoneNumber, setTextPhoneNumber] = useState('')
+
   const [showTimer, setShowTimer] = useState(false)
 
   const { mutate: requestOtp } = useRequestOtp()
@@ -59,11 +61,21 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
     }
   }
 
+  useEffect(() => {
+    if (otpVerify && value) {
+      const textPhoneNumber = value.replace(
+        /(\d{2})(\d{5})(\d{2})/,
+        '$1x-xxx-x$3'
+      )
+      setTextPhoneNumber(textPhoneNumber)
+    }
+  }, [otpVerify])
+
   return (
     <Input
       maxLength={10}
-      placeholder="เบอร์โทรผู้ติดต่อ"
-      value={value}
+      placeholder="เบอร์โทรติดต่อ"
+      value={otpVerify ? textPhoneNumber : value}
       disabled={otpVerify || visibleMobileOTP}
       suffix={
         otpVerify ? (
@@ -94,12 +106,11 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
                       message.success('OTP sent successfully')
                       onVisibleMobileOTP()
                       setDisableButton(false)
-                      // console.log('data', data)
                       dispatch(setOtpData(data))
                       setShowTimer(true)
                     } else {
-                      if (data.description) {
-                        message.error(data.description)
+                      if (data.error_message) {
+                        message.error(data.error_message)
                       } else {
                         message.error('OTP sent failed')
                       }
@@ -119,7 +130,10 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
         ) : (
           <OTPCountDown
             key={otpCountDownID}
-            onCountDownCompleted={() => setShowTimer(false)}
+            onCountDownCompleted={() => {
+              // console.log('onCountDownCompleted show Text ส่งรหัส');
+              setShowTimer(false)
+            }}
           />
         )
       }

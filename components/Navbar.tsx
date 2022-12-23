@@ -19,7 +19,7 @@ const Navbar: FC = () => {
   return (
     <Container>
       <NavbarContainer>
-        <Space size="large" className="title" align="center">
+        <Space size="small" className="title" align="center">
           {/* <MenuOutlined style={{ fontSize: 24 }} /> */}
 
           <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
@@ -32,7 +32,7 @@ const Navbar: FC = () => {
         </Space>
         {/* <SearchOutlined style={{ fontSize: 24 }} /> */}
       </NavbarContainer>
-      <Divider />
+      {/* <Divider /> */}
     </Container>
   )
 }
@@ -44,7 +44,9 @@ const NavbarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 16px 0;
+  padding: 16px 16px 8px 16px;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 16px;
 
   & > .title {
     p {

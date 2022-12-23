@@ -73,12 +73,34 @@ const AgentRegisterPage: NextPage = () => {
     message: 'โปรดระบุ',
   }
 
-  const validation = (
+  const validationPrivate = (
     rule: RuleObject,
     value: any,
     callback: (error?: string) => void
   ) => {
-    if (checkPrivate || checkService) {
+    if (checkPrivate) {
+      return callback()
+    }
+    return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
+  }
+
+  const validationService = (
+    rule: RuleObject,
+    value: any,
+    callback: (error?: string) => void
+  ) => {
+    if (checkService) {
+      return callback()
+    }
+    return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
+  }
+
+  const validationTerm = (
+    rule: RuleObject,
+    value: any,
+    callback: (error?: string) => void
+  ) => {
+    if (checkTerm) {
       return callback()
     }
     return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
@@ -167,7 +189,8 @@ const AgentRegisterPage: NextPage = () => {
     >
       <Section>
         <Text page="agent" block color="primary" weight={500} size="headline">
-          เข้าร่วมเป็นพาร์ทเนอร์ตัวแทน ร่วมกับเรา
+          เข้าร่วมเป็นพาร์ทเนอร์ตัวแทน <br />
+          ร่วมกับเรา
         </Text>
 
         <Form
@@ -210,7 +233,7 @@ const AgentRegisterPage: NextPage = () => {
               <Form.Item name="province_id" rules={[ruleRequired]}>
                 <Select
                   showSearch
-                  placeholder="กรุณาเลือกจังหวัด"
+                  placeholder="จังหวัด"
                   optionFilterProp="children"
                   onChange={(value) => {
                     setProviceId(value)
@@ -232,7 +255,7 @@ const AgentRegisterPage: NextPage = () => {
               <Form.Item name="district_id" rules={[ruleRequired]}>
                 <Select
                   showSearch
-                  placeholder="กรุณาเลือกอำเภอ"
+                  placeholder="อำเภอ"
                   optionFilterProp="children"
                   onChange={(value) => {
                     setDistrictId(value)
@@ -253,7 +276,7 @@ const AgentRegisterPage: NextPage = () => {
               <Form.Item name="sub_district_id" rules={[ruleRequired]}>
                 <Select
                   showSearch
-                  placeholder="กรุณาเลือกตำบล"
+                  placeholder="ตำบล"
                   optionFilterProp="children"
                   onChange={(value) => {
                     subDistrict.map((item) => {
@@ -282,12 +305,12 @@ const AgentRegisterPage: NextPage = () => {
             <Col span={24}>
               <Form.Item
                 name="checkPrivate"
-                rules={[{ validator: validation }]}
+                rules={[{ validator: validationPrivate }]}
               >
                 <Checkbox
                   checked={checkPrivate}
-                  onChange={(e: any) => {
-                    setCheckPrivate(e.target.checked)
+                  onChange={() => {
+                    setCheckPrivate(!checkPrivate)
                     form.validateFields(['checkPrivate'])
                   }}
                 >
@@ -313,7 +336,7 @@ const AgentRegisterPage: NextPage = () => {
             <Col span={24}>
               <Form.Item
                 name="checkService"
-                rules={[{ validator: validation }]}
+                rules={[{ validator: validationService }]}
               >
                 <Checkbox
                   checked={checkService}
@@ -342,7 +365,10 @@ const AgentRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
-              <Form.Item name="checkTerm" rules={[{ validator: validation }]}>
+              <Form.Item
+                name="checkTerm"
+                rules={[{ validator: validationTerm }]}
+              >
                 <Checkbox
                   checked={checkTerm}
                   onChange={() => {
