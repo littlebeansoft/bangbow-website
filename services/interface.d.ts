@@ -14,6 +14,7 @@ export interface ResponseRequestOTP {
   ref_no: string
   token: string
   description?: string
+  error_message?: string
 }
 
 export interface SubmitOTPInput {

@@ -17,8 +17,8 @@ import { getPageTypeTheme } from 'helpers/utils'
 import color from 'constants/color'
 
 import { useAppDispatch, useAppSelector } from 'store'
-import { setOtpVerify } from 'store/slices/otpSlice'
-import { useSubmitOtp } from 'reactQuery/useOtp'
+import { setOtpData, setOtpVerify } from 'store/slices/otpSlice'
+import { useRequestOtp, useSubmitOtp } from 'reactQuery/useOtp'
 
 interface MobileOTPInputModalProps {
   phoneNumber?: string
@@ -54,15 +54,22 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
   useEffect(() => {
     if (visible) {
       otpInputRef.current?.focusInput(0)
+      setOTP('')
     }
   }, [visible])
 
   const { mutate: submitOtp, isLoading } = useSubmitOtp()
+  const { mutate: requestOtp } = useRequestOtp()
+
+  //090-xxx-x899
+  const textPhoneNumber = phoneNumber.replace(
+    /(\d{2})(\d{5})(\d{2})/,
+    '$1x-xxx-x$3'
+  )
 
   return (
     <Modal
       width={480}
-      // visible={visible}
       onCancel={onClose}
       footer={false}
       centered
@@ -81,7 +88,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
             color: '#ccc',
           }}
         >
-          ระบบได้ส่งรหัสยืนยันไปที่เบอร์ {phoneNumber}
+          ระบบได้ส่งรหัสยืนยันไปที่เบอร์ {textPhoneNumber}
         </Text>
 
         <Text size="headline" weight={600}>
@@ -184,6 +191,28 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
         onClick={() => {
           setOTPCountDownID()
           setResentOTPButtonDisabled(false)
+          setOTP('')
+
+          requestOtp(
+            { mobile: phoneNumber || '', app_name: appName || '' },
+            {
+              onSuccess: (data) => {
+                if (data.status === 'success') {
+                  message.success('OTP sent successfully')
+                  dispatch(setOtpData(data))
+                } else {
+                  if (data.error_message) {
+                    message.error(data.error_message)
+                  } else {
+                    message.error('OTP sent failed')
+                  }
+                }
+              },
+              onError: (error: any) => {
+                message.error(error.message)
+              },
+            }
+          )
         }}
       >
         ส่งรหัสอีกครั้งหากไม่ได้รับ OTP ?
