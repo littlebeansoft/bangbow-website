@@ -7,7 +7,7 @@ COPY package.json ./
 RUN yarn install --legacy-peer-deps --network-timeout 1000000
 COPY . .
 RUN cp .env.example .env
-# RUN echo -e "${ENV_FILE}" >> .env
+RUN echo -e "${ENV_FILE}" >> .env
 RUN yarn build
 
 # Production image, copy all the files and run next
