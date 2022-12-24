@@ -53,7 +53,7 @@ const FactoryRegisterPage: NextPage = () => {
   const timer = useRef<ReturnType<typeof setTimeout>>()
   const secret_key =
     process.env.NEXT_PUBLIC_RECAPTCHA_SECRET ||
-    '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+    '6LdOgaIjAAAAALn798n2enF6WJNVjz8jnnnczR5M'
 
   const ruleRequired: Rule = {
     required: true,
