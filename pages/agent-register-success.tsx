@@ -15,6 +15,17 @@ const AgentRegisterSuccessPage: NextPage = () => {
 
   const page = getPageTypeTheme(router.asPath)
 
+  const isIos =
+    typeof window !== 'undefined'
+      ? /iPad|iPhone|iPod/.test(navigator.userAgent)
+      : false
+
+  const link = isIos
+    ? 'https://apps.apple.com/th/app/youtube/id544007664?l=th'
+    : 'https://play.google.com/store/apps/details?id=com.google.android.youtube'
+
+  const website = 'https://www.youtube.com/'
+
   return (
     <PageLayout title="ส่งข้อมูลสำเร็จ | แบ่งเบา">
       <Result
@@ -33,10 +44,19 @@ const AgentRegisterSuccessPage: NextPage = () => {
             type="primary"
             block
             style={{ marginBottom: 24 }}
+            onClick={() => {
+              window.location.href = link
+            }}
           >
             ไปที่แอปพลิเคชั่นแบ่งเบา
           </Button>,
-          <Button key="website" block>
+          <Button
+            key="website"
+            block
+            onClick={() => {
+              window.location.href = website
+            }}
+          >
             ดำเนินการต่อในเว็บไซต์
           </Button>,
         ]}
