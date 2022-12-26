@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import Image from 'next/image'
 
 import styled from '@emotion/styled'
-import { MenuOutlined, SearchOutlined } from '@ant-design/icons'
+import { MenuOutlined, SearchOutlined, CloseOutlined } from '@ant-design/icons'
 import { Divider, Space } from 'antd'
 import { useRouter } from 'next/router'
 
@@ -12,10 +12,18 @@ import Container from 'components/Container'
 import { getPageTypeTheme } from 'helpers/utils'
 import Link from 'next/link'
 
-const Navbar: FC = () => {
+interface NavbarProps {
+  back?: boolean
+}
+
+const Navbar: FC<NavbarProps> = ({
+  back 
+}) => {
   const router = useRouter()
 
   const pageType = getPageTypeTheme(router.asPath)
+
+  
 
   return (
     <Container>
@@ -39,7 +47,12 @@ const Navbar: FC = () => {
             </a>
           </Link>
         </Space>
-        {/* <SearchOutlined style={{ fontSize: 24 }} /> */}
+        {back ? (
+            <CloseOutlined style={{ fontSize: 18 }} onClick={()=>{
+              router.back()
+            }} /> 
+        ) : null}
+     
       </NavbarContainer>
       {/* <Divider /> */}
     </Container>

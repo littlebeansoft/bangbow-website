@@ -13,7 +13,8 @@ type Page = 'agent' | 'factory'
 interface PageLayoutProps {
   title: string
   description?: string
-  page?: Page
+  page?: Page,
+  back? : boolean
 }
 
 const PageLayout: FCWithChildren<PageLayoutProps> = ({
@@ -21,6 +22,7 @@ const PageLayout: FCWithChildren<PageLayoutProps> = ({
   description,
   page = 'factory',
   children,
+  back 
 }) => {
   return (
     <PageLayoutContainer>
@@ -37,7 +39,7 @@ const PageLayout: FCWithChildren<PageLayoutProps> = ({
         />
       </Head>
 
-      <Navbar />
+      <Navbar back={back} />
 
       <Container
         style={{
