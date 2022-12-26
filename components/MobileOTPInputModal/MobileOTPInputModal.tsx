@@ -74,6 +74,8 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
       footer={false}
       centered
       open={visible}
+      closable={false}
+      maskClosable={false}
     >
       <MobileOTPInputModalContainer>
         <BangbowLogo />
@@ -143,7 +145,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
                       message.success('OTP verified successfully')
                       onClose?.()
                     } else {
-                      message.error('OTP verify failed')
+                      message.error(`OTP verified failed: ${data.error_message}`)
                     }
                   },
                   onError: (error) => {

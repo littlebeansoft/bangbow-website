@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "PORT=4300 NEXT_PUBLIC_VERSION=$npm_package_version next dev",
+    "dev:windows": "set PORT=4300 && set NEXT_PUBLIC_VERSION=$npm_package_version && next dev",
     "build": "NEXT_PUBLIC_VERSION=$npm_package_version next build",
     "start": "next start",
     "lint": "next lint",

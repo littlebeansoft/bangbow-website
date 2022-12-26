@@ -103,9 +103,11 @@ const Footer: FC = () => {
               ข้อตกลงและเงื่อนไขการใช้งาน
             </Text>
             <Link href="/privacy-policy-th">
+              <a target="_blank">
               <Text color="white" size="small">
                 ความเป็นส่วนตัว
               </Text>
+              </a>
             </Link>
           </Space>
 
