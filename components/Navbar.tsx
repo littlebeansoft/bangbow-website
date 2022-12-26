@@ -49,7 +49,7 @@ const Navbar: FC<NavbarProps> = ({
         </Space>
         {back ? (
             <CloseOutlined style={{ fontSize: 18 }} onClick={()=>{
-              router.back()
+              history.back()
             }} /> 
         ) : null}
      
