@@ -6,7 +6,7 @@ import { Typography } from 'antd'
 
 const PrivacyPolicyTHPage: NextPage = () => {
   return (
-    <PageLayout title="การคุ้มครองข้อมูลส่วนบุคคล">
+    <PageLayout title="การคุ้มครองข้อมูลส่วนบุคคล" back={true}>
       <ContentContainer>
         <Typography.Title level={4}>นโยบายความเป็นส่วนตัว</Typography.Title>
         <Typography.Title level={5}>
