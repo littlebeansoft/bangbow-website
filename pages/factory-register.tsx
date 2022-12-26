@@ -32,6 +32,8 @@ import { CategoryResponse } from 'services/interface'
 import { useGetCategory } from '../reactQuery/useCategory'
 import { useRegisterFactory } from 'reactQuery/useRegister'
 import UploadForm from 'components/Upload'
+import DrawerPrivacyPolicy from 'components/DrawerPrivacyPolicy'
+import DrawerTerms from 'components/DrawerTerms'
 
 const { Option } = Select
 
@@ -233,21 +235,13 @@ const FactoryRegisterPage: NextPage = () => {
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ประกาศความเป็นส่วนตัว
-                      </a>
-                    </Link>
-                  }{' '}
+                    <DrawerPrivacyPolicy />
+                  }
                   และข้าพเจ้าตกลงปฏิบัติตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ข้อกำนดและเงื่อนไขใน
-                      </a>
-                    </Link>
-                  }{' '}
-                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                    <DrawerTerms />
+                  }
+                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -266,23 +260,11 @@ const FactoryRegisterPage: NextPage = () => {
                 >
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
-                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
+                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม {<DrawerPrivacyPolicy />} และข้าพเจ้าตกลงปฏิบัติตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ประกาศความเป็นส่วนตัว
-                      </a>
-                    </Link>
-                  }{' '}
-                  และข้าพเจ้าตกลงปฏิบัติตาม
-                  {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ข้อกำนดและเงื่อนไขใน
-                      </a>
-                    </Link>
-                  }{' '}
-                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                    <DrawerTerms />
+                  }
+                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -301,23 +283,15 @@ const FactoryRegisterPage: NextPage = () => {
                 >
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
-                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
+                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม 
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ประกาศความเป็นส่วนตัว
-                      </a>
-                    </Link>
-                  }{' '}
+                    <DrawerPrivacyPolicy />
+                  }
                   และข้าพเจ้าตกลงปฏิบัติตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ข้อกำนดและเงื่อนไขใน
-                      </a>
-                    </Link>
-                  }{' '}
-                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                    <DrawerTerms />
+                  }
+                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>

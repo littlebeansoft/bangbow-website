@@ -38,6 +38,8 @@ import {
   useGetMasterProvice,
   useGetMasterSubDistrict,
 } from 'reactQuery/useMasterData'
+import DrawerPrivacyPolicy from 'components/DrawerPrivacyPolicy'
+import DrawerTerms from 'components/DrawerTerms'
 
 const { Option } = Select
 
@@ -320,21 +322,13 @@ const AgentRegisterPage: NextPage = () => {
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ประกาศความเป็นส่วนตัว
-                      </a>
-                    </Link>
-                  }{' '}
+                    <DrawerPrivacyPolicy />
+                  }
                   และข้าพเจ้าตกลงปฏิบัติตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ข้อกำนดและเงื่อนไขใน
-                      </a>
-                    </Link>
-                  }{' '}
-                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                    <DrawerTerms />
+                  }
+                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -355,21 +349,13 @@ const AgentRegisterPage: NextPage = () => {
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ประกาศความเป็นส่วนตัว
-                      </a>
-                    </Link>
-                  }{' '}
+                    <DrawerPrivacyPolicy />
+                  }
                   และข้าพเจ้าตกลงปฏิบัติตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ข้อกำนดและเงื่อนไขใน
-                      </a>
-                    </Link>
-                  }{' '}
-                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                    <DrawerTerms />
+                  }
+                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -390,21 +376,13 @@ const AgentRegisterPage: NextPage = () => {
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ประกาศความเป็นส่วนตัว
-                      </a>
-                    </Link>
-                  }{' '}
+                    <DrawerPrivacyPolicy />
+                  }
                   และข้าพเจ้าตกลงปฏิบัติตาม
                   {
-                    <Link href={'/privacy-policy-th'}>
-                      <a target="_blank">
-                        ข้อกำนดและเงื่อนไขใน
-                      </a>
-                    </Link>
-                  }{' '}
-                  การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                    <DrawerTerms />
+                  }
+                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
