@@ -4,11 +4,13 @@ import PageLayout from 'layouts/PageLayout'
 import styled from '@emotion/styled'
 import { Typography } from 'antd'
 
-const PrivacyPolicyTHPage: NextPage = () => {
+const TermsOfUsePage: NextPage = () => {
   return (
-    <PageLayout title="การคุ้มครองข้อมูลส่วนบุคคล">
+    <PageLayout title="ข้อตกลงและเงื่อนไขการใช้บริการ">
       <ContentContainer>
-        <Typography.Title level={4}>นโยบายความเป็นส่วนตัว</Typography.Title>
+        <Typography.Title level={4}>ข้อตกลงและเงื่อนไขการใช้บริการ</Typography.Title>
+        <Typography.Title level={5}>รอข้อความที่ถูกต้อง</Typography.Title>
+        {/* <Typography.Title level={4}>นโยบายความเป็นส่วนตัว</Typography.Title>
         <Typography.Title level={5}>
           บริษัท ลิตเติ้ล บีน ซอฟท์ จำกัด
         </Typography.Title>
@@ -332,13 +334,13 @@ const PrivacyPolicyTHPage: NextPage = () => {
           อีเมล pdpa@littlebeansoft.com
         </Typography.Paragraph>
 
-        <Typography.Paragraph>หมายเลขโทรศัพท์ 02 042 9919</Typography.Paragraph>
+        <Typography.Paragraph>หมายเลขโทรศัพท์ 02 042 9919</Typography.Paragraph> */}
       </ContentContainer>
     </PageLayout>
   )
 }
 
-export default PrivacyPolicyTHPage
+export default TermsOfUsePage
 
 export const ContentContainer = styled.div`
   --gap: 60px;

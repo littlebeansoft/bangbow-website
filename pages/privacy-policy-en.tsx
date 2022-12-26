@@ -331,7 +331,7 @@ export default PrivacyPolicyENPage
 export const ContentContainer = styled.div`
   --gap: 60px;
 
-  margin-top: 60px;
+  margin-top: 10px;
   padding: 0 var(--gap);
   min-height: calc(100vh - 364px);
 

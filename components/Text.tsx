@@ -68,7 +68,7 @@ const Text = styled.span<TextProps>((props) => {
   const type = props.type || 'plain'
 
   return {
-    display: props.hidden ? 'none' : 'block',
+    //display: props.hidden ? 'none' : 'block',
     marginBottom: props.block ? 16 : 0,
     color: type === 'link' ? color.primary[page] : color[colorKey][page],
     fontSize,

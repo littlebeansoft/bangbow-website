@@ -99,9 +99,11 @@ const Footer: FC = () => {
       <CopyrightSectionContainer>
         <Container>
           <Space size="large">
+          <Link href="/terms-of-use">
             <Text color="white" size="small">
               ข้อตกลงและเงื่อนไขการใช้งาน
             </Text>
+            </Link>
             <Link href="/privacy-policy-th">
 
               <Text color="white" size="small">
