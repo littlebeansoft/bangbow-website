@@ -22,10 +22,12 @@ export interface SubmitOTPInput {
   pin: string
   token: string
   app_name: string
+  error_message?: string
 }
 
 export interface ResponseSubmitOTP {
   status: string
+  error_message?: string
 }
 
 export interface CategoryResponse extends Array<CategoryData> {}

@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import Image from 'next/image'
 
 import styled from '@emotion/styled'
 import { MenuOutlined, SearchOutlined } from '@ant-design/icons'
@@ -20,7 +21,15 @@ const Navbar: FC = () => {
     <Container>
       <NavbarContainer>
         <Space size="small" className="title" align="center">
-          {/* <MenuOutlined style={{ fontSize: 24 }} /> */}
+        <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
+          <Image
+            src={pageType === 'factory' ? '/icon-factory.svg' : '/icon-agent.svg'}
+            alt="Bangbow Logo"
+            width={40}
+            height={40}
+            style={{ cursor: 'pointer'}}
+          />
+          </Link>
 
           <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
             <a>
