@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import type { Rule } from 'antd/lib/form'
 import ReCAPTCHA from 'react-google-recaptcha'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import {
   Button,
@@ -50,7 +50,7 @@ const FactoryRegisterPage: NextPage = () => {
   const [category, setCategory] = useState<CategoryResponse>([])
 
   const [visibleMobileOTP, setVisibleMobileOTP] = useState(false)
-  const timer = useRef<ReturnType<typeof setTimeout>>()
+  //const timer = useRef<ReturnType<typeof setTimeout>>()
   const secret_key =
     process.env.NEXT_PUBLIC_RECAPTCHA_SECRET ||
     '6LdOgaIjAAAAALn798n2enF6WJNVjz8jnnnczR5M'
@@ -234,13 +234,17 @@ const FactoryRegisterPage: NextPage = () => {
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
                   {
                     <Link href={'/privacy-policy-th'}>
-                      ประกาศความเป็นส่วนตัว
+                      <a target="_blank">
+                        ประกาศความเป็นส่วนตัว
+                      </a>
                     </Link>
                   }{' '}
                   และข้าพเจ้าตกลงปฏิบัติตาม
                   {
                     <Link href={'/privacy-policy-th'}>
-                      ข้อกำนดและเงื่อนไขใน
+                      <a target="_blank">
+                        ข้อกำนดและเงื่อนไขใน
+                      </a>
                     </Link>
                   }{' '}
                   การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
@@ -265,13 +269,17 @@ const FactoryRegisterPage: NextPage = () => {
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
                   {
                     <Link href={'/privacy-policy-th'}>
-                      ประกาศความเป็นส่วนตัว
+                      <a target="_blank">
+                        ประกาศความเป็นส่วนตัว
+                      </a>
                     </Link>
                   }{' '}
                   และข้าพเจ้าตกลงปฏิบัติตาม
                   {
                     <Link href={'/privacy-policy-th'}>
-                      ข้อกำนดและเงื่อนไขใน
+                      <a target="_blank">
+                        ข้อกำนดและเงื่อนไขใน
+                      </a>
                     </Link>
                   }{' '}
                   การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
@@ -296,13 +304,17 @@ const FactoryRegisterPage: NextPage = () => {
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
                   {
                     <Link href={'/privacy-policy-th'}>
-                      ประกาศความเป็นส่วนตัว
+                      <a target="_blank">
+                        ประกาศความเป็นส่วนตัว
+                      </a>
                     </Link>
                   }{' '}
                   และข้าพเจ้าตกลงปฏิบัติตาม
                   {
                     <Link href={'/privacy-policy-th'}>
-                      ข้อกำนดและเงื่อนไขใน
+                      <a target="_blank">
+                        ข้อกำนดและเงื่อนไขใน
+                      </a>
                     </Link>
                   }{' '}
                   การใช้บริการ ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
@@ -351,7 +363,11 @@ const FactoryRegisterPage: NextPage = () => {
                     margin: '0 4px',
                   }}
                 >
-                  เงื่อนไขและข้อกำหนดของแบ่งเบา
+                  <Link href={'/privacy-policy-th'}>
+                    <a target="_blank">
+                      เงื่อนไขและข้อกำหนดของแบ่งเบา
+                    </a>
+                  </Link>
                 </span>
                 แล้ว
               </Text>
