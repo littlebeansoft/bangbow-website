@@ -85,7 +85,7 @@ const AgentHome: FC = () => {
             </a>
           </Link>
           <Button shape="round" style={{ fontSize: 12, width: 122 }} onClick={()=>{
-            window.location.hash = '#anchor1'
+            window.location.hash = '#anchor-faq'
           }} >
             คำถามที่พบบ่อย
           </Button>
@@ -129,7 +129,7 @@ const AgentHome: FC = () => {
 
 
       <Section>
-        <div id="anchor1">
+        <div id="anchor-faq">
         <Text
           block
           page="agent"
