@@ -24,7 +24,7 @@ const AgentRegisterSuccessPage: NextPage = () => {
     ? 'https://apps.apple.com/th/app/youtube/id544007664?l=th'
     : 'https://play.google.com/store/apps/details?id=com.google.android.youtube'
 
-  const website = 'https://www.youtube.com/'
+  const website = 'https://www.bangbow.com/'
 
   return (
     <PageLayout title="ส่งข้อมูลสำเร็จ | แบ่งเบา">

@@ -83,7 +83,7 @@ const Footer: FC = () => {
                   width="26px"
                   height="26px"
                 />
-                <Link href="https://www.facebook.com/Littlebeansoft/">
+                <Link href="https://www.facebook.com/bangbowdotcom/">
                   <a target="_blank" rel="noopener noreferrer">
                     <Text color="black" size="small">
                       Bangbow
