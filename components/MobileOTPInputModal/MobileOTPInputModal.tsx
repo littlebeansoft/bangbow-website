@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button, message, Modal, Space } from 'antd'
 import styled from '@emotion/styled'
-import OtpInput from 'react-otp-input'
+import OtpInput from 'react18-input-otp'
 
 import useGenerateComponentKey from 'hooks/useGenerateComponentKey'
 
@@ -99,6 +99,7 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
 
         <OtpInput
           ref={(ref) => (otpInputRef.current = ref)}
+          autoComplete="off"
           isInputNum
           shouldAutoFocus
           containerStyle={{

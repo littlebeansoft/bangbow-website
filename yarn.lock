@@ -5090,6 +5090,11 @@ react-use@^17.4.0:
     ts-easing "^0.2.0"
     tslib "^2.1.0"
 
+react18-input-otp@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react18-input-otp/-/react18-input-otp-1.1.2.tgz#b62979e75dd80db6233c41037c02b9a29379982e"
+  integrity sha512-E21NiPh/KH67Bq/uEAm78E8H+croiGAyX5WcXfX49qh0im1iKrk/3RCKCTESG6WUoJYyh/fj5JY0UrHm+Mm0eQ==
+
 react@18.1.0:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.1.0.tgz#6f8620382decb17fdc5cc223a115e2adbf104890"
