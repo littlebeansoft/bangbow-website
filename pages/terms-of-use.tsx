@@ -75,7 +75,7 @@ const TermsOfUsePage: NextPage = () => {
 
         <Typography.Paragraph>เวลาทำการ จันทร์-ศุกร์ 9.00-18.00 น.</Typography.Paragraph>
 
-        <Typography.Paragraph>เอกสารฉบับนี้ปรับปรุงล่าสุดเมื่อวันที่ 3 มกราคม พ.ศ. 2566 (เป็นข้อความตัวอย่างก่อนพิจารณาแก้ไข)</Typography.Paragraph>
+        <Typography.Paragraph>เอกสารฉบับนี้ปรับปรุงล่าสุดเมื่อวันที่ 3 มกราคม พ.ศ. 2566 (เป็นข้อความตัวอย่างก่อนพิจารณาแก้ไข )</Typography.Paragraph>
       </ContentContainer>
     </PageLayout>
   )
