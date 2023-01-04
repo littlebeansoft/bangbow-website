@@ -2,20 +2,19 @@ import type { NextPage } from 'next'
 
 import PageLayout from 'layouts/PageLayout'
 import styled from '@emotion/styled'
-import { Typography } from 'antd'
-import TermsText from 'components/Terms/TermsText'
+import PrivacyPolicyTextTH from 'components/PrivacyPolicy/PrivacyPolicyTextTH'
 
-const TermsOfUsePage: NextPage = () => {
+const AgentPrivacyPolicyTHPage: NextPage = () => {
   return (
-    <PageLayout title='ข้อตกลงและเงื่อนไขการใช้บริการ'>
+    <PageLayout title="การคุ้มครองข้อมูลส่วนบุคคล" page='agent'>
       <ContentContainer>
-        <TermsText />
+        <PrivacyPolicyTextTH />
       </ContentContainer>
     </PageLayout>
   )
 }
 
-export default TermsOfUsePage
+export default AgentPrivacyPolicyTHPage
 
 export const ContentContainer = styled.div`
   --gap: 60px;
@@ -27,5 +26,4 @@ export const ContentContainer = styled.div`
   @media (max-width: 1420px) {
     --gap: 24px;
   }
-  `
- 
+`

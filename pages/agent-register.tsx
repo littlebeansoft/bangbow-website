@@ -428,7 +428,7 @@ const AgentRegisterPage: NextPage = () => {
                     margin: '0 4px',
                   }}
                 >
-                  <Link href={'/privacy-policy-th'}>
+                  <Link href={'/agent-privacy-policy-th'}>
                     <a target="_blank">
                       เงื่อนไขและข้อกำหนดของแบ่งเบา
                     </a>
