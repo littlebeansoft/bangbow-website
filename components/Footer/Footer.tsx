@@ -35,6 +35,9 @@ const Footer: FC = () => {
 
   const titleType = pageType === 'agent' ? 'ตัวแทนจำหน่าย' : 'โรงงาน ผู้ผลิต'
 
+  const linkPrivacyPolicy = pageType === 'agent' ? '/agent-privacy-policy-th' : '/factory-privacy-policy-th'
+  const linkTermsOfUse = pageType === 'agent' ? '/agent-terms-of-use' : '/factory-terms-of-use'
+
   return (
     <FooterContainer>
       <ContactSectionContainer>
@@ -103,12 +106,12 @@ const Footer: FC = () => {
       <CopyrightSectionContainer>
         <Container>
           <Space size="large">
-            <Link href="/terms-of-use">
+            <Link href={linkTermsOfUse}>
               <Text color="white" size="small">
                 ข้อตกลงและเงื่อนไขการใช้งาน
               </Text>
             </Link>
-            <Link href="/privacy-policy-th">
+            <Link href={linkPrivacyPolicy}>
 
               <Text color="white" size="small">
                 ความเป็นส่วนตัว
