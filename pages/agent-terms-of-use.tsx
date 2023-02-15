@@ -7,7 +7,7 @@ import TermsText from 'components/Terms/TermsText'
 
 const AgentTermsOfUsePage: NextPage = () => {
   return (
-    <PageLayout title='ข้อตกลงและเงื่อนไขการใช้บริการ' page='agent' >
+    <PageLayout title="ข้อตกลงและเงื่อนไขการใช้บริการ" page="agent">
       <ContentContainer>
         <TermsText />
       </ContentContainer>
@@ -27,5 +27,4 @@ export const ContentContainer = styled.div`
   @media (max-width: 1420px) {
     --gap: 24px;
   }
-  `
- 
+`

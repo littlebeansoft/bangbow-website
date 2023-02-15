@@ -6,7 +6,7 @@ import PrivacyPolicyTextTH from 'components/PrivacyPolicy/PrivacyPolicyTextTH'
 
 const AgentPrivacyPolicyTHPage: NextPage = () => {
   return (
-    <PageLayout title="การคุ้มครองข้อมูลส่วนบุคคล" page='agent'>
+    <PageLayout title="การคุ้มครองข้อมูลส่วนบุคคล" page="agent">
       <ContentContainer>
         <PrivacyPolicyTextTH />
       </ContentContainer>

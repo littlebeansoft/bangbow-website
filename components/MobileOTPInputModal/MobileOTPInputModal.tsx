@@ -146,7 +146,9 @@ const MobileOTPInputModal: FC<MobileOTPInputModalProps> = ({
                       message.success('OTP verified successfully')
                       onClose?.()
                     } else {
-                      message.error(`OTP verified failed: ${data.error_message}`)
+                      message.error(
+                        `OTP verified failed: ${data.error_message}`
+                      )
                     }
                   },
                   onError: (error) => {

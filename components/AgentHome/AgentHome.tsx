@@ -14,7 +14,6 @@ import type { ServiceItem } from 'components/Service'
 
 const { Panel } = Collapse
 
-
 const listServices: ServiceItem[] = [
   {
     id: 0,
@@ -63,7 +62,7 @@ const AgentHome: FC = () => {
       <Section>
         <HeroTextContainer>
           <Text page="agent" block color="primary" weight={500} size="headline">
-            รับสมัครตัวแทน!{" "}
+            รับสมัครตัวแทน!{' '}
           </Text>
           <Text page="agent" color="primary" size="small">
             รับคำสั่งซื้อ ส่งสินค้า สต๊อกสินค้า ไม่มีการตัดราคา
@@ -84,9 +83,13 @@ const AgentHome: FC = () => {
               </Button>
             </a>
           </Link>
-          <Button shape="round" style={{ fontSize: 12, width: 122 }} onClick={()=>{
-            window.location.hash = '#anchor-faq'
-          }} >
+          <Button
+            shape="round"
+            style={{ fontSize: 12, width: 122 }}
+            onClick={() => {
+              window.location.hash = '#anchor-faq'
+            }}
+          >
             คำถามที่พบบ่อย
           </Button>
         </Space>
@@ -127,19 +130,18 @@ const AgentHome: FC = () => {
         </Row>
       </Section>
 
-
       <Section>
         <div id="anchor-faq">
-        <Text
-          block
-          page="agent"
-          align="center"
-          size="headline"
-          color="primary"
-          weight="bold"
-        >
-          คำถามที่พบบ่อย
-        </Text>
+          <Text
+            block
+            page="agent"
+            align="center"
+            size="headline"
+            color="primary"
+            weight="bold"
+          >
+            คำถามที่พบบ่อย
+          </Text>
         </div>
 
         <Collapse bordered>

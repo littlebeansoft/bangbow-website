@@ -16,27 +16,25 @@ interface NavbarProps {
   back?: boolean
 }
 
-const Navbar: FC<NavbarProps> = ({
-  back 
-}) => {
+const Navbar: FC<NavbarProps> = ({ back }) => {
   const router = useRouter()
 
   const pageType = getPageTypeTheme(router.asPath)
-
-  
 
   return (
     <Container>
       <NavbarContainer>
         <Space size="small" className="title" align="center">
-        <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
-          <Image
-            src={pageType === 'factory' ? '/icon-factory.svg' : '/icon-agent.svg'}
-            alt="Bangbow Logo"
-            width={40}
-            height={40}
-            style={{ cursor: 'pointer'}}
-          />
+          <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
+            <Image
+              src={
+                pageType === 'factory' ? '/icon-factory.svg' : '/icon-agent.svg'
+              }
+              alt="Bangbow Logo"
+              width={40}
+              height={40}
+              style={{ cursor: 'pointer' }}
+            />
           </Link>
 
           <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
@@ -48,11 +46,13 @@ const Navbar: FC<NavbarProps> = ({
           </Link>
         </Space>
         {back ? (
-            <CloseOutlined style={{ fontSize: 18 }} onClick={()=>{
+          <CloseOutlined
+            style={{ fontSize: 18 }}
+            onClick={() => {
               history.back()
-            }} /> 
+            }}
+          />
         ) : null}
-     
       </NavbarContainer>
       {/* <Divider /> */}
     </Container>

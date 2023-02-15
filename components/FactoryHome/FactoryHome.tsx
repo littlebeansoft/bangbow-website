@@ -62,7 +62,7 @@ const FactoryHome: FC = () => {
       <Section>
         <HeroTextContainer>
           <Text block color="primary" weight={500} size="headline">
-            รับสมัครผู้ผลิต! {" "}
+            รับสมัครผู้ผลิต!{' '}
           </Text>
           <Text color="primary" size="small">
             รับคำสั่งซื้อ นัดรับสินค้า สต๊อกสินค้า ไม่มีการตัดราคา
@@ -82,9 +82,13 @@ const FactoryHome: FC = () => {
               </Button>
             </a>
           </Link>
-          <Button shape="round" style={{ fontSize: 12, width: 122 }} onClick={()=>{
-            window.location.hash = '#anchor-faq'
-          }} >
+          <Button
+            shape="round"
+            style={{ fontSize: 12, width: 122 }}
+            onClick={() => {
+              window.location.hash = '#anchor-faq'
+            }}
+          >
             คำถามที่พบบ่อย
           </Button>
         </Space>
@@ -126,16 +130,16 @@ const FactoryHome: FC = () => {
       </Section>
 
       <Section>
-        <div id="anchor-faq" >
-        <Text
-          block
-          align="center"
-          size="headline"
-          color="primary"
-          weight="bold"
-        >
-          คำถามที่พบบ่อย
-        </Text>
+        <div id="anchor-faq">
+          <Text
+            block
+            align="center"
+            size="headline"
+            color="primary"
+            weight="bold"
+          >
+            คำถามที่พบบ่อย
+          </Text>
         </div>
 
         <Collapse bordered>
