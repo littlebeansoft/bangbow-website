@@ -116,10 +116,10 @@ const FactoryRegisterPage: NextPage = () => {
         product_category_id: values.productType,
         product_description: values.productDescription,
         address: {
-          province_id: 0,
-          district_id: 0,
-          sub_district_id: 0,
-          post_code: 0,
+          province_id: 1, // ถ้่าไม่ใส่จะไม่สามารถสมัครได้
+          district_id: 1005, // ถ้่าไม่ใส่จะไม่สามารถสมัครได้
+          sub_district_id: 100502, // ถ้่าไม่ใส่จะไม่สามารถสมัครได้
+          post_code: 10220, // ถ้่าไม่ใส่จะไม่สามารถสมัครได้
         },
       },
       {
@@ -234,14 +234,10 @@ const FactoryRegisterPage: NextPage = () => {
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  {
-                    <DrawerPrivacyPolicy />
-                  }
+                  {<DrawerPrivacyPolicy />}
                   และข้าพเจ้าตกลงปฏิบัติตาม
-                  {
-                    <DrawerTerms />
-                  }
-                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                  {<DrawerTerms />}
+                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -260,10 +256,9 @@ const FactoryRegisterPage: NextPage = () => {
                 >
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
-                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม {<DrawerPrivacyPolicy />} และข้าพเจ้าตกลงปฏิบัติตาม
-                  {
-                    <DrawerTerms />
-                  }
+                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม{' '}
+                  {<DrawerPrivacyPolicy />} และข้าพเจ้าตกลงปฏิบัติตาม
+                  {<DrawerTerms />}
                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
@@ -283,15 +278,11 @@ const FactoryRegisterPage: NextPage = () => {
                 >
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
-                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม 
-                  {
-                    <DrawerPrivacyPolicy />
-                  }
+                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
+                  {<DrawerPrivacyPolicy />}
                   และข้าพเจ้าตกลงปฏิบัติตาม
-                  {
-                    <DrawerTerms />
-                  }
-                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
+                  {<DrawerTerms />}
+                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
@@ -338,9 +329,7 @@ const FactoryRegisterPage: NextPage = () => {
                   }}
                 >
                   <Link href={'/privacy-policy-th'}>
-                    <a target="_blank">
-                      เงื่อนไขและข้อกำหนดของแบ่งเบา
-                    </a>
+                    <a target="_blank">เงื่อนไขและข้อกำหนดของแบ่งเบา</a>
                   </Link>
                 </span>
                 แล้ว
