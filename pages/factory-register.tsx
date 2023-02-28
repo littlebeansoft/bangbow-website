@@ -50,6 +50,7 @@ const FactoryRegisterPage: NextPage = () => {
   const [checkTerm, setCheckTerm] = useState(false)
   const [checkRecaptcha, setCheckRecaptcha] = useState(false)
   const [category, setCategory] = useState<CategoryResponse>([])
+  const [showModalTerms, setShowModalTerms] = useState(false)
 
   const [visibleMobileOTP, setVisibleMobileOTP] = useState(false)
   //const timer = useRef<ReturnType<typeof setTimeout>>()
@@ -140,6 +141,15 @@ const FactoryRegisterPage: NextPage = () => {
     children.push(<Option key={item.id}>{item.name}</Option>)
   })
 
+  const onClose = () => {
+    setShowModalTerms(false)
+  }
+
+  const handleCheckTerm = () => {
+    setCheckPrivate(true)
+    form.validateFields(['checkPrivate'])
+  }
+
   return (
     <PageLayout title="เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิตร่วมกับเรา | แบ่งเบา">
       <Section>
@@ -220,6 +230,11 @@ const FactoryRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
+              <DrawerTerms
+                show={showModalTerms}
+                onClose={onClose}
+                handleCheckTerm={handleCheckTerm}
+              />
               <Form.Item
                 name="checkPrivate"
                 rules={[{ validator: validationPrivate }]}
@@ -230,19 +245,28 @@ const FactoryRegisterPage: NextPage = () => {
                     setCheckPrivate(!checkPrivate)
                     form.validateFields(['checkPrivate'])
                   }}
+                  onClick={() => {
+                    setShowModalTerms(true)
+                  }}
                 >
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  {<DrawerPrivacyPolicy />}
+                  <span style={{ color: '#2699FB' }}>
+                    {' '}
+                    นโยบายความเป็นส่วนตัวของแบ่งเบา{' '}
+                  </span>
                   และข้าพเจ้าตกลงปฏิบัติตาม
-                  {<DrawerTerms />}
+                  <span style={{ color: '#2699FB' }}>
+                    {' '}
+                    ข้อตกลงและเงื่อนไขการใช้บริการของแบ่งเบา{' '}
+                  </span>
                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
 
-            <Col span={24}>
+            {/* <Col span={24}>
               <Form.Item
                 name="checkService"
                 rules={[{ validator: validationService }]}
@@ -262,9 +286,9 @@ const FactoryRegisterPage: NextPage = () => {
                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
-            </Col>
+            </Col> */}
 
-            <Col span={24}>
+            {/* <Col span={24}>
               <Form.Item
                 name="checkTerm"
                 rules={[{ validator: validationTerm }]}
@@ -285,7 +309,7 @@ const FactoryRegisterPage: NextPage = () => {
                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
-            </Col>
+            </Col> */}
 
             <Col span={24}>
               <Row justify="center">
@@ -305,8 +329,8 @@ const FactoryRegisterPage: NextPage = () => {
               <Button
                 disabled={
                   !checkPrivate ||
-                  !checkService ||
-                  !checkTerm ||
+                  //!checkService ||
+                  //  !checkTerm ||
                   !otpVerify ||
                   !checkRecaptcha
                 }
