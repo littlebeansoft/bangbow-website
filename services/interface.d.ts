@@ -47,6 +47,7 @@ export interface RegisterFactoryInput {
   product_category_id: string
   product_description: string
   address?: AddressInput | null
+  images?: string[] | null 
 }
 
 type AddressInput = {

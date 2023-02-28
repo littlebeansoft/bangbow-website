@@ -35,6 +35,8 @@ import UploadForm from 'components/Upload'
 import DrawerPrivacyPolicy from 'components/DrawerPrivacyPolicy'
 import DrawerTerms from 'components/DrawerTerms'
 
+import { allowFileExtensionsImage } from "../constants/config"
+
 const { Option } = Select
 
 const FactoryRegisterPage: NextPage = () => {
@@ -106,7 +108,15 @@ const FactoryRegisterPage: NextPage = () => {
   const { mutate: factoryRegister, isLoading } = useRegisterFactory()
 
   const handleFinished = (values: any) => {
-    //console.log('values', values)
+   // console.log('values', values)
+    const images: string[] = []
+
+    if (values.images) {
+      values.images.forEach((item: any) => {
+        images.push(item.id)
+      })
+    }
+
     factoryRegister(
       {
         factory_name: values.factoryName,
@@ -122,6 +132,7 @@ const FactoryRegisterPage: NextPage = () => {
           sub_district_id: 100502, // ถ้่าไม่ใส่จะไม่สามารถสมัครได้
           post_code: 10220, // ถ้่าไม่ใส่จะไม่สามารถสมัครได้
         },
+        images: images,
       },
       {
         onSuccess: () => {
@@ -223,8 +234,8 @@ const FactoryRegisterPage: NextPage = () => {
                   borderRadius: 5,
                 }}
               >
-                <Form.Item name="fileUpload">
-                  <UploadForm />
+                <Form.Item name="images">
+                  <UploadForm maximumUploadItems={10} allowFileExtensions={allowFileExtensionsImage}  />
                 </Form.Item>
               </div>
             </Col>
@@ -330,9 +341,9 @@ const FactoryRegisterPage: NextPage = () => {
                 disabled={
                   !checkPrivate ||
                   //!checkService ||
-                  //  !checkTerm ||
-                  !otpVerify ||
-                  !checkRecaptcha
+                  // !checkTerm ||
+                  !checkRecaptcha ||
+                  !otpVerify 
                 }
                 block
                 type="primary"
