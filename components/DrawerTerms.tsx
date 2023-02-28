@@ -1,5 +1,5 @@
-import { Drawer, Typography } from 'antd'
-import React, { useState } from 'react'
+import { Button, Drawer, Modal, Typography } from 'antd'
+import React, { FC, useEffect, useState } from 'react'
 
 import Text from 'components/Text'
 import { getPageTypeTheme } from 'helpers/utils'
@@ -8,42 +8,65 @@ import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
 import TermsText from './Terms/TermsText'
 
-const DrawerTerms: React.FC = () => {
-  const router = useRouter()
+interface DrawerTermsProps {
+  show: Boolean
+  onClose: () => void
+  handleCheckTerm: () => void
+}
+
+const DrawerTerms: FC<DrawerTermsProps> = ({
+  show,
+  onClose,
+  handleCheckTerm,
+}) => {
   const [open, setOpen] = useState(false)
 
-  const pageType = getPageTypeTheme(router.asPath)
-
-  const showDrawer = () => {
-    setOpen(true)
-  }
-
-  const onClose = () => {
+  const handleOk = () => {
+    onClose()
+    handleCheckTerm()
     setOpen(false)
   }
 
+  const handleCancel = () => {
+    setOpen(false)
+    onClose()
+  }
+
+  useEffect(() => {
+    if (show === true) {
+      setOpen(true)
+    }
+  }, [show])
+
   return (
     <>
-      <Text
-        page={pageType}
-        color="primary"
-        size="body"
-        onClick={() => {
-          showDrawer()
-        }}
-      >
-        ข้อตกลงและเงื่อนไขการใช้บริการ
-      </Text>
-      <Drawer
-        title="ข้อตกลงและเงื่อนไขการใช้บริการ"
-        placement="right"
-        onClose={onClose}
+      {/* <Button type="primary" onClick={showModal}>
+        Open Modal with customized footer
+      </Button> */}
+      <Modal
         open={open}
+        title="ข้อตกลงและเงื่อนไขการใช้งาน"
+        onOk={handleOk}
+        onCancel={handleCancel}
+        style={{ top: 20 }}
+        maskClosable={false}
+        footer={[
+          <div style={{ display: 'flex', width: '100' }} key={'122222'}>
+            <Button
+              style={{ width: '100%' }}
+              key="submit"
+              type="primary"
+              onClick={handleOk}
+            >
+              ยอมรับข้อตกลงและเงื่อนไข
+            </Button>
+          </div>,
+        ]}
       >
-        <ContentContainer>
+        <div style={{ width: '100%', overflow: 'auto', height: '75vh' }}>
           <TermsText />
-        </ContentContainer>
-      </Drawer>
+        </div>
+      </Modal>
     </>
   )
 }

@@ -62,6 +62,7 @@ const AgentRegisterPage: NextPage = () => {
   const [zipCode, setZipCode] = useState<number>(0)
   const sponsorId = useRef<string>('')
   const [checkRecaptcha, setCheckRecaptcha] = useState(false)
+  const [showModalTerms, setShowModalTerms] = useState(false)
 
   const secret_key =
     process.env.NEXT_PUBLIC_RECAPTCHA_SECRET ||
@@ -186,6 +187,15 @@ const AgentRegisterPage: NextPage = () => {
     )
   }
 
+  const onClose = () => {
+    setShowModalTerms(false)
+  }
+
+  const handleCheckTerm = () => {
+    setCheckPrivate(true)
+    form.validateFields(['checkPrivate'])
+  }
+
   return (
     <PageLayout
       title="เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิตร่วมกับเรา | แบ่งเบา"
@@ -307,6 +317,11 @@ const AgentRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
+              <DrawerTerms
+                show={showModalTerms}
+                onClose={onClose}
+                handleCheckTerm={handleCheckTerm}
+              />
               <Form.Item
                 name="checkPrivate"
                 rules={[{ validator: validationPrivate }]}
@@ -317,18 +332,28 @@ const AgentRegisterPage: NextPage = () => {
                     setCheckPrivate(!checkPrivate)
                     form.validateFields(['checkPrivate'])
                   }}
+                  onClick={() => {
+                    setShowModalTerms(true)
+                  }}
                 >
                   การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
                   ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
                   และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  {<DrawerPrivacyPolicy />}
+                  <span style={{ color: '#2699FB' }}>
+                    {' '}
+                    นโยบายความเป็นส่วนตัวของแบ่งเบา{' '}
+                  </span>
                   และข้าพเจ้าตกลงปฏิบัติตาม
-                  {<DrawerTerms />}
+                  <span style={{ color: '#2699FB' }}>
+                    {' '}
+                    ข้อตกลงและเงื่อนไขการใช้บริการของแบ่งเบา{' '}
+                  </span>
                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
             </Col>
 
+            {/* 
             <Col span={24}>
               <Form.Item
                 name="checkService"
@@ -350,9 +375,9 @@ const AgentRegisterPage: NextPage = () => {
                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
-            </Col>
+            </Col> */}
 
-            <Col span={24}>
+            {/* <Col span={24}>
               <Form.Item
                 name="checkTerm"
                 rules={[{ validator: validationTerm }]}
@@ -373,7 +398,7 @@ const AgentRegisterPage: NextPage = () => {
                   ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
                 </Checkbox>
               </Form.Item>
-            </Col>
+            </Col> */}
 
             <Col span={24}>
               <Row justify="center">
@@ -393,8 +418,8 @@ const AgentRegisterPage: NextPage = () => {
               <Button
                 disabled={
                   !checkPrivate ||
-                  !checkService ||
-                  !checkTerm ||
+                  //  !checkService ||
+                  //  !checkTerm ||
                   !otpVerify ||
                   !checkRecaptcha
                 }
