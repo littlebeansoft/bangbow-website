@@ -35,7 +35,7 @@ import UploadForm from 'components/Upload'
 import DrawerPrivacyPolicy from 'components/DrawerPrivacyPolicy'
 import DrawerTerms from 'components/DrawerTerms'
 
-import { allowFileExtensionsImage } from "../constants/config"
+import { allowFileExtensionsImage } from '../constants/config'
 
 const { Option } = Select
 
@@ -108,7 +108,7 @@ const FactoryRegisterPage: NextPage = () => {
   const { mutate: factoryRegister, isLoading } = useRegisterFactory()
 
   const handleFinished = (values: any) => {
-   // console.log('values', values)
+    // console.log('values', values)
     const images: string[] = []
 
     if (values.images) {
@@ -235,7 +235,10 @@ const FactoryRegisterPage: NextPage = () => {
                 }}
               >
                 <Form.Item name="images">
-                  <UploadForm maximumUploadItems={10} allowFileExtensions={allowFileExtensionsImage}  />
+                  <UploadForm
+                    maximumUploadItems={10}
+                    allowFileExtensions={allowFileExtensionsImage}
+                  />
                 </Form.Item>
               </div>
             </Col>
@@ -343,7 +346,7 @@ const FactoryRegisterPage: NextPage = () => {
                   //!checkService ||
                   // !checkTerm ||
                   !checkRecaptcha ||
-                  !otpVerify 
+                  !otpVerify
                 }
                 block
                 type="primary"
