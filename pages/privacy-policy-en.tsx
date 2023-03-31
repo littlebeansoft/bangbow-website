@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
 
-import PageLayout from 'layouts/PageLayout'
 import styled from '@emotion/styled'
 import { BackTop, Typography } from 'antd'
 import Link from 'next/link'
+import PageLayoutRetail from 'layouts/PageLayoutRetail'
 
 const PrivacyPolicyENPage: NextPage = () => {
   return (
-    <PageLayout title="BANGBOW-PRIVACY POLICY">
+    <PageLayoutRetail title="BANGBOW-PRIVACY POLICY">
       <ContentContainer>
         <Typography.Title level={4}>BANGBOW-PRIVACY POLICY</Typography.Title>
         <Typography.Paragraph>
@@ -677,7 +677,7 @@ const PrivacyPolicyENPage: NextPage = () => {
           <BackTop />
         </div>
       </ContentContainer>
-    </PageLayout>
+    </PageLayoutRetail>
   )
 }
 
