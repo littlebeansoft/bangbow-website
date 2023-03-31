@@ -56,7 +56,7 @@ const UploadForm: React.FC<UploadFormProps> = ({
     setFileList(newFileList)
 
     const newFileListUrl = newFileList.map((item) => {
-        console.log("item response->",item.response);
+      console.log('item response->', item.response)
       if (item.response) {
         return {
           // url: item.response?.url,
