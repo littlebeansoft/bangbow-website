@@ -2,20 +2,20 @@ import type { NextPage } from 'next'
 
 import PageLayout from 'layouts/PageLayout'
 import styled from '@emotion/styled'
-import PrivacyPolicyTextTH from 'components/PrivacyPolicy/PrivacyPolicyTextTH'
+import HelpDeskText from 'components/HelpDesk/HelpDeskText'
 import PageLayoutRetail from 'layouts/PageLayoutRetail'
 
-const FactoryPrivacyPolicyTHPage: NextPage = () => {
+const HelpDeskPage: NextPage = () => {
   return (
-    <PageLayoutRetail title="การคุ้มครองข้อมูลส่วนบุคคล">
+    <PageLayoutRetail title="ศูนย์ช่วยเหลือลูกค้าแบ่งเบา">
       <ContentContainer>
-        <PrivacyPolicyTextTH />
+        <HelpDeskText />
       </ContentContainer>
     </PageLayoutRetail>
   )
 }
 
-export default FactoryPrivacyPolicyTHPage
+export default HelpDeskPage
 
 export const ContentContainer = styled.div`
   --gap: 60px;
