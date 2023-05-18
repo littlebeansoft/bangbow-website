@@ -21,8 +21,8 @@ const AgentRegisterSuccessPage: NextPage = () => {
       : false
 
   const link = isIos
-    ? 'https://apps.apple.com/th/app/youtube/id544007664?l=th'
-    : 'https://play.google.com/store/apps/details?id=com.google.android.youtube'
+    ? 'https://bangbow-factory-web.azurewebsites.net/landing'
+    : 'https://bangbow-factory-web.azurewebsites.net/landing'
 
   const website = 'https://www.bangbow.com/'
 
