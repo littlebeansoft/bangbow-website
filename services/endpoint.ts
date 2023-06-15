@@ -7,4 +7,5 @@ export const API = {
   masterProvice: '/master/provinces',
   masterDistrict: '/master/districts?province_id=',
   masterSubDistrict: '/master/subdistricts?district_id=',
+  masterZipcode: '/master/sub_districts_id_by_zip_code?zip_code=',
 }

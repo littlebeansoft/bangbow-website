@@ -31,12 +31,14 @@ import {
   MasterProvinceData,
   MasterDistrictData,
   MasterSubDistrictData,
+  MasterZipcodeData,
 } from 'services/interface'
 import { useRegisterAgent } from 'reactQuery/useRegister'
 import {
   useGetMasterDistrict,
   useGetMasterProvice,
   useGetMasterSubDistrict,
+  useGetZipcode,
 } from 'reactQuery/useMasterData'
 import DrawerPrivacyPolicy from 'components/DrawerPrivacyPolicy'
 import DrawerTerms from 'components/DrawerTerms'
@@ -59,11 +61,13 @@ const AgentRegisterPage: NextPage = () => {
   const [subDistrict, setSubDistrict] = useState<MasterSubDistrictData[]>([])
   const [proviceId, setProviceId] = useState<number>(0)
   const [districtId, setDistrictId] = useState<number>(0)
-  const [zipCode, setZipCode] = useState<number>(0)
+  const [zipCode, setZipCode] = useState<string>('10520')
   const sponsorId = useRef<string>('')
   const [checkRecaptcha, setCheckRecaptcha] = useState(false)
   const [showModalTerms, setShowModalTerms] = useState(false)
   const [otpErrorMessage, setOtpErrorMessage] = useState<string | null>()
+  const [zipcodeData, setZipcodeData] = useState<MasterZipcodeData[]>([])
+  const [realZipcode, setRealZipcode] = useState<number>()
 
   const secret_key =
     process.env.NEXT_PUBLIC_RECAPTCHA_SECRET ||
@@ -123,7 +127,11 @@ const AgentRegisterPage: NextPage = () => {
 
   const childrenProvince: React.ReactNode[] = []
   province?.map((item) => {
-    childrenProvince.push(<Option key={item.id}>{item.name_th}</Option>)
+    childrenProvince.push(
+      <Option key={item.id} value={item.id}>
+        {item.name_th}
+      </Option>
+    )
   })
 
   const { data: masterDistrictData, isLoading: districtLoading } =
@@ -137,7 +145,11 @@ const AgentRegisterPage: NextPage = () => {
 
   const childrenDistrict: React.ReactNode[] = []
   district?.map((item) => {
-    childrenDistrict.push(<Option key={item.id}>{item.name_th}</Option>)
+    childrenDistrict.push(
+      <Option key={item.id} value={item.id}>
+        {item.name_th}
+      </Option>
+    )
   })
 
   const { data: masterSubDistrictData, isLoading: subDistrictLoading } =
@@ -152,7 +164,7 @@ const AgentRegisterPage: NextPage = () => {
   const childrenSubDistrict: React.ReactNode[] = []
   subDistrict?.map((item) => {
     childrenSubDistrict.push(
-      <Option key={item.id} zipCode={item.zip_code}>
+      <Option key={item.id} value={item.id}>
         {item.name_th}
       </Option>
     )
@@ -161,6 +173,8 @@ const AgentRegisterPage: NextPage = () => {
   const { mutate: registerAgent, isLoading } = useRegisterAgent()
 
   const handleFinished = (values: any) => {
+    //console.log('values', values);
+    //console.log('realZipcode', realZipcode);
     registerAgent(
       {
         first_name: values.firstName,
@@ -172,7 +186,7 @@ const AgentRegisterPage: NextPage = () => {
           province_id: values.province_id,
           district_id: values.district_id,
           sub_district_id: values.sub_district_id,
-          post_code: values.zipCode,
+          post_code: realZipcode || 0,
         },
       },
       {
@@ -196,6 +210,31 @@ const AgentRegisterPage: NextPage = () => {
     setCheckPrivate(true)
     form.validateFields(['checkPrivate'])
   }
+
+  const { data: masterZipcodeData, isLoading: zipcodeLoading } =
+    useGetZipcode(zipCode)
+
+  useEffect(() => {
+    if (masterZipcodeData) {
+      setZipcodeData(masterZipcodeData)
+    }
+  }, [masterZipcodeData])
+
+  const childrenZipcode: React.ReactNode[] = []
+  zipcodeData?.map((item) => {
+    //console.log(item);
+    childrenZipcode.push(
+      <Option key={item.sub_district_id} value={item.sub_district_id}>
+        {item.zip_code +
+          ' ' +
+          item.sub_district_name_th +
+          ' ' +
+          item.district_name_th +
+          ' ' +
+          item.province_name_th}
+      </Option>
+    )
+  })
 
   return (
     <PageLayout
@@ -250,62 +289,69 @@ const AgentRegisterPage: NextPage = () => {
               </Form.Item>
             </Col>
 
-            <Col span={12}>
-              <Form.Item name="province_id" rules={[ruleRequired]}>
+            <Col span={24}>
+              <Form.Item
+                // label="รหัสไปรษณีย์"
+                name="zip_code"
+                rules={[ruleRequired]}
+              >
                 <Select
                   showSearch
-                  placeholder="จังหวัด"
+                  placeholder="รหัสไปรษณีย์"
                   optionFilterProp="children"
+                  // defaultValue={data?.data.address[0].sub_district_id}
+                  onSearch={(value) => {
+                    if (value.length == 5) {
+                      setZipCode(value)
+                      // form.setFieldsValue({ zipCode: value })
+                    }
+                  }}
                   onChange={(value) => {
-                    setProviceId(value)
-                    form.setFieldsValue({ district_id: undefined })
-                    form.setFieldsValue({ sub_district_id: undefined })
-                    form.setFieldsValue({ zipCode: undefined })
+                    console.log('onChange' + value)
+
+                    // find province_id with sub_district_id
+                    zipcodeData.find((item) => {
+                      if (item.sub_district_id == value) {
+                        setProviceId(item.province_id)
+                        setDistrictId(item.district_id)
+                        setRealZipcode(item.zip_code)
+                        form.setFieldsValue({ province_id: item.province_id })
+                        form.setFieldsValue({ district_id: item.district_id })
+                        form.setFieldsValue({
+                          sub_district_id: item.sub_district_id,
+                        })
+                      } else {
+                      }
+                    })
                   }}
                   notFoundContent={
-                    proviceLoading ? <Spin size="small" /> : null
+                    subDistrictLoading ? <Spin size="small" /> : null
                   }
-                  loading={proviceLoading}
+                  loading={subDistrictLoading}
                 >
-                  {childrenProvince}
+                  {childrenZipcode}
                 </Select>
               </Form.Item>
             </Col>
 
             <Col span={12}>
-              <Form.Item name="district_id" rules={[ruleRequired]}>
-                <Select
-                  showSearch
-                  placeholder="อำเภอ"
-                  optionFilterProp="children"
-                  onChange={(value) => {
-                    setDistrictId(value)
-                    form.setFieldsValue({ sub_district_id: undefined })
-                    form.setFieldsValue({ zipCode: undefined })
-                  }}
-                  notFoundContent={
-                    districtLoading ? <Spin size="small" /> : null
-                  }
-                  loading={districtLoading}
-                >
-                  {childrenDistrict}
-                </Select>
-              </Form.Item>
-            </Col>
-
-            <Col span={12}>
-              <Form.Item name="sub_district_id" rules={[ruleRequired]}>
+              <Form.Item
+                // label="ตำบล"
+                name="sub_district_id"
+                rules={[ruleRequired]}
+              >
                 <Select
                   showSearch
                   placeholder="ตำบล"
                   optionFilterProp="children"
+                  disabled={true}
                   onChange={(value) => {
-                    subDistrict.map((item) => {
-                      if (item.id == value) {
-                        setZipCode(item.zip_code)
-                        form.setFieldsValue({ zipCode: item.zip_code })
-                      }
-                    })
+                    // subDistrict.map((item) => {
+                    //   if (item.id == value) {
+                    //     setZipCode(item.zip_code)
+                    //     form.setFieldsValue({ zipCode: item.zip_code })
+                    //   }
+                    // })
                   }}
                   notFoundContent={
                     subDistrictLoading ? <Spin size="small" /> : null
@@ -318,8 +364,56 @@ const AgentRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={12}>
-              <Form.Item name="zipCode" rules={[ruleRequired]}>
-                <Input placeholder="รหัสไปรษณีย์" maxLength={5} minLength={5} />
+              <Form.Item
+                labelAlign="left"
+                //label="อำเภอ"
+                name="district_id"
+                rules={[ruleRequired]}
+              >
+                <Select
+                  showSearch
+                  placeholder="อำเภอ"
+                  optionFilterProp="children"
+                  disabled={true}
+                  onChange={(value) => {
+                    // setDistrictId(value)
+                    // form.setFieldsValue({ sub_district_id: undefined })
+                    // form.setFieldsValue({ zipCode: undefined })
+                  }}
+                  notFoundContent={
+                    districtLoading ? <Spin size="small" /> : null
+                  }
+                  loading={districtLoading}
+                >
+                  {childrenDistrict}
+                </Select>
+              </Form.Item>
+            </Col>
+
+            <Col span={12}>
+              <Form.Item
+                // label="จังหวัด"
+                name="province_id"
+                rules={[ruleRequired]}
+              >
+                <Select
+                  showSearch
+                  placeholder="จังหวัด"
+                  optionFilterProp="children"
+                  disabled={true}
+                  onChange={(value) => {
+                    setProviceId(value)
+                    // form.setFieldsValue({ district_id: undefined })
+                    // form.setFieldsValue({ sub_district_id: undefined })
+                    // form.setFieldsValue({ zipCode: undefined })
+                  }}
+                  notFoundContent={
+                    proviceLoading ? <Spin size="small" /> : null
+                  }
+                  loading={proviceLoading}
+                >
+                  {childrenProvince}
+                </Select>
               </Form.Item>
             </Col>
 
@@ -359,53 +453,6 @@ const AgentRegisterPage: NextPage = () => {
                 </Checkbox>
               </Form.Item>
             </Col>
-
-            {/* 
-            <Col span={24}>
-              <Form.Item
-                name="checkService"
-                rules={[{ validator: validationService }]}
-              >
-                <Checkbox
-                  checked={checkService}
-                  onChange={() => {
-                    setCheckService(!checkService)
-                    form.validateFields(['checkService'])
-                  }}
-                >
-                  การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
-                  ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
-                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  {<DrawerPrivacyPolicy />}
-                  และข้าพเจ้าตกลงปฏิบัติตาม
-                  {<DrawerTerms />}
-                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
-                </Checkbox>
-              </Form.Item>
-            </Col> */}
-
-            {/* <Col span={24}>
-              <Form.Item
-                name="checkTerm"
-                rules={[{ validator: validationTerm }]}
-              >
-                <Checkbox
-                  checked={checkTerm}
-                  onChange={() => {
-                    setCheckTerm(!checkTerm)
-                    form.validateFields(['checkTerm'])
-                  }}
-                >
-                  การคลิกปุ่มนี้เพื่อใช้บริการ หมายความว่า
-                  ข้าพเจ้าตกลงให้แบ่งเบามีสิทธิ์ รวบรวม ใช้
-                  และเปิดเผยข้อมูลที่ข้าพเจ้าเตรียมให้โดยเป็นไปตาม
-                  {<DrawerPrivacyPolicy />}
-                  และข้าพเจ้าตกลงปฏิบัติตาม
-                  {<DrawerTerms />}
-                  ซึ่งข้าพเจ้าได้อ่านและทำความเข้าใจเรียบร้อยแล้ว
-                </Checkbox>
-              </Form.Item>
-            </Col> */}
 
             <Col span={24}>
               <Row justify="center">
