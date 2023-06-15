@@ -63,7 +63,7 @@ const DrawerTerms: FC<DrawerTermsProps> = ({
           </div>,
         ]}
       >
-        <div style={{ width: '100%', overflow: 'auto', height: '75vh' }}>
+        <div style={{ width: '100%', overflow: 'auto', height: '55vh' }}>
           <TermsText />
         </div>
       </Modal>

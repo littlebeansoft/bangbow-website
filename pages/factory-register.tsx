@@ -53,6 +53,7 @@ const FactoryRegisterPage: NextPage = () => {
   const [checkRecaptcha, setCheckRecaptcha] = useState(false)
   const [category, setCategory] = useState<CategoryResponse>([])
   const [showModalTerms, setShowModalTerms] = useState(false)
+  const [otpErrorMessage, setOtpErrorMessage] = useState<string | null>()
 
   const [visibleMobileOTP, setVisibleMobileOTP] = useState(false)
   //const timer = useRef<ReturnType<typeof setTimeout>>()
@@ -190,12 +191,18 @@ const FactoryRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
+              {otpErrorMessage && (
+                <Text size="small" style={{ color: 'red' }}>
+                  {otpErrorMessage}
+                </Text>
+              )}
               <Form.Item name="phoneNumber" rules={[ruleRequired]}>
                 <PhoneNumberInput
                   onPhoneNumberChange={setPhoneNumber}
                   onVisibleMobileOTP={() => setVisibleMobileOTP(true)}
                   visibleMobileOTP={visibleMobileOTP}
                   appName="factory"
+                  setOtpErrorMessage={setOtpErrorMessage}
                 />
               </Form.Item>
             </Col>
