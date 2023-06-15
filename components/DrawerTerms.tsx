@@ -48,7 +48,7 @@ const DrawerTerms: FC<DrawerTermsProps> = ({
         title="ข้อตกลงและเงื่อนไขการใช้งาน"
         onOk={handleOk}
         onCancel={handleCancel}
-        style={{ top: 20 }}
+        style={{ top: 0 }}
         maskClosable={false}
         footer={[
           <div style={{ display: 'flex', width: '100' }} key={'122222'}>
@@ -63,7 +63,7 @@ const DrawerTerms: FC<DrawerTermsProps> = ({
           </div>,
         ]}
       >
-        <div style={{ width: '100%', overflow: 'auto', height: '75vh' }}>
+        <div style={{ width: '100%', overflow: 'auto', height: '55vh' }}>
           <TermsText />
         </div>
       </Modal>

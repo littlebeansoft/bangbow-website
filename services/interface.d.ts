@@ -101,3 +101,18 @@ type MasterSubDistrictData = {
   name_en: string
   zip_code: number
 }
+
+export interface GetMasterResponseZipCode extends Array<MasterZipcodeData> {}
+
+type MasterZipcodeData = {
+  province_id: number
+  province_name_th: string
+  province_name_en: string
+  district_id: number
+  district_name_th: string
+  district_name_en: string
+  sub_district_id: number
+  sub_district_name_th: string
+  sub_district_name_en: string
+  zip_code: number
+}
