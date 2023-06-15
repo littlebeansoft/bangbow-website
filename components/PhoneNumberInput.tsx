@@ -61,7 +61,7 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
       onChange?.(event)
       onPhoneNumberChange?.(event.target.value)
     }
-    setOtpErrorMessage('กรุณกรอกเบอร์โทร และกดส่งรหัส เพื่อยืนยัน OTP')
+    setOtpErrorMessage('กรุณากรอกเบอร์โทร และกดส่งรหัส เพื่อยืนยัน OTP')
   }
 
   useEffect(() => {
