@@ -8,11 +8,13 @@ import {
   MasterProvinceResponse,
   MasterDistrictResponse,
   MasterSubDistrictResponse,
+  GetMasterResponseZipCode,
 } from 'services/interface'
 import {
   getMasterProvice,
   getMasterDistrict,
   getMasterSubDistrict,
+  getMasterZipcode,
 } from 'services/masterDataApi'
 
 export const useGetMasterProvice = (): UseQueryResult<
@@ -46,6 +48,18 @@ export const useGetMasterSubDistrict = (
   return useQuery<MasterSubDistrictResponse, Error>(
     `district${districtId}`,
     () => getMasterSubDistrict(districtId),
+    {
+      staleTime: 1000 * 60 * 60 * 24,
+    }
+  )
+}
+
+export const useGetZipcode = (
+  zipCode: string
+): UseQueryResult<GetMasterResponseZipCode, Error> => {
+  return useQuery<GetMasterResponseZipCode, Error>(
+    `zipCode_${zipCode}`,
+    () => getMasterZipcode(zipCode),
     {
       staleTime: 1000 * 60 * 60 * 24,
     }

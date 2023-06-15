@@ -4,6 +4,7 @@ import {
   MasterProvinceResponse,
   MasterDistrictResponse,
   MasterSubDistrictResponse,
+  GetMasterResponseZipCode,
 } from './interface.d'
 import httpClient from '../axios/interceptors'
 import { AxiosResponse } from 'axios'
@@ -29,6 +30,15 @@ export const getMasterSubDistrict = async (
 ): Promise<MasterSubDistrictResponse> => {
   const data: AxiosResponse<MasterSubDistrictResponse> = await httpClient
     .get(API.masterSubDistrict + districtId)
+    .catch((error) => handleResponseError(error))
+  return data.data
+}
+
+export const getMasterZipcode = async (
+  zipcode: string
+): Promise<GetMasterResponseZipCode> => {
+  const data: AxiosResponse<GetMasterResponseZipCode> = await httpClient
+    .get(API.masterZipcode + zipcode)
     .catch((error) => handleResponseError(error))
   return data.data
 }
