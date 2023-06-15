@@ -63,6 +63,7 @@ const AgentRegisterPage: NextPage = () => {
   const sponsorId = useRef<string>('')
   const [checkRecaptcha, setCheckRecaptcha] = useState(false)
   const [showModalTerms, setShowModalTerms] = useState(false)
+  const [otpErrorMessage, setOtpErrorMessage] = useState<string | null>()
 
   const secret_key =
     process.env.NEXT_PUBLIC_RECAPTCHA_SECRET ||
@@ -233,12 +234,18 @@ const AgentRegisterPage: NextPage = () => {
             </Col>
 
             <Col span={24}>
+              {otpErrorMessage && (
+                <Text size="small" style={{ color: 'red' }}>
+                  {otpErrorMessage}
+                </Text>
+              )}
               <Form.Item name="phoneNumber" rules={[ruleRequired]}>
                 <PhoneNumberInput
                   onPhoneNumberChange={setPhoneNumber}
                   onVisibleMobileOTP={() => setVisibleMobileOTP(true)}
                   visibleMobileOTP={visibleMobileOTP}
                   appName="agent"
+                  setOtpErrorMessage={setOtpErrorMessage}
                 />
               </Form.Item>
             </Col>

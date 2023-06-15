@@ -22,6 +22,7 @@ interface PhoneNumberInputProps {
   onVisibleMobileOTP: () => void
   visibleMobileOTP: boolean
   appName: string
+  setOtpErrorMessage: (value: string | null) => void
 }
 
 const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
@@ -31,6 +32,7 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
   onVisibleMobileOTP,
   visibleMobileOTP,
   appName,
+  setOtpErrorMessage,
 }) => {
   const router = useRouter()
 
@@ -59,6 +61,7 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
       onChange?.(event)
       onPhoneNumberChange?.(event.target.value)
     }
+    setOtpErrorMessage('กรุณกรอกเบอร์โทร และกดส่งรหัส เพื่อยืนยัน OTP')
   }
 
   useEffect(() => {
@@ -68,6 +71,8 @@ const PhoneNumberInput: FC<PhoneNumberInputProps> = ({
         '$1x-xxx-x$3'
       )
       setTextPhoneNumber(textPhoneNumber)
+
+      setOtpErrorMessage(null)
     }
   }, [otpVerify])
 
