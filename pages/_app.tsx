@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import { Provider as ReduxProvide } from 'react-redux'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-import 'antd/dist/antd.css'
+import 'antd/dist/reset.css'
 
 import '../styles/globals.css'
 
@@ -19,7 +19,25 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ReduxProvide store={store}>
-        <ConfigProvider componentSize="large">
+        <ConfigProvider
+          componentSize="large"
+          theme={{
+            token: {
+              fontFamily: 'Prompt',
+            },
+            components: {
+              Input: {
+                colorBorder: '#000000',
+              },
+              Select: {
+                colorBorder: '#000000',
+              },
+              Checkbox: {
+                colorBorder: '#000000',
+              },
+            },
+          }}
+        >
           <PageTheme>
             <Component {...pageProps} />
           </PageTheme>

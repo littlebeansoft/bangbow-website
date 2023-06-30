@@ -21,7 +21,7 @@ const AgentRegisterSuccessPage: NextPage = () => {
       : false
 
   const link = isIos
-    ? 'bangbowplatform://bangbow.com/main'
+    ? 'bangbow://bangbow.com/main'
     : 'bangbowagent://bangbow.com/main'
 
   const website = 'https://www.bangbow.com/'

@@ -18,3 +18,17 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.ant-checkbox .ant-checkbox-inner {
+  width: 27px;
+  height: 27px;
+}
+
+.ant-checkbox .ant-checkbox-inner:after {
+  width: 8px;
+  height: 14px;
+}
+
+/* .ant-input {
+  border: 1px solid #000000 !important;
+} */
