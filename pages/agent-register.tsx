@@ -421,7 +421,7 @@ const AgentRegisterPage: NextPage = () => {
 
             <Col span={12}>
               <Form.Item name="advisor_code" >
-                <Input placeholder="รหัสผู้แนะนำ" />
+                <Input placeholder="รหัสผู้แนะนำ"/>
               </Form.Item>
             </Col>
 
