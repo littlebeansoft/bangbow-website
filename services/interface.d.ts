@@ -68,6 +68,7 @@ export interface RegisterAgentInput {
   mobile: string
   sponsor_id: string
   address?: AddressInput | null
+  advisor_code?: string 
 }
 
 export interface RegisterAgentResponse {

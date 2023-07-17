@@ -188,6 +188,7 @@ const AgentRegisterPage: NextPage = () => {
           sub_district_id: values.sub_district_id,
           post_code: realZipcode || 0,
         },
+        advisor_code: values.advisor_code
       },
       {
         onSuccess: () => {
@@ -414,6 +415,13 @@ const AgentRegisterPage: NextPage = () => {
                 >
                   {childrenProvince}
                 </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}></Col>
+
+            <Col span={12}>
+              <Form.Item name="advisor_code" >
+                <Input placeholder="รหัสผู้แนะนำ" />
               </Form.Item>
             </Col>
 
