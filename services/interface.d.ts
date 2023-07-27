@@ -73,6 +73,7 @@ export interface RegisterAgentInput {
 
 export interface RegisterAgentResponse {
   status: string
+  error_message?: string
 }
 
 export interface MasterProvinceResponse extends Array<MasterProvinceData> {}
