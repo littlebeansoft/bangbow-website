@@ -72,9 +72,9 @@ const FooterRetail: FC = () => {
                     transform: 'scaleX(-1)',
                   }}
                 />
-                <Link href="tel:0859562828">
+                <Link href="tel:0868263999">
                   <Text color="black" size="small">
-                    085-956-2828
+                    086-826-3999
                   </Text>
                 </Link>
               </Space>
@@ -82,9 +82,9 @@ const FooterRetail: FC = () => {
             <Col span={24}>
               <Space size="large">
                 <MailOutlined style={iconStyle} />
-                <Link href="mailto:waiyarit@gmail.com">
+                <Link href="mailto:contact@bangbow.com">
                   <Text color="black" size="small">
-                    waiyarit@gmail.com
+                  contact@bangbow.com
                   </Text>
                 </Link>
               </Space>

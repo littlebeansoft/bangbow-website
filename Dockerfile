@@ -1,17 +1,17 @@
 #!/bin/bash
 # Install dependencies only when needed
-FROM node:14.18.0 AS builder
+FROM node:18.15.0 AS builder
 ARG ENV_FILE
 WORKDIR /app
 COPY package.json ./
-RUN yarn install --legacy-peer-deps --network-timeout 1000000
+RUN yarn install
 COPY . .
 RUN cp .env.example .env
 RUN echo -e "${ENV_FILE}" >> .env
 RUN yarn build
 
 # Production image, copy all the files and run next
-FROM node:14.18.0-alpine AS runner
+FROM node:18.15.0 AS runner
 ARG DOCKER_IMAGE_TAG
 WORKDIR /app
 COPY --from=builder /app/next.config.js ./next.config.js

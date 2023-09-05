@@ -82,9 +82,9 @@ const Footer: FC = () => {
             <Col span={24}>
               <Space size="large">
                 <MailOutlined style={iconStyle} />
-                <Link href="mailto:support@bangbow.com">
+                <Link href="mailto:contact@bangbow.com">
                   <Text color="black" size="small">
-                    support@bangbow.com
+                  contact@bangbow.com
                   </Text>
                 </Link>
               </Space>

@@ -68,10 +68,12 @@ export interface RegisterAgentInput {
   mobile: string
   sponsor_id: string
   address?: AddressInput | null
+  advisor_code?: string 
 }
 
 export interface RegisterAgentResponse {
   status: string
+  error_message?: string
 }
 
 export interface MasterProvinceResponse extends Array<MasterProvinceData> {}

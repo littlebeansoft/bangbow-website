@@ -275,12 +275,12 @@ const PrivacyPolicyTextTH: FC = () => {
         7 ซอยรามคำแหง 118 แยก 2 ถนนรามคำแหง สะพานสูง สะพานสูง กรุงเทพมหานคร
         10240
       </Typography.Paragraph>
-      <Typography.Paragraph>อีเมล waiyarit@gmail.com</Typography.Paragraph>
+      <Typography.Paragraph>อีเมล contact@bangbow.com</Typography.Paragraph>
       <Typography.Paragraph>
-        เว็บไซต์ https://www.beansx.com
+        เว็บไซต์ https://www.bangbow.com
       </Typography.Paragraph>
-      <Typography.Paragraph>หมายเลขโทรศัพท์ 0859562828</Typography.Paragraph>
-      <Typography.Paragraph>
+      <Typography.Paragraph>หมายเลขโทรศัพท์ 086-826-3999</Typography.Paragraph>
+      {/* <Typography.Paragraph>
         <b>เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล</b>
       </Typography.Paragraph>
       <Typography.Paragraph>ไวยฤทธิ์ วิทยานรากุล</Typography.Paragraph>
@@ -289,7 +289,7 @@ const PrivacyPolicyTextTH: FC = () => {
         10240
       </Typography.Paragraph>
       <Typography.Paragraph>อีเมล waiyarit@gmail.com</Typography.Paragraph>
-      <Typography.Paragraph>หมายเลขโทรศัพท์ 0859562828</Typography.Paragraph>
+      <Typography.Paragraph>หมายเลขโทรศัพท์ 0859562828</Typography.Paragraph> */}
     </>
   )
 }

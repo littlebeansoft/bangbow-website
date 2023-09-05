@@ -172,9 +172,8 @@ const AgentRegisterPage: NextPage = () => {
 
   const { mutate: registerAgent, isLoading } = useRegisterAgent()
 
-  const handleFinished = (values: any) => {
-    //console.log('values', values);
-    //console.log('realZipcode', realZipcode);
+
+  const onFinish = async (values: any) => {
     registerAgent(
       {
         first_name: values.firstName,
@@ -188,19 +187,28 @@ const AgentRegisterPage: NextPage = () => {
           sub_district_id: values.sub_district_id,
           post_code: realZipcode || 0,
         },
+        advisor_code: values.advisor_code
       },
       {
-        onSuccess: () => {
-          message.success('สมัครสมาชิกเรียบร้อย')
-          router.push('/agent-register-success')
+        onSuccess: response => {
+          if(response.status === "failed"){
+              message.error(response.error_message)
+          }else{
+            message.success('สมัครสมาชิกเรียบร้อย')
+            router.push('/agent-register-success')
+          }
         },
-        onError: (error) => {
-          // console.log("error mutation-->", error)
+        onError: error  => {
+         console.log("error mutation-->", error)
           message.error(error.message)
         },
       }
     )
+
   }
+  // const   handleFinished = async (values: any) => {
+   
+  // }
 
   const onClose = () => {
     setShowModalTerms(false)
@@ -250,7 +258,7 @@ const AgentRegisterPage: NextPage = () => {
         <Form
           scrollToFirstError
           autoComplete="off"
-          onFinish={handleFinished}
+          onFinish={onFinish}
           form={form}
         >
           <Row gutter={[16, 16]}>
@@ -414,6 +422,13 @@ const AgentRegisterPage: NextPage = () => {
                 >
                   {childrenProvince}
                 </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}></Col>
+
+            <Col span={12}>
+              <Form.Item name="advisor_code" >
+                <Input placeholder="รหัสผู้แนะนำ"/>
               </Form.Item>
             </Col>
 
