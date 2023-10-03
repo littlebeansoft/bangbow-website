@@ -11,8 +11,8 @@ export interface Color {
 
 const color: Color = {
   primary: {
-    factory: '#007DFF',
-    agent: '#2699FB',
+    factory: '#58D9B7',
+    agent: '#58D9B7',
   },
   black: {
     factory: '#000',
