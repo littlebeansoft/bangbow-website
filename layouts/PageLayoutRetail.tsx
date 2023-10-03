@@ -36,7 +36,7 @@ const PageLayoutRetail: FCWithChildren<PageLayoutProps> = ({
 
         <link
           rel="shortcut icon"
-          href={page === 'factory' ? '/icon-factory.svg' : '/icon-agent.svg'}
+          href={page === 'factory' ? '/bb-icon.png' : '/bb-icon.png'}
         />
       </Head>
 
@@ -52,7 +52,7 @@ const PageLayoutRetail: FCWithChildren<PageLayoutProps> = ({
         {children}
       </Container>
 
-      <FooterRetail />
+      {/* <FooterRetail /> */}
     </PageLayoutContainer>
   )
 }

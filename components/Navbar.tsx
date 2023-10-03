@@ -28,7 +28,7 @@ const Navbar: FC<NavbarProps> = ({ back }) => {
           <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
             <Image
               src={
-                pageType === 'factory' ? '/icon-factory.svg' : '/icon-agent.svg'
+                pageType === 'factory' ? '/bb-icon.png' : '/bb-icon.png'
               }
               alt="Bangbow Logo"
               width={40}
@@ -40,7 +40,7 @@ const Navbar: FC<NavbarProps> = ({ back }) => {
           <Link href={pageType === 'factory' ? '/factory' : '/agent'}>
             <a>
               <Text page={pageType} color="primary" size="headline">
-                แบ่งเบา
+                บีบี มาร์ท
               </Text>
             </a>
           </Link>
