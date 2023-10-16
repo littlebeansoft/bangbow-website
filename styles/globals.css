@@ -32,3 +32,12 @@ a {
 /* .ant-input {
   border: 1px solid #000000 !important;
 } */
+
+.ant-collapse {
+  border-radius: 0px;
+  background-color: #ffffff;
+}
+
+.ant-collapse>.ant-collapse-item:last-child, :where(.css-dev-only-do-not-override-1r41j4b).ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header {
+  border-radius: 0px;
+}
