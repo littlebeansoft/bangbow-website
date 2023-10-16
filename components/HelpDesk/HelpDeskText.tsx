@@ -1,14 +1,21 @@
 import { Typography } from 'antd'
-import Link from 'next/link'
 import { FC } from 'react'
+import PurchasingProducts from './PurchasingProducts'
+import styled from 'styled-components'
 
 const HelpDeskText: FC = () => {
-  //  &quot;
   return (
     <>
-      <Typography.Title level={4}>ศูนย์ช่วยเหลือลูกค้าแบ่งเบา</Typography.Title>
+      <Typography.Title style={{ marginLeft: 10 }} level={5}>
+        คำถามที่พบบ่อย
+      </Typography.Title>
+      <PurchasingProducts />
     </>
   )
 }
 
 export default HelpDeskText
+
+const TextWrapper = styled.div`
+  margin-right: 10px;
+`
