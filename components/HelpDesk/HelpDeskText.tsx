@@ -1,6 +1,5 @@
 import { Typography } from 'antd'
 import { FC } from 'react'
-import PurchasingProducts from './PurchasingProducts'
 import styled from 'styled-components'
 import CollapseComponent from './Collapse'
 
