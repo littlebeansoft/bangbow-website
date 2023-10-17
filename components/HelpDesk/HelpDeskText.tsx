@@ -1,7 +1,8 @@
 import { Typography } from 'antd'
 import { FC } from 'react'
 import styled from 'styled-components'
-import CollapseComponent from './Collapse'
+//import CollapseComponent from './Collapse'
+import PurchasingProducts from './PurchasingProducts'
 
 const HelpDeskText: FC = () => {
   return (
@@ -9,7 +10,7 @@ const HelpDeskText: FC = () => {
       <Typography.Title style={{ marginLeft: 10 }} level={5}>
         คำถามที่พบบ่อย
       </Typography.Title>
-      <CollapseComponent />
+      <PurchasingProducts />
     </>
   )
 }
