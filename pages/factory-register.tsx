@@ -36,6 +36,7 @@ import DrawerPrivacyPolicy from 'components/DrawerPrivacyPolicy'
 import DrawerTerms from 'components/DrawerTerms'
 
 import { allowFileExtensionsImage } from '../constants/config'
+import PageLayoutFactory from 'layouts/PageLayoutFactory'
 
 const { Option } = Select
 
@@ -163,7 +164,7 @@ const FactoryRegisterPage: NextPage = () => {
   }
 
   return (
-    <PageLayout title="เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิตร่วมกับเรา | แบ่งเบา">
+    <PageLayoutFactory title="เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิตร่วมกับเรา | แบ่งเบา">
       <Section>
         <Text block color="primary" weight={500} size="headline">
           เข้าร่วมเป็นพาร์ทเนอร์ผู้ผลิต <br />
@@ -390,7 +391,7 @@ const FactoryRegisterPage: NextPage = () => {
         onClose={() => setVisibleMobileOTP(false)}
         appName="factory"
       />
-    </PageLayout>
+    </PageLayoutFactory>
   )
 }
 
