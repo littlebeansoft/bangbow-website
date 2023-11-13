@@ -44,7 +44,7 @@ export interface RegisterFactoryInput {
   email: string
   mobile: string
   factory_name: string
-  product_category_id: string
+  // product_category_id: string
   product_description: string
   address?: AddressInput | null
   images?: string[] | null
