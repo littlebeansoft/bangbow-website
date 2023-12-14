@@ -40,7 +40,7 @@ const PageLayoutRetail: FCWithChildren<PageLayoutProps> = ({
         />
       </Head>
 
-      <Navbar back={back} />
+      {/* <Navbar back={back} /> */}
 
       <Container
         style={{
