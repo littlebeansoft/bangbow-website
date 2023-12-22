@@ -24,7 +24,7 @@ const PaymentUnsuccessPage: NextPage = () => {
   const website = 'https://ktt-manufacture-web.azurewebsites.net'
 
   return (
-    <PageLayoutRetail title="ส่งข้อมูลสำเร็จ | ขายทั่วไทย">
+    <PageLayoutRetail title="ส่งข้อมูลสำเร็จ | แบ่งเบา">
       <Result
         title="ชำระเงินไม่สำเร็จ"
         icon={
@@ -47,7 +47,7 @@ const PaymentUnsuccessPage: NextPage = () => {
             //     window.location.href = link
             //   }}
             // >
-            //   ไปที่แอปพลิเคชั่นขายทั่วไทย
+            //   ไปที่แอปพลิเคชั่นแบ่งเบา
             // </Button>,
             // <Button
             //   key="website"
