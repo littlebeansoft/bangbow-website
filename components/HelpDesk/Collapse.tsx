@@ -1,6 +1,8 @@
 import { SettingOutlined } from '@ant-design/icons'
 import { Collapse, Select } from 'antd'
 import React, { useState } from 'react'
+import TermsOfUse from './termOfUse'
+import Policy from './Policy'
 
 const { Panel } = Collapse
 
@@ -37,17 +39,11 @@ const CollapseComponent: React.FC = () => {
         onChange={onChange}
         expandIconPosition={'end'}
       >
-        <Panel header="การซื้อสินค้า" key="1">
-          <div>{text}</div>
+        <Panel header="ข้อกำหนดและเงื่อนไข" key="1">
+          <TermsOfUse />
         </Panel>
-        <Panel header="การคืนสินค้า" key="2">
-          <div>{text}</div>
-        </Panel>
-        <Panel header="นโยบายสิ่งของต้องห้าม" key="3">
-          <div>{text}</div>
-        </Panel>
-        <Panel header="ติดต่อแบ่งเบา" key="4">
-          <div>{text}</div>
+        <Panel header="นโยบายความเป็นส่วนตัว" key="2">
+          <Policy />
         </Panel>
       </Collapse>
     </>
