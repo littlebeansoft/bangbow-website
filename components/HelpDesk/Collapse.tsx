@@ -1,7 +1,7 @@
 import { SettingOutlined } from '@ant-design/icons'
 import { Collapse, Select } from 'antd'
 import React, { useState } from 'react'
-import TermsOfUse from './termOfUse'
+import TermsOfUse from './TermOfUse'
 import Policy from './Policy'
 
 const { Panel } = Collapse
