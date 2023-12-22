@@ -99,13 +99,13 @@ const FactoryRegisterPage: NextPage = () => {
     return callback('กรุณากดยอมรับ ข้อตกลงและเงื่อนไข')
   }
 
-  const { data: categoryData, isLoading: categoryLoading } = useGetCategory()
+  // const { data: categoryData, isLoading: categoryLoading } = useGetCategory()
 
-  useEffect(() => {
-    if (categoryData) {
-      setCategory(categoryData)
-    }
-  }, [categoryData])
+  // useEffect(() => {
+  //   if (categoryData) {
+  //     setCategory(categoryData)
+  //   }
+  // }, [categoryData])
 
   const { mutate: factoryRegister, isLoading } = useRegisterFactory()
 
@@ -126,7 +126,7 @@ const FactoryRegisterPage: NextPage = () => {
         last_name: values.lastName,
         mobile: values.phoneNumber,
         email: '',
-        product_category_id: values.productType,
+        // product_category_id: values.productType,
         product_description: values.productDescription,
         address: {
           province_id: 1, // ถ้่าไม่ใส่จะไม่สามารถสมัครได้
@@ -149,10 +149,10 @@ const FactoryRegisterPage: NextPage = () => {
     )
   }
 
-  const children: React.ReactNode[] = []
-  category?.map((item) => {
-    children.push(<Option key={item.id}>{item.name}</Option>)
-  })
+  // const children: React.ReactNode[] = []
+  // category?.map((item) => {
+  //   children.push(<Option key={item.id}>{item.name}</Option>)
+  // })
 
   const onClose = () => {
     setShowModalTerms(false)
@@ -208,7 +208,7 @@ const FactoryRegisterPage: NextPage = () => {
               </Form.Item>
             </Col>
 
-            <Col span={24}>
+            {/* <Col span={24}>
               <Form.Item name="productType" rules={[ruleRequired]}>
                 <Select
                   showSearch
@@ -222,7 +222,7 @@ const FactoryRegisterPage: NextPage = () => {
                   {children}
                 </Select>
               </Form.Item>
-            </Col>
+            </Col> */}
 
             <Col span={24}>
               <Form.Item name="productDetail" rules={[ruleRequired]}>
