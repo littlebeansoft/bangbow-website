@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://beanx.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_5e590d334cff49319ae6be2ee212dc44 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_d70302269a8b4b50acd9d0f60a38a27e }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_b9574742bcbf4de793c04caaa3241806 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_56f83327073741958dc1525c56814e3c }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: beanx.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_5e590d334cff49319ae6be2ee212dc44 }}/bangbow-website-dev:${{ github.sha }}
+        tags: beanx.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_b9574742bcbf4de793c04caaa3241806 }}/beanx/bangbow-website-dev:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'bangbow-website-dev'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_e8673453bde84385a05e2e16bb6b5a7b }}
-        images: 'beanx.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_5e590d334cff49319ae6be2ee212dc44 }}/bangbow-website-dev:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_f192a581b95e409a96dc1cb158cec943 }}
+        images: 'beanx.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_b9574742bcbf4de793c04caaa3241806 }}/beanx/bangbow-website-dev:${{ github.sha }}'
