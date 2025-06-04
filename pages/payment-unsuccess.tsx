@@ -62,7 +62,7 @@ const PaymentUnsuccessPage: NextPage = () => {
         }
       />
       <Typography.Text style={{ textAlign: 'center', marginBottom: 50 }}>
-        กรุณาลองให่อีกครั้งในภายหลัง หากมีข้อส่งสัยกรุณาติดเจ้าหน้าที่
+        กรุณาลองใหม่อีกครั้งในภายหลัง หากมีข้อส่งสัยกรุณาติดเจ้าหน้าที่
       </Typography.Text>
     </PageLayoutRetail>
   )

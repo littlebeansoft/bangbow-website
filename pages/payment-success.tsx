@@ -63,7 +63,7 @@ const PaymentSuccessPage: NextPage = () => {
         }
       />
       <Typography.Text style={{ textAlign: 'center', marginBottom: 50 }}>
-        กรุณตรวจสอบข้อมูลเพิ่มเติมที่ หน้าคำสังซื้อ
+        กรุณตรวจสอบข้อมูลเพิ่มเติมที่ หน้าคำสั่งซื้อ
       </Typography.Text>
     </PageLayoutRetail>
   )
